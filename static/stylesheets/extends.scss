@@ -4,6 +4,7 @@ $medium-gray: #9f9f9f;
 $white: #FFFFFF;
 $pink: #E91E63;
 $blue: #4990E2;
+$green: #7ED321;
 
 p {line-height: 2rem;}
 a {display: block;text-decoration: none;}
@@ -545,6 +546,7 @@ small {font-size: 75%;}
 .white-text{color: $white !important;}
 .blue-text{color: $blue !important;}
 .pink-text{color: $pink !important;}
+.green-text{color: $green !important;}
 .gray-text{ color: $gray !important; }
 .medium-gray-text{color: $medium-gray !important;}
 

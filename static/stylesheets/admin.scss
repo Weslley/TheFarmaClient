@@ -188,10 +188,8 @@ button.btn-default:hover,
 #sales{
 	.sale{
 		font-size: 1.6rem;
-		.header{
-			border-bottom: 1px solid #000;
-		}
-
+		p{line-height: normal;}
+		.header{border-bottom: 1px solid #000;}
 		.statusbar{
 			padding: 10px 0px;
 			background: rgba(0, 0, 0, 0.03);
@@ -208,7 +206,6 @@ button.btn-default:hover,
 			img{max-width: 64px;max-height: 64px;}
 		}
 		.footer{
-			font-size: 1.4rem;
 			border-bottom: 1px solid #000;
 			background: rgba(0, 0, 0, 0.03);
 			padding: 10px 0px;
@@ -236,8 +233,9 @@ button.btn-default:hover,
 
 /* Tablet and Smartphone*/
 @media only screen and (max-width: 992px) {
-	#orders{
-		.order{
+	#sales{
+		.sale{
+			font-size: 12px;
 			.price{text-align: right;}
 			.actions{
 				.btn{
