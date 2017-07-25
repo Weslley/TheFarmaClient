@@ -1,0 +1,54 @@
+{% load compress %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+	<meta name="description" content="Farma">
+	<meta name="keywords" content="Farma">
+	<meta name="author" content="TheFarma">
+	<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<title>The Farma</title>
+	{% compress css %}
+	<link rel="stylesheet" media="all" href="{% static "stylesheets/application.scss" %}" data-turbolinks-track="reload" type="text/x-sass" />
+	{% endcompress %}
+
+	{% block styles %}{% endblock %}
+</head>
+<body>
+
+	<main id="container">
+		<!--class="<%= (controller_path=='cart')? 'bg-white' : '' %>"-->
+		<div class="container">
+			<div class="row">
+				<div id="flash" class="col-xs-12 col-sm-12 col-md-12">
+					{% block message%}
+					{% endblock %}
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper">
+			{% block content%}
+			{% endblock %}
+		</div>
+	</main>
+
+	{% compress js %}
+	<script type="text/javascript" src="{% static "plugins/jQuery/jquery-1.12.4.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "plugins/bootstrap/bootstrap.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "plugins/propeller/propeller.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "plugins/jquery-inputmask/jquery.inputmask.bundle.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "plugins/jquery-maskMoney/jquery.maskMoney.min.js" %}"></script>
+
+	<script type="text/javascript" src="{% static "javascripts/application.js" %}"></script>
+
+	{% endcompress %}
+
+	{% block scripts %}{% endblock %}
+</body>
+</html>

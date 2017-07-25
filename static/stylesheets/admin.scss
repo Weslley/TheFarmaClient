@@ -1,0 +1,205 @@
+@import 'fonts.scss';
+@import '../plugins/thefarma/thefarma.scss';
+@import '../plugins/font-awesome/font-awesome.min.scss';
+
+@import '../plugins/bootstrap/bootstrap.min.scss';
+@import '../plugins/bootstrap/bootstrap-theme.min.scss';
+@import '../plugins/propeller/propeller.min.scss';
+
+@import 'extends.scss';
+@import '../plugins/animate/animate.min.css';
+
+@import 'override.scss';
+
+$main-color: #009688;
+$hover-main-color: #048E80;
+
+$text-color-primary: #000000;
+$text-color-secundary: #CCCCCC;
+
+$black: #000000;
+$gray: #CCCCCC;
+$white: #FFFFFF;
+$pink: #E91E63;
+$blue: #4990E2;
+
+html {height: 100%; box-sizing: border-box;}
+*,
+*:before,
+*:after { box-sizing: inherit;}
+
+body{font-family: Muli-Regular;}
+
+header {
+	color: #000000;
+	position: relative;
+	margin: 0;
+	min-height: 100%;
+	background: $main-color;
+	&::after {
+		content: "";
+		background: url(../images/logotipo.png) no-repeat 100% 50%;
+		background-size: 90px 90px;
+		opacity: 0.3;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		position: absolute;
+		z-index: 1;
+	}
+
+	#navbar{
+		position: relative;
+		z-index: 2;	
+		ul>li>a{
+			text-align: center;
+			font-size: 12px;
+			color: $white;
+			i{
+				display: block;
+				font-size: 28px;
+			}
+			&:focus,&:hover{
+				background: $hover-main-color;
+			}
+		}
+	}
+}
+
+.pmd-textfield-focused{background-color: $main-color;}
+.regular{font-family: Muli-Regular !important;}
+.semibold{font-family: Muli-SemiBold !important;}
+.bold{font-family: Muli-Bold !important;}
+.light{font-family: Muli-Light !important;}
+.extralight{font-family: Muli-ExtraLight !important;}
+
+.btn-default{
+	background-image: none;
+	text-shadow: none;
+	border: none;
+	color: $white;
+	background-color: $main-color;
+	&:hover{background-color: $hover-main-color; color: $white;}
+}
+
+a.btn-default:hover,
+button.btn-default:hover, 
+.dropdown-menu > li a.btn-default:hover,
+.dropdown-menu > li > a:focus, 
+.dropdown-menu > li > a:hover,
+.dropdown-menu > .active > a:hover{background: $hover-main-color; color: $white;}	
+
+/*============== PRODUCT =================*/
+
+.medicine{  
+	max-width: 256px;
+	min-height: 360px;
+	background: #FFFFFF;
+	position: relative;
+	.medicine-content{
+		padding: 15px;
+		.medicine-img{
+			margin-bottom: 16px;
+			position: relative;
+			img{max-width: 128px;max-height: 128px;}
+			span.discont{
+				position: absolute;
+				right:0;
+				top:0;
+				font-size: 14px;
+				font-size: 1.4rem;
+				line-height: 18px;
+				padding: 7px 16px;
+				color: #FFFFFF;
+				z-index: 10;
+			}
+		}
+		.medicine-description{
+			min-height: 60px;
+			min-height: 60px;
+			margin-bottom: 8px;
+			font-size: 14px;
+			color: rgba(0,0,0,0.80);
+		}
+		.medicine-manufacturer{
+			font-family: Muli-SemiBold;
+			font-size: 12px;
+			margin-bottom: 8px;
+			color: $pink;
+		}
+		.medicine-price{
+			font-family: Muli-SemiBold;
+			font-size: 18px;
+			color: rgba(0,0,0,0.80);
+			text-align: center;
+			span{display: block;}
+		}
+	}
+	.medicine-footer{
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+	}
+}
+
+.medicine.with-border{
+	border: 0 solid rgba(0, 0, 0, 0.4);
+	border-radius: 1px;
+	box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.4);
+	text-decoration: none;
+	&:hover{
+		border: 0;
+		box-shadow: 0 8px 17px 0 rgba(108,84,84,0.20), 0 6px 20px 0 rgba(0,0,0,0.19);
+	}
+}
+
+/* Desktop */
+@media only screen and (min-width: 1200px) {
+	html, body {font-size: 62.5%;}
+}
+
+/* Desktop and Tablet*/
+@media only screen and (min-width: 768px) {
+}
+
+/* Tablet */
+@media only screen and (min-width: 768px) and  (max-width: 992px) {
+	html, body {font-size: 56.5%;}
+}
+
+/* Tablet and Smartphone*/
+@media only screen and (max-width: 992px) {
+}
+
+/* Smartphone */
+@media only screen and (max-width : 767px) {
+	html, body {font-size: 50%;}
+}
+
+
+/*==================== HOME =====================*/
+#home{
+	.row01{
+		.card{
+			.card-body{
+				height: 230px;
+				overflow: auto;
+			}
+		}
+	}
+}
+/*==================== ACCOUNT =====================*/
+
+/*==================== PRODUCTS =====================*/
+#results{
+	display: table;
+	.item{
+		float: left;
+		margin-right: 15px;
+		margin-bottom: 15px;
+	}
+}
+/*==================== SALES =====================*/
+
+/*==================== REPORTS =====================*/

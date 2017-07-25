@@ -1,0 +1,140 @@
+@import 'fonts.scss';
+@import '../plugins/thefarma/thefarma.scss';
+@import '../plugins/font-awesome/font-awesome.min.scss';
+
+@import '../plugins/bootstrap/bootstrap.min.scss';
+@import '../plugins/bootstrap/bootstrap-theme.min.scss';
+@import '../plugins/propeller/propeller.min.scss';
+
+@import 'extends.scss';
+@import '../plugins/animate/animate.min.css';
+
+@import 'override.scss';
+
+$main-color: #009688;
+$hover-main-color: #048E80;
+
+$text-color-primary: #000000;
+$text-color-secundary: #CCCCCC;
+
+$black: #000000;
+$gray: #CCCCCC;
+$white: #FFFFFF;
+$pink: #E91E63;
+$blue: #4990E2;
+
+html {height: 100%; box-sizing: border-box;}
+*,
+*:before,
+*:after { box-sizing: inherit;}
+
+body {
+	font-family: Muli-Regular;
+	color: #000000;
+	position: relative;
+	margin: 0;
+	min-height: 100%;
+	background: $main-color;
+	&::after {
+		content: "";
+		background: url(../images/logotipo.png) no-repeat 0% 50%;
+		opacity: 0.3;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		position: absolute;
+		z-index: -1;   
+	}
+}
+
+.pmd-textfield-focused{background-color: $main-color;}
+.regular{font-family: Muli-Regular !important;}
+.semibold{font-family: Muli-SemiBold !important;}
+.bold{font-family: Muli-Bold !important;}
+.light{font-family: Muli-Light !important;}
+.extralight{font-family: Muli-ExtraLight !important;}
+
+
+/*==================== STYLE =====================*/
+main#container{
+	padding: 0px 16px;
+	.btn-default{
+		background-image: none;
+		text-shadow: none;
+		border: none;
+		color: $white;
+		background-color: $main-color;
+		&:hover{background-color: $hover-main-color; color: $white;}
+	}
+
+	a.btn-default:hover,
+	button.btn-default:hover, 
+	.dropdown-menu > li a.btn-default:hover,
+	.dropdown-menu > li > a:focus, 
+	.dropdown-menu > li > a:hover,
+	.dropdown-menu > .active > a:hover
+	{
+		background: $hover-main-color; color: $white;
+	}	
+}
+
+#login,#register{
+	color: white;
+	.content-left{
+		h1{font-size: 48px;}
+		h2{font-size: 32px;}
+	}
+}
+
+#product-modal{
+	.input-file{
+		label{
+			max-width: 256px;
+			max-height: 256px;
+			width: 100%;
+			border: 1px solid $gray;
+		}
+
+		input{
+
+		}
+	}
+}
+
+
+/* Desktop */
+@media only screen and (min-width: 1200px) {
+	html, body {font-size: 62.5%;}
+	body{
+		align-items: center;
+		display: flex;
+	}
+}
+
+/* Desktop and Tablet*/
+@media only screen and (min-width: 768px) {
+
+}
+
+/* Tablet */
+@media only screen and (min-width: 768px) and  (max-width: 992px) {
+	html, body {font-size: 56.5%;}
+}
+
+/* Tablet and Smartphone*/
+@media only screen and (max-width: 992px) {
+
+}
+
+/* Smartphone */
+@media only screen and (max-width : 767px) {
+	html, body {font-size: 50%;}
+	#login{
+		.content-right{
+			position: absolute;
+			top: 50%;                      
+			transform: translate(0, -50%);
+		}
+	}
+}

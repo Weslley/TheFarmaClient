@@ -1,0 +1,68 @@
+a.product-result{
+	text-decoration: none;
+}
+.product-result{
+	border-bottom: 1px solid #f6f6f6;
+	display: table;
+	width: 100%;
+	padding: 10px 0px;
+	.image{
+		width: 85px; 
+		height: 85px;
+		float: left;
+	}
+	.informations{
+		margin: 10px 0px 0px 90px;
+		.name,.maker{margin: 0px; font-size: 16px; color: #000000;}
+		
+		.maker{color: rgba(0,0,0,0.40);}
+	}
+}
+
+.owl-carousel{ 
+	.owl-item{ 
+		.medicine img{
+			width: 134px;
+			display: inline;
+		}
+	}
+
+	.owl-nav{
+		.owl-prev,.owl-next{
+			width: 15%;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			font-size: 20px;
+			color: #fff;
+			text-align: center;
+			text-shadow: 0 1px 2px rgba(0,0,0,.6);
+			background-color: rgba(0,0,0,0);
+			filter: alpha(opacity=50);
+			opacity: .5;
+			i{position: absolute; top: 50%;}
+		}
+
+		.owl-prev{
+			right: auto;
+			left: 0;
+			i.left{left: 0;}
+		}
+		.owl-next{
+			right: 0;
+			left: auto;
+			i.right{right: 0;}
+		}
+		.owl-prev.disabled,.owl-next.disabled{display: none;}
+	}
+}
+
+/*PROPELLER*/
+@media (min-width: 768px) {
+	.form-inline .form-control {
+		display: inline-block;
+		width: 100%;
+		vertical-align: middle; 
+	}
+}

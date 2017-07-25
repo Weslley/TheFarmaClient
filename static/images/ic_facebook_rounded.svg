@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Facebook_Color</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M0,16 C0,7.16344357 7.16344357,0 16,0 C24.8365564,0 32,7.16344357 32,16 C32,24.8365564 24.8365564,32 16,32 C7.16344357,32 0,24.8365564 0,16 Z" id="path-1"></path>
+        <filter x="-21.9%" y="-15.6%" width="143.8%" height="143.8%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Web-site" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Log-In---Desktop" transform="translate(-979.000000, -521.000000)">
+            <g id="Modal" transform="translate(201.000000, 81.000000)">
+                <g id="Group-2" transform="translate(440.000000, 0.000000)">
+                    <g id="Social" transform="translate(167.000000, 442.000000)">
+                        <g id="Facebook" transform="translate(175.000000, 0.000000)">
+                            <g id="back">
+                                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                                <use fill="#3B5998" fill-rule="evenodd" xlink:href="#path-1"></use>
+                            </g>
+                            <path d="M17.1343701,24.8743178 L17.1343701,16.1694731 L19.5372879,16.1694731 L19.8557264,13.1697354 L17.1343701,13.1697354 L17.1384526,11.6683378 C17.1384526,10.88596 17.2127889,10.4667441 18.3365094,10.4667441 L19.8387158,10.4667441 L19.8387158,7.46666667 L17.4354577,7.46666667 C14.5487583,7.46666667 13.532715,8.92186219 13.532715,11.3690434 L13.532715,13.1700751 L11.7333333,13.1700751 L11.7333333,16.1698128 L13.532715,16.1698128 L13.532715,24.8743178 L17.1343701,24.8743178 Z" id="Shape" fill="#FFFFFF"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

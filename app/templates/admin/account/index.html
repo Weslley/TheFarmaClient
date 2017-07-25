@@ -1,0 +1,297 @@
+{% extends  "layouts/admin.html" %}
+
+{% load compress %}
+{% load staticfiles %}
+
+{% block styles %}
+{% compress css %}
+<link rel="stylesheet" media="all" href="{% static "plugins/select2/select2.min.scss" %}" data-turbolinks-track="reload" type="text/x-sass" />
+<link rel="stylesheet" media="all" href="{% static "plugins/select2/select2-bootstrap.scss" %}" data-turbolinks-track="reload" type="text/x-sass" />
+<link rel="stylesheet" media="all" href="{% static "plugins/select2/pmd-select2.scss" %}" data-turbolinks-track="reload" type="text/x-sass" />
+{% endcompress %}
+{% endblock %}
+
+{% block scripts %}
+{% compress js %}
+<script type="text/javascript" src="{% static "plugins/select2/select2.full.min.js" %}"></script>
+
+<script type="text/javascript">
+	$(function(){
+		$(".select-simple").select2({
+			theme: "bootstrap",
+			minimumResultsForSearch: Infinity,
+		});
+	});
+</script>
+
+<script type="text/javascript" src="{% static "plugins/select2/pmd-select2.js" %}"></script>
+{% endcompress %}
+{% endblock %}
+
+{% block content %}
+<div id="account" class="container-fluid mt32 fz14 no-padding-xs">
+
+	<div class="row row01 mb32 no-margin-xs">
+		<div class="col-xs-12 col-sm-12 col-md-6 mb-xs-15">
+			<div class="card mb15">
+				<div class="card-header">
+					<h4 class="card-title pink-text">
+						MEUS DADOS PESSOAIS
+					</h4>
+				</div>
+				<div class="card-body pb15">
+					<form action="#">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+									<label for="">Nome</label>
+									<input class="form-control" placeholder="" type="text" />
+									<span class="pmd-textfield-focused"></span>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="row">
+									<div class="col-xs-12 col-sm-6 col-md-6">
+										<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+											<label for="">Nascimento</label>
+											<input class="form-control data" placeholder="" type="text"  disabled="" value="00/00/2017" />
+											<span class="pmd-textfield-focused"></span>
+										</div>
+									</div>
+
+									<div class="col-xs-12 col-sm-6 col-md-6">
+										<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+											<label for="">CPF</label>
+											<input class="form-control cpf" placeholder="" type="text" />
+											<span class="pmd-textfield-focused"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+									<label for="email">Email</label>
+									<input class="form-control" placeholder="" type="text"/>
+									<span class="pmd-textfield-focused"></span>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="form-group pmd-textfield pmd-textfield-floating-label with-show-password">
+									<label for="senha">Senha</label>
+									<input class="form-control" placeholder="" type="password"/>
+									<i class="fa fa-eye show-password"></i>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+									<label>Telefone</label>
+									<input class="form-control telefone" placeholder="" type="text"/>
+									<span class="pmd-textfield-focused"></span>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="form-group pmd-textfield pmd-textfield-floating-label with-show-password">
+									<label>Celular(opcional)</label>
+									<input class="form-control telefone" placeholder="" type="text"/>
+									<span class="pmd-textfield-focused"></span>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-6 hidden-xs"></div>
+
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<button type="submit" class="btn btn-pink btn-flat btn-lg right">SALVAR</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="card mb15">
+				<div class="card-header">
+					<h4 class="card-title pink-text">
+						MINHA EMPRESA
+					</h4>
+				</div>
+				<div class="card-body pb15">
+					<form action="#">
+
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+									<label for="">Razão Social</label>
+									<input class="form-control" placeholder="" type="text"/>
+									<span class="pmd-textfield-focused"></span>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+									<label for="">Nome fantasia</label>
+									<input class="form-control" placeholder="" type="text"/>
+									<span class="pmd-textfield-focused"></span>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+									<label>CNPJ</label>
+									<input class="form-control cnpj" placeholder="" type="text"/>
+									<span class="pmd-textfield-focused"></span>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-6"></div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-6 hidden-xs"></div>
+
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<button type="submit" class="btn btn-pink btn-flat btn-lg right">SALVAR</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-6 mb-xs-15">
+			<div class="card mb15">
+				<div class="card-header">
+					<h4 class="card-title pink-text">
+						MEU ENDEREÇO
+					</h4>
+				</div>
+				<div class="card-body pb15">
+					<form action="#">
+
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+									<label for="">CEP</label>
+									<input class="form-control cep" placeholder="" type="text"/>
+									<span class="pmd-textfield-focused"></span>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+									<label for="">Bairro</label>
+									<input class="form-control" placeholder="" type="text"/>
+									<span class="pmd-textfield-focused"></span>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+									<label for="">Rua</label>
+									<input class="form-control cep" placeholder="" type="text"/>
+									<span class="pmd-textfield-focused"></span>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+									<label for="">Complemento</label>
+									<input class="form-control" placeholder="" type="text"/>
+									<span class="pmd-textfield-focused"></span>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+									<label for="">Estado</label>
+									<select class="select-simple form-control pmd-select2">
+										<option>PIAUÍ</option>
+										<option>CEARÁ</option>
+										<option>MARANHÃO</option>
+									</select>
+									<span class="pmd-textfield-focused"></span>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+									<label for="">Cidade</label>
+									<input class="form-control" placeholder="" type="text"/>
+									<span class="pmd-textfield-focused"></span>
+								</div>
+							</div>
+						</div>
+
+					</form>
+				</div>
+			</div>
+
+			<div class="card mb15">
+				<div class="card-header">
+					<h4 class="card-title pink-text">
+						MEU BANCO
+					</h4>
+				</div>
+				<div class="card-body pb15">
+					<form action="#">
+
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+									<label for="">Banco</label>
+									<select class="select-simple form-control pmd-select2">
+										<option>Banco do Brasil</option>
+										<option>Caixa</option>
+										<option>Bradesco</option>
+										<option>Itaú</option>
+									</select>
+									<span class="pmd-textfield-focused"></span>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="row">
+									<div class="col-xs-12 col-sm-6 col-md-6">
+										<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+											<label>Agência</label>
+											<input class="form-control numero" placeholder="" type="text"/>
+											<span class="pmd-textfield-focused"></span>
+										</div>
+									</div>
+
+									<div class="col-xs-12 col-sm-6 col-md-6">
+										<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+											<label>Conta</label>
+											<input class="form-control numero" placeholder="" type="text"/>
+											<span class="pmd-textfield-focused"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-6 hidden-xs"></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+{%endblock%}

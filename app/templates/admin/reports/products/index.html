@@ -1,0 +1,91 @@
+{% extends  "layouts/admin.html" %}
+
+{% load compress %}
+{% load staticfiles %}
+
+{% block styles %}
+{% compress css %}
+<link rel="stylesheet" media="all" href="{% static "plugins/select2/select2.min.scss" %}" data-turbolinks-track="reload" type="text/x-sass" />
+<link rel="stylesheet" media="all" href="{% static "plugins/select2/select2-bootstrap.scss" %}" data-turbolinks-track="reload" type="text/x-sass" />
+<link rel="stylesheet" media="all" href="{% static "plugins/select2/pmd-select2.scss" %}" data-turbolinks-track="reload" type="text/x-sass" />
+{% endcompress %}
+{% endblock %}
+
+{% block scripts %}
+{% compress js %}
+<script type="text/javascript" src="{% static "plugins/select2/select2.full.min.js" %}"></script>
+
+<script type="text/javascript">
+	$(function(){
+		$(".select-simple").select2({
+			theme: "bootstrap",
+			minimumResultsForSearch: Infinity,
+		});
+	});
+</script>
+
+<script type="text/javascript" src="{% static "plugins/select2/pmd-select2.js" %}"></script>
+{% endcompress %}
+{% endblock %}
+
+{% block content %}
+<div id="reports">
+	<div class="row01 container-fluid fz14 no-padding-xs bg-white mb32">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12">
+				<form action="#" class="form-inline p15" role="form">
+
+					<div class="form-group pmd-textfield pmd-textfield-floating-label mb30 pr15 no-padding-xs">
+						<label for="">Pesquisar</label>
+						<input class="form-control" placeholder="" type="text" />
+						<span class="pmd-textfield-focused"></span>
+					</div>
+
+					<div class="form-group pmd-textfield pmd-textfield-floating-label mb30 pr15 no-padding-xs">
+						<label for="">Tipo de relatório</label>
+						<select class="select-simple form-control pmd-select2">
+							<option>TIPO 01</option>
+							<option>TIPO 02</option>
+							<option>TIPO 03</option>
+						</select>
+						<span class="pmd-textfield-focused"></span>
+					</div>
+
+					<div class="form-group pmd-textfield pmd-textfield-floating-label mb30 pr15 no-padding-xs">
+						<label for="">Organizar por</label>
+						<select class="select-simple form-control pmd-select2">
+							<option>TIPO 01</option>
+							<option>TIPO 02</option>
+							<option>TIPO 03</option>
+						</select>
+						<span class="pmd-textfield-focused"></span>
+					</div>
+
+					<div class="form-group pmd-textfield pmd-textfield-floating-label mb30 pr15 no-padding-xs">
+						<label for="">Data</label>
+						<input class="form-control data" placeholder="" type="text" />
+						<span class="pmd-textfield-focused"></span>
+					</div>
+
+					<div class="form-group">
+						<button class="btn-transparent-pink btn-flat">
+							IMPRIMIR
+						</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12">
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{%endblock%}

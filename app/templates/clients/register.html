@@ -1,0 +1,75 @@
+{% extends  "layouts/application.html" %}
+
+{% load compress %}
+{% load staticfiles %}
+
+{% block styles %}
+{% compress css %}
+<!--<link rel="stylesheet" media="all" href="{% static "plugins/OwlCarousel2/owl.carousel.min.css" %}" data-turbolinks-track="reload" type="text/x-sass" />-->
+{% endcompress %}
+{% endblock %}
+
+{% block scripts %}
+{% compress js %}
+<!--<script type="text/javascript" src="{% static "javascripts/site/home.js" %}"></script>-->
+{% endcompress %}
+{% endblock %}
+
+{% block content %}
+<div id="register" class="row">
+	<div class="col-xs-12 col-sm-6 col-md-7 content-left left hidden-xs">
+		<div class="p25">
+			<h1 class="pb32 mb32 extralight">
+				Você possui uma farmácia? 
+			</h1> 
+
+			<h2 class="pb32 mb32">
+				Cadastre agora no TheFarma e digitalize seu estabelecimento.
+			</h2>
+
+			<a href="{% url 'register'%}" id="btn-register" class="btn btn-lg btn-transparent btn-flat text-uppercase">
+				CADASTRE-SE
+			</a>
+		</div>
+	</div>
+
+	<div class="col-xs-12 col-sm-6 col-md-5 card content-right right no-padding-xs p25 pt32 pb32">
+		<div class="card-header">
+			<h2 class="card-title no-margin-xs">
+				<span class="medium-gray-text"> Logar </span><span class="pink-text">/ Cadastrar</span> 
+			</h2>
+		</div>
+
+		<form class="form p15" action="#" accept-charset="UTF-8" method="post">
+			<input name="utf8" type="hidden" value="&#x2713;" />
+			<input type="hidden" name="authenticity_token" value="VyPUv7FfWpCziUMta6yN3U63P7coOCXHlCHn8nbniW9XQSHLH03NZB+vJnPB1dBLhd6Yj4EEQq1WxeDZOoVKHA==" />
+
+			<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+				<label for="register_nome_fantasia">Nome da empresa</label>
+				<input class="form-control" placeholder="" type="text" name="login[email]" id="register_nome_fantasia" />
+				<span class="pmd-textfield-focused"></span>
+			</div>
+
+			<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+				<label for="login_email">Email ou Celular</label>
+				<input class="form-control" placeholder="" type="text" name="login[email]" id="login_email" />
+				<span class="pmd-textfield-focused"></span>
+			</div>
+
+			<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+				<label for="login_mensagem">Mensagem</label>
+				<textarea class="form-control" placeholder="" type="text" name="login[mensagem]" id="login_mensagem"></textarea>
+				<span class="pmd-textfield-focused"></span>
+			</div>
+
+			<div class="row vcenter mt30">
+				<div class="col-xs-12 col-sm-6 col-md-6">
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-6">
+					<buttton class="btn btn-pink btn-rounded btn-block btn-lg submit" type="submit">ENVIAR</buttton>
+				</div>
+			</div>
+		</form>        
+	</div>
+</div>
+{%endblock%}

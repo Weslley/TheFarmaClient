@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Google_Color</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M0,15.7377049 C0,7.04601006 7.05619216,0 15.7604473,0 C24.4647024,0 31.5208945,7.04601006 31.5208945,15.7377049 C31.5208945,24.4293998 24.4647024,31.4754098 15.7604473,31.4754098 C7.05619216,31.4754098 0,24.4293998 0,15.7377049 Z" id="path-1"></path>
+        <filter x="-22.2%" y="-15.9%" width="144.4%" height="144.5%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Web-site" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Log-In---Desktop" transform="translate(-1019.000000, -521.000000)">
+            <g id="Modal" transform="translate(201.000000, 81.000000)">
+                <g id="Group-2" transform="translate(440.000000, 0.000000)">
+                    <g id="Social" transform="translate(167.000000, 442.000000)">
+                        <g id="Google" transform="translate(215.000000, 0.000000)">
+                            <g id="back">
+                                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                            </g>
+                            <g id="super-g" transform="translate(8.918033, 8.918033)">
+                                <path d="M6.81967213,2.63693989 C8.10025501,2.63693989 8.96408015,3.19009107 9.45661202,3.6523133 L11.381275,1.77311475 C10.1991985,0.6743898 8.66098361,0 6.81967213,0 C4.15242259,0 1.84888889,1.53063752 0.727431694,3.75839709 L2.93245902,5.47089253 C3.4856102,3.82659381 5.01624772,2.63693989 6.81967213,2.63693989 L6.81967213,2.63693989 Z" id="Shape" fill="#EA4335"></path>
+                                <path d="M13.3665574,6.9712204 C13.3665574,6.4104918 13.3210929,6.00131148 13.2225865,5.57697632 L6.81967213,5.57697632 L6.81967213,8.10783242 L10.5780692,8.10783242 C10.5022951,8.73675774 10.0931148,9.68393443 9.18382514,10.3204372 L11.3358106,11.9874681 C12.6239709,10.7978142 13.3665574,9.04743169 13.3665574,6.9712204 L13.3665574,6.9712204 Z" id="Shape" fill="#4285F4"></path>
+                                <path d="M2.94003643,8.16845173 C2.79606557,7.74411658 2.71271403,7.28947177 2.71271403,6.81967213 C2.71271403,6.3498725 2.79606557,5.89522769 2.93245902,5.47089253 L0.727431694,3.75839709 C0.265209472,4.68284153 0,5.72094718 0,6.81967213 C0,7.91839709 0.265209472,8.95650273 0.727431694,9.88094718 L2.94003643,8.16845173 L2.94003643,8.16845173 Z" id="Shape" fill="#FBBC05"></path>
+                                <path d="M6.81967213,13.6393443 C8.66098361,13.6393443 10.206776,13.0331512 11.3358106,11.9874681 L9.18382514,10.3204372 C8.60794171,10.7220401 7.83504554,11.0024044 6.81967213,11.0024044 C5.01624772,11.0024044 3.4856102,9.81275046 2.94003643,8.16845173 L0.735009107,9.88094718 C1.8564663,12.1087067 4.15242259,13.6393443 6.81967213,13.6393443 L6.81967213,13.6393443 Z" id="Shape" fill="#34A853"></path>
+                                <polygon id="Shape" points="0 0 13.6393443 0 13.6393443 13.6393443 0 13.6393443"></polygon>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

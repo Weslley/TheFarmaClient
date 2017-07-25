@@ -1,0 +1,209 @@
+{% extends  "layouts/admin.html" %}
+
+{% load i18n %} 
+{% load compress %}
+{% load staticfiles %}
+
+{% block styles %}
+{% compress css %}
+<link rel="stylesheet" media="all" href="{% static "plugins/select2/select2.min.scss" %}" data-turbolinks-track="reload" type="text/x-sass" />
+<link rel="stylesheet" media="all" href="{% static "plugins/select2/select2-bootstrap.scss" %}" data-turbolinks-track="reload" type="text/x-sass" />
+<link rel="stylesheet" media="all" href="{% static "plugins/select2/pmd-select2.scss" %}" data-turbolinks-track="reload" type="text/x-sass" />
+{% endcompress %}
+{% endblock %}
+
+{% block scripts %}
+{% compress js %}
+<script type="text/javascript" src="{% static "plugins/select2/select2.full.min.js" %}"></script>
+
+<script type="text/javascript">
+	$(function(){
+		$(".select-simple").select2({
+			theme: "bootstrap",
+			minimumResultsForSearch: Infinity,
+		});
+
+		$(".medicine").click(function(event) {
+			$('#product-modal').modal({'show': true});
+		});
+	});
+</script>
+
+<script type="text/javascript" src="{% static "plugins/select2/pmd-select2.js" %}"></script>
+{% endcompress %}
+{% endblock %}
+
+{% block content %}
+<div id="products">
+	<div class="row01 container-fluid fz14 no-padding-xs bg-white mb32">
+		<form action="#" class="row p15 no-margin-xs" role="form">
+			<div class="col-xs-12 col-sm-6 col-md-6">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="form-group pmd-textfield pmd-textfield-floating-label mb30 pr15 no-padding-xs">
+							<label for="">Pesquisar</label>
+							<input class="form-control" placeholder="" type="text" />
+							<span class="pmd-textfield-focused"></span>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="form-group pmd-textfield pmd-textfield-floating-label mb30 pr15 no-padding-xs">
+							<label for="">Organizar por</label>
+							<select class="select-simple form-control pmd-select2">
+								<option>TIPO 01</option>
+								<option>TIPO 02</option>
+								<option>TIPO 03</option>
+							</select>
+							<span class="pmd-textfield-focused"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-6 mt20">
+				<button class="btn-transparent-pink btn-flat right">
+					ADICIONAR UM NOVO PRODUTO
+				</button>
+			</div>
+
+		</form>
+		
+	</div>
+
+	<div class="container">
+		<div id="results" class="">
+			{% for i in range %}
+			<div class="item left">
+				<div class="medicine with-border">
+					<a class="medicine-content" href="#">
+						<div href="#" class="medicine-img text-center no-padding mb4">
+							<img src="{% static "images/bottle.png" %}" alt="Bottle" width="134" height="134" />
+						</div>
+
+						<div href="#" class="medicine-description">
+							<p class="no-margin-bt regular">Acetonida de Triancinolona + Sulfato de Neomicina + Gramicidina + Nistatina</p>
+						</div>
+
+						<div href="#" class="medicine-manufacturer">
+							LOREN IPSUN
+						</div>
+
+						<div href="#" class="medicine-price">
+							<div class="row">
+								<div class="col-xs-6 col-sm-6 col-md-6">
+									<span class="price block">R$ 999,99	</span>
+									<span class="gray-text fz10">PREÇO NA LOJA</span>
+								</div>
+
+								<div class="col-xs-6 col-sm-6 col-md-6">
+									<span class="quantity">2</span>
+									<span class="gray-text fz10">QUANTIDADE</span>
+								</div>
+							</div>
+						</div>
+					</a>
+
+					<div class="medicine-footer semibold">
+						<button class="btn btn-pink btn-flat btn-block btn-lg white-text">
+							EDITAR
+						</button>
+					</div>
+				</div>	
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+<!--================== PRODUCT ==================-->
+<div class="modal fade" id="product-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog center">
+		<div class="modal-content card">
+			<div class="modal-body container-fluid">
+
+				<div class="card-header">
+					<h2 class="card-title no-margin-xs">
+						<span class="pink-text"> ADICIONAR PRODUTO</span>
+					</h2>
+				</div>
+
+				<form class=" form p15" action="#" accept-charset="UTF-8" method="post">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<div class="input-file">
+									<label for="">Clique para adicionar uma imagem ao produtos</label>
+									<input type="file">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="">Colocar na loja?</label>
+								<div class="pmd-switch">
+									<label>
+										<input type="checkbox">
+										<span class="pmd-switch-label"></span> 
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<input name="utf8" type="hidden" value="&#x2713;" />
+							<input type="hidden" name="authenticity_token" value="VyPUv7FfWpCziUMta6yN3U63P7coOCXHlCHn8nbniW9XQSHLH03NZB+vJnPB1dBLhd6Yj4EEQq1WxeDZOoVKHA==" />
+
+							<div class="form-group pmd-textfield pmd-textfield-floating-label">
+								<label for="">Código de barras</label>
+								<input class="form-control" placeholder="" type="text"/>
+								<span class="pmd-textfield-focused"></span>
+							</div>
+
+							<div class="form-group pmd-textfield pmd-textfield-floating-label">
+								<label for="">Nome do produto</label>
+								<input class="form-control" placeholder="" type="text"/>
+								<span class="pmd-textfield-focused"></span>
+							</div>
+
+							<div class="form-group pmd-textfield pmd-textfield-floating-label">
+								<label for="">Fabricante</label>
+								<input class="form-control" placeholder="" type="text"/>
+								<span class="pmd-textfield-focused"></span>
+							</div>
+
+							<div class="row vcenter">
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="form-group pmd-textfield pmd-textfield-floating-label">
+										<label for="">Preço na loja</label>
+										<input class="form-control" placeholder="" type="text"/>
+										<span class="pmd-textfield-focused"></span>
+									</div>
+								</div>
+
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="form-group pmd-textfield pmd-textfield-floating-label">
+										<label for="">Quantidade</label>
+										<input class="form-control" placeholder="" type="text"/>
+										<span class="pmd-textfield-focused"></span>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="row vcenter mt30">
+								<div class="col-xs-12 col-sm-6 col-md-6">
+								</div>
+
+								<div class="col-xs-12 col-sm-6 col-md-6 pl0">
+									<buttton class="btn btn-pink btn-flat btn-block btn-lg submit" type="submit">SALVAR</buttton>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+
+			</div><!--Modal body-->
+		</div><!--Modal content-->
+	</div><!--Modal dialog-->
+</div><!--================== /PRODUCT ==================-->
+{%endblock%}
