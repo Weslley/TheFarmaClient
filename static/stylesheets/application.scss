@@ -87,21 +87,6 @@ main#container{
 	}
 }
 
-#product-modal{
-	.input-file{
-		label{
-			max-width: 256px;
-			max-height: 256px;
-			width: 100%;
-			border: 1px solid $gray;
-		}
-
-		input{
-
-		}
-	}
-}
-
 
 /* Desktop */
 @media only screen and (min-width: 1200px) {

@@ -1,0 +1,47 @@
+.dropzone {
+  position: relative;
+  border: 2px dotted #CCC;
+  border-radius: 20px;
+  color: #000;
+  width: 100%;
+  min-height: 200px;
+  text-align: center;
+}
+
+.dropzone.hover {
+  border: 10px solid #FE5;
+  color: #FE5;
+}
+
+.dropzone.dropped {
+  background: none;
+  border: 2px dotted #CCC;
+}
+
+.dropzone div {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  min-height: 200px;
+}
+
+.dropzone img {
+  vertical-align: middle;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 15px;
+}
+
+.dropzone [type="file"] {
+  cursor: pointer;
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 95%;
+}

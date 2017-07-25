@@ -20,15 +20,18 @@ urlpatterns = [
 
 	#ADMIN
     url(r'^admin/$', admin.index, name='admin_path'),
+
     #PRODUCTS
     url(r'^admin/products$', products.index, name='products_path'),
-    url(r'^admin/products/(?P<id>\d+)$', products.show, name='show_product_path'),
+    #url(r'^admin/products/(?P<id>\d+)$', products.show, name='show_product_path'),
+    
     #SALES
     url(r'^admin/sales$', sales.index, name='sales_path'),
-    url(r'^admin/sales/(?P<id>\d+)$', sales.show, name='show_sales_path'),
+    #url(r'^admin/sales/(?P<id>\d+)$', sales.show, name='show_sales_path'),
+    
     #ACCOUNT
-
     url(r'^admin/account$', account.index, name='account_path'),
+    
     #REPORTS
     url(r'^admin/reports$', reports.index, name='reports_path'),
     url(r'^admin/reports/products$', reports_products.index, name='reports_products_path'),

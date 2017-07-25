@@ -9,13 +9,14 @@
 <link rel="stylesheet" media="all" href="{% static "plugins/select2/select2.min.scss" %}" data-turbolinks-track="reload" type="text/x-sass" />
 <link rel="stylesheet" media="all" href="{% static "plugins/select2/select2-bootstrap.scss" %}" data-turbolinks-track="reload" type="text/x-sass" />
 <link rel="stylesheet" media="all" href="{% static "plugins/select2/pmd-select2.scss" %}" data-turbolinks-track="reload" type="text/x-sass" />
+<link rel="stylesheet" media="all" href="{% static "plugins/dropzone/dropzone.min.scss" %}" data-turbolinks-track="reload" type="text/x-sass" />
 {% endcompress %}
 {% endblock %}
 
 {% block scripts %}
 {% compress js %}
 <script type="text/javascript" src="{% static "plugins/select2/select2.full.min.js" %}"></script>
-
+<script type="text/javascript" src="{% static "plugins/dropzone/dropzone.min.js" %}"></script>
 <script type="text/javascript">
 	$(function(){
 		$(".select-simple").select2({
@@ -131,11 +132,10 @@
 				<form class=" form p15" action="#" accept-charset="UTF-8" method="post">
 					<div class="row">
 						<div class="col-xs-12 col-sm-6 col-md-6">
-							<div class="form-group">
-								<div class="input-file">
-									<label for="">Clique para adicionar uma imagem ao produtos</label>
-									<input type="file">
-								</div>
+
+							<div class="form-group dropzone">
+								<div class="vcenter">Clique para adicionar uma imagem ao produto</div>
+								<input type="file" accept="image/png, image/jpeg" />
 							</div>
 
 							<div class="form-group">
