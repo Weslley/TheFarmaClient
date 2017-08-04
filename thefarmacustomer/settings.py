@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,10 +26,14 @@ SECRET_KEY = '6zic-agc@k*@)f&_v9@%+7p926krw9m&^5diq=r&liddyg7p-6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
+
+
+API_URL_BASE = config('API_URL')
+
 
 INSTALLED_APPS = [
     #'django.contrib.admin',
@@ -49,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'app.middleware.AuthRequiredMiddleware'
 ]
 
 ROOT_URLCONF = 'thefarmacustomer.urls'
@@ -116,7 +122,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-# 
+#
 MEDIA_ROOT = 'media'
 MEDIA_URL = '/media/'
 

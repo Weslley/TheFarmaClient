@@ -14,7 +14,8 @@
 {% block scripts %}
 {% compress js %}
 <script type="text/javascript" src="{% static "plugins/select2/select2.full.min.js" %}"></script>
-
+<script type="text/javascript" src="{% static "javascripts/main.js" %}"></script>
+<script type="text/javascript" src="{% static "javascripts/account.js" %}"></script>
 <script type="text/javascript">
 	$(function(){
 		$(".select-simple").select2({
@@ -40,12 +41,17 @@
 					</h4>
 				</div>
 				<div class="card-body pb15">
-					<form action="#">
+					<div id="dados_pessoais_form">
+						{% csrf_token %}
 						<div class="row">
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
 									<label for="">Nome</label>
-									<input class="form-control" placeholder="" type="text" />
+									<input class="form-control" name="nome" disabled="disabled" type="text" 
+										{% if account.usuario.nome %}
+											value="{{ account.usuario.nome }}"
+										{% endif %}
+									/>
 									<span class="pmd-textfield-focused"></span>
 								</div>
 							</div>
@@ -54,7 +60,13 @@
 									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
 											<label for="">Nascimento</label>
-											<input class="form-control data" placeholder="" type="text"  disabled="" value="00/00/2017" />
+											<input class="form-control data" name="data_nascimento" placeholder="" type="text"  disabled="" 
+												{% if account.data_nascimento %}
+													value="{{ account.data_nascimento }}"
+												{% else %}
+													value="00/00/2017" 
+												{% endif %}
+											/>
 											<span class="pmd-textfield-focused"></span>
 										</div>
 									</div>
@@ -62,7 +74,11 @@
 									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
 											<label for="">CPF</label>
-											<input class="form-control cpf" placeholder="" type="text" />
+											<input class="form-control cpf" disabled="disabled" name="cpf" placeholder="" type="text" 
+												{% if account.cpf %}
+													value="{{ account.cpf }}"
+												{% endif %}
+											/>
 											<span class="pmd-textfield-focused"></span>
 										</div>
 									</div>
@@ -74,16 +90,30 @@
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
 									<label for="email">Email</label>
-									<input class="form-control" placeholder="" type="text"/>
+									<input class="form-control" placeholder="" type="text" id="email" 
+										{% if request.session.auth_data.email %}
+											value="{{ request.session.auth_data.email }}"
+										{% endif %}
+									/>
 									<span class="pmd-textfield-focused"></span>
+									{% if errors.email %}
+										<span class="help-block">
+											{{ errors.email|first }}
+										</span>
+									{% endif %}
 								</div>
 							</div>
 
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="form-group pmd-textfield pmd-textfield-floating-label with-show-password">
 									<label for="senha">Senha</label>
-									<input class="form-control" placeholder="" type="password"/>
+									<input class="form-control" placeholder="" type="password" id="password" />
 									<i class="fa fa-eye show-password"></i>
+									{% if errors.senha %}
+										<span class="help-block">
+											{{ errors.senha|first }}
+										</span>
+									{% endif %}
 								</div>
 							</div>
 						</div>
@@ -92,16 +122,34 @@
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
 									<label>Telefone</label>
-									<input class="form-control telefone" placeholder="" type="text"/>
+									<input class="form-control telefone" placeholder="" type="text" id="telefone"
+										{% if account.telefone %}
+											value="{{ account.telefone }}"
+										{% endif %}
+									/>
 									<span class="pmd-textfield-focused"></span>
+									{% if errors.telefone %}
+										<span class="help-block">
+											{{ errors.telefone|first }}
+										</span>
+									{% endif %}
 								</div>
 							</div>
 
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="form-group pmd-textfield pmd-textfield-floating-label with-show-password">
 									<label>Celular(opcional)</label>
-									<input class="form-control telefone" placeholder="" type="text"/>
+									<input class="form-control telefone" placeholder="" type="text" id="celular"
+										{% if account.celular %}
+											value="{{ account.celular }}"
+										{% endif %}
+									/>
 									<span class="pmd-textfield-focused"></span>
+									{% if errors.celular %}
+										<span class="help-block">
+											{{ errors.celular|first }}
+										</span>
+									{% endif %}
 								</div>
 							</div>
 						</div>
@@ -109,11 +157,11 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-6 col-md-6 hidden-xs"></div>
 
-							<div class="col-xs-12 col-sm-6 col-md-6">
-								<button type="submit" class="btn btn-pink btn-flat btn-lg right">SALVAR</button>
+							<div class="col-xs-12 col-sm-6 col-md-6" style="display: none;" id="dados_pessoais_save">
+								<button type="button" class="btn btn-pink btn-flat btn-lg right" id="dados_pessoais_save_btn">SALVAR</button>
 							</div>
 						</div>
-					</form>
+					</div>
 				</div>
 			</div>
 
@@ -124,13 +172,17 @@
 					</h4>
 				</div>
 				<div class="card-body pb15">
-					<form action="#">
-
+					<div id="dados_empresa_form">
+						{% csrf_token %}
 						<div class="row">
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
 									<label for="">Razão Social</label>
-									<input class="form-control" placeholder="" type="text"/>
+									<input class="form-control" placeholder="" type="text" id="razao_social" 
+										{% if account.farmacia.razao_social %}
+											value="{{ account.farmacia.razao_social }}"
+										{% endif %}
+									/>
 									<span class="pmd-textfield-focused"></span>
 								</div>
 							</div>
@@ -138,7 +190,11 @@
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
 									<label for="">Nome fantasia</label>
-									<input class="form-control" placeholder="" type="text"/>
+									<input class="form-control" placeholder="" type="text" id="nome_fantasia" 
+										{% if account.farmacia.nome_fantasia %}
+											value="{{ account.farmacia.nome_fantasia }}"
+										{% endif %}
+									/>
 									<span class="pmd-textfield-focused"></span>
 								</div>
 							</div>
@@ -148,7 +204,11 @@
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
 									<label>CNPJ</label>
-									<input class="form-control cnpj" placeholder="" type="text"/>
+									<input class="form-control cnpj" placeholder="" type="text" id="cnpj" 
+										{% if account.farmacia.cnpj %}
+											value="{{ account.farmacia.cnpj }}"
+										{% endif %}
+									/>
 									<span class="pmd-textfield-focused"></span>
 								</div>
 							</div>
@@ -159,11 +219,13 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-6 col-md-6 hidden-xs"></div>
 
-							<div class="col-xs-12 col-sm-6 col-md-6">
-								<button type="submit" class="btn btn-pink btn-flat btn-lg right">SALVAR</button>
+							<div class="col-xs-12 col-sm-6 col-md-6" id="empresa_form_btn" style="display: none;">
+								<button type="submit" class="btn btn-pink btn-flat btn-lg right" id="empresa_form_save_btn">
+									SALVAR
+								</button>
 							</div>
 						</div>
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -182,7 +244,11 @@
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
 									<label for="">CEP</label>
-									<input class="form-control cep" placeholder="" type="text"/>
+									<input class="form-control cep" placeholder="" disabled type="text"
+										{% if account.endereco.cep %}
+											value="{{ account.endereco.cep }}"
+										{% endif %}
+									/>
 									<span class="pmd-textfield-focused"></span>
 								</div>
 							</div>
@@ -190,7 +256,11 @@
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
 									<label for="">Bairro</label>
-									<input class="form-control" placeholder="" type="text"/>
+									<input class="form-control" placeholder="" disabled type="text"
+										{% if account.endereco.bairro %}
+											value="{{ account.endereco.bairro.nome }}"
+										{% endif %}
+									/>
 									<span class="pmd-textfield-focused"></span>
 								</div>
 							</div>
@@ -200,7 +270,11 @@
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
 									<label for="">Rua</label>
-									<input class="form-control cep" placeholder="" type="text"/>
+									<input class="form-control" placeholder="" disabled type="text"
+										{% if account.endereco.logradouro %}
+											value="{{ account.endereco.logradouro }}"
+										{% endif %}
+									/>
 									<span class="pmd-textfield-focused"></span>
 								</div>
 							</div>
@@ -208,7 +282,11 @@
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
 									<label for="">Complemento</label>
-									<input class="form-control" placeholder="" type="text"/>
+									<input class="form-control" placeholder="" disabled type="text"
+										{% if account.endereco.complemento %}
+											value="{{ account.endereco.complemento }}"
+										{% endif %}
+									/>
 									<span class="pmd-textfield-focused"></span>
 								</div>
 							</div>
@@ -218,11 +296,11 @@
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
 									<label for="">Estado</label>
-									<select class="select-simple form-control pmd-select2">
-										<option>PIAUÍ</option>
-										<option>CEARÁ</option>
-										<option>MARANHÃO</option>
-									</select>
+									<input class="form-control" placeholder="" disabled type="text"
+										{% if account.endereco.cidade.uf_nome %}
+											value="{{ account.endereco.cidade.uf_nome }}"
+										{% endif %}
+									/>
 									<span class="pmd-textfield-focused"></span>
 								</div>
 							</div>
@@ -230,7 +308,11 @@
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
 									<label for="">Cidade</label>
-									<input class="form-control" placeholder="" type="text"/>
+									<input class="form-control" placeholder="" disabled type="text"
+										{% if account.endereco.cidade %}
+											value="{{ account.endereco.cidade.nome }}"
+										{% endif %}
+									/>
 									<span class="pmd-textfield-focused"></span>
 								</div>
 							</div>
@@ -247,17 +329,20 @@
 					</h4>
 				</div>
 				<div class="card-body pb15">
-					<form action="#">
+					<div id="conta_bancaria_form">
 
 						<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-12">
 								<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
 									<label for="">Banco</label>
-									<select class="select-simple form-control pmd-select2">
-										<option>Banco do Brasil</option>
-										<option>Caixa</option>
-										<option>Bradesco</option>
-										<option>Itaú</option>
+									<select class="select-simple form-control pmd-select2" id="banco">
+										{% for banco in bancos_list %}
+											<option value="{{ banco.id }}" 
+												{% if banco.id == account.farmacia.conta_bancaria.banco %}
+													selected 
+												{% endif %}
+											>{{ banco.nome }}</option>
+										{% endfor %}
 									</select>
 									<span class="pmd-textfield-focused"></span>
 								</div>
@@ -267,18 +352,51 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="row">
-									<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="col-xs-8 col-sm-6 col-md-6">
 										<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
 											<label>Agência</label>
-											<input class="form-control numero" placeholder="" type="text"/>
+											<input class="form-control numero" placeholder="" type="text" id="numero_agencia" 
+												{% if account.farmacia.conta_bancaria.numero_agencia %}
+													value="{{ account.farmacia.conta_bancaria.numero_agencia }}"
+												{% endif %}
+											/>
 											<span class="pmd-textfield-focused"></span>
 										</div>
 									</div>
-
-									<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="col-xs-4 col-sm-2 col-md-2">
+										<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+											<label>Dígito</label>
+											<input class="form-control numero" placeholder="" type="text" id="digito_agencia" maxlength="1" 
+												{% if account.farmacia.conta_bancaria.digito_agencia %}
+													value="{{ account.farmacia.conta_bancaria.digito_agencia }}"
+												{% endif %}
+											/>
+											<span class="pmd-textfield-focused"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="row">
+									<div class="col-xs-8 col-sm-6 col-md-6">
 										<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
 											<label>Conta</label>
-											<input class="form-control numero" placeholder="" type="text"/>
+											<input class="form-control numero" placeholder="" type="text" id="numero_conta" 
+												{% if account.farmacia.conta_bancaria.numero_conta %}
+													value="{{ account.farmacia.conta_bancaria.numero_conta }}"
+												{% endif %}
+											/>
+											<span class="pmd-textfield-focused"></span>
+										</div>
+									</div>
+									<div class="col-xs-4 col-sm-2 col-md-2">
+										<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+											<label>Dígito</label>
+											<input class="form-control numero" placeholder="" type="text" id="digito_conta" maxlength="1" 
+												{% if account.farmacia.conta_bancaria.digito_conta %}
+													value="{{ account.farmacia.conta_bancaria.digito_conta }}"
+												{% endif %}
+											/>
 											<span class="pmd-textfield-focused"></span>
 										</div>
 									</div>
@@ -287,7 +405,16 @@
 
 							<div class="col-xs-12 col-sm-6 col-md-6 hidden-xs"></div>
 						</div>
-					</form>
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-6 hidden-xs"></div>
+
+							<div class="col-xs-12 col-sm-6 col-md-6" id="conta_bancaria_btn" style="display: none;">
+								<button type="submit" class="btn btn-pink btn-flat btn-lg right" id="conta_bancaria_save_btn">
+									SALVAR
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

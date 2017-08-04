@@ -2,6 +2,7 @@
 
 {% load compress %}
 {% load staticfiles %}
+{% load helper %}
 
 {% block styles %}
 {% compress css %}
@@ -11,7 +12,53 @@
 
 {% block scripts %}
 {% compress js %}
-<!--<script type="text/javascript" src="{% static "javascripts/site/home.js" %}"></script>-->
+<script type="text/javascript" src="{% static "plugins/chartjs/chartjs.min.js" %}"></script>
+<script type="text/javascript">
+	$(function(){
+
+		Chart.pluginService.register({
+			afterDraw: function(chartInstance) {
+				var ctx = chartInstance.chart.ctx;
+				ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
+				ctx.fillStyle = '#444';
+				ctx.textAlign = 'center';
+				ctx.textBaseline = 'bottom';
+				chartInstance.data.datasets.forEach(function (dataset) {
+					for (var i = 0; i < dataset.data.length; i++) {
+						var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
+						ctx.fillText(dataset.data[i], model.x, model.y - 2);
+					}
+				});
+			}
+		});
+		
+		var ctx1 = document.getElementById("rendimento").getContext("2d");
+		var data1 = {
+			type: 'bar',
+			data: {
+				labels : [{% for label in financeiro.rendimentos.labels %}"{{ label }}",{% endfor %}],//["JANEIRO","FEVEREIRO","MARÇO","ABRIL", "MAIO", "JUNHO", "JULHO"],
+				datasets : [{
+					label: "Rendimento R$",
+					backgroundColor: '#E91E63',
+					borderWidth: 1,
+					data : {{ financeiro.rendimentos.values }}//[0, 1000, 2000, 3000, 4000, 5000, 6000, 7000]
+				}]
+			},
+			options: {
+				responsive: true,
+				bezierCurve: false,
+				legend: {display: false},
+				scales: {
+					xAxes: [{gridLines: {display:false}}],
+					yAxes: [{gridLines: {display:false}}]
+				},
+				responsive: true,
+				maintainAspectRatio: false
+			},
+		};
+		chart1 = new Chart(ctx1, data1);
+	})
+</script>
 {% endcompress %}
 {% endblock %}
 
@@ -26,117 +73,36 @@
 				</div>
 
 				<div class="card-body">
-					<div class="row mb10">
-						<div class="col-xs-12 col-sm-12 col-md-4 pr0">
-							12/07/2017
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-8">
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Bruto
+					{% if financeiro and financeiro.pedidos %}
+						{% for pedido in financeiro.pedidos %}
+							<div class="row mb10">
+								<div class="col-xs-12 col-sm-12 col-md-4 pr0">
+									{{ pedido.data_criacao|date_api }}
 								</div>
+						    	<div class="col-xs-12 col-sm-12 col-md-8">
+									<div class="row">
+										<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
+											Bruto
+										</div>
 
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Líquido
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row mb10">
-						<div class="col-xs-12 col-sm-12 col-md-4 pr0">
-							12/07/2017
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-8">
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Bruto
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
+										<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
+											R$ {{ pedido.valor_bruto }}
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
+											Líquido
+										</div>
+										<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
+											R$ {{ pedido.valor_liquido }}
+										</div>
+									</div>
 								</div>
 							</div>
-
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Líquido
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row mb10">
-						<div class="col-xs-12 col-sm-12 col-md-4 pr0">
-							12/07/2017
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-8">
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Bruto
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Líquido
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row mb10">
-						<div class="col-xs-12 col-sm-12 col-md-4 pr0">
-							12/07/2017
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-8">
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Bruto
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Líquido
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-						</div>
-					</div>
+						{% empty %}
+						    
+						{% endfor %}
+					{% endif %}
 				</div>
 
 				<div class="card-footer no-padding">
@@ -154,117 +120,36 @@
 				</div>
 
 				<div class="card-body">
-					<div class="row mb10">
-						<div class="col-xs-12 col-sm-12 col-md-4 pr0">
-							12/07/2017
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-8">
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Bruto
+					{% if financeiro and financeiro.contas_recebidas %}
+						{% for conta in financeiro.contas_recebidas %}
+							<div class="row mb10">
+								<div class="col-xs-12 col-sm-12 col-md-4 pr0">
+									{{ conta.data_credito|date_api }}
 								</div>
+						    	<div class="col-xs-12 col-sm-12 col-md-8">
+									<div class="row">
+										<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
+											Bruto
+										</div>
 
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Líquido
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row mb10">
-						<div class="col-xs-12 col-sm-12 col-md-4 pr0">
-							12/07/2017
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-8">
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Bruto
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
+										<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
+											R$ {{ conta.valor_bruto }}
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
+											Líquido
+										</div>
+										<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
+											R$ {{ conta.valor_liquido }}
+										</div>
+									</div>
 								</div>
 							</div>
-
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Líquido
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row mb10">
-						<div class="col-xs-12 col-sm-12 col-md-4 pr0">
-							12/07/2017
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-8">
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Bruto
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Líquido
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row mb10">
-						<div class="col-xs-12 col-sm-12 col-md-4 pr0">
-							12/07/2017
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-8">
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Bruto
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Líquido
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-						</div>
-					</div>
+						{% empty %}
+						    
+						{% endfor %}
+					{% endif %}
 				</div>
 
 				<div class="card-footer no-padding">
@@ -282,117 +167,36 @@
 				</div>
 
 				<div class="card-body">
-					<div class="row mb10">
-						<div class="col-xs-12 col-sm-12 col-md-4 pr0">
-							12/07/2017
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-8">
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Bruto
+					{% if financeiro and financeiro.contas_a_receber %}
+						{% for conta in financeiro.contas_a_receber %}
+							<div class="row mb10">
+								<div class="col-xs-12 col-sm-12 col-md-4 pr0">
+									{{ conta.data_vencimento|date_api }}
 								</div>
+						    	<div class="col-xs-12 col-sm-12 col-md-8">
+									<div class="row">
+										<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
+											Bruto
+										</div>
 
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Líquido
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row mb10">
-						<div class="col-xs-12 col-sm-12 col-md-4 pr0">
-							12/07/2017
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-8">
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Bruto
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
+										<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
+											R$ {{ conta.valor_bruto }}
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
+											Líquido
+										</div>
+										<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
+											R$ {{ conta.valor_liquido }}
+										</div>
+									</div>
 								</div>
 							</div>
-
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Líquido
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row mb10">
-						<div class="col-xs-12 col-sm-12 col-md-4 pr0">
-							12/07/2017
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-8">
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Bruto
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Líquido
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row mb10">
-						<div class="col-xs-12 col-sm-12 col-md-4 pr0">
-							12/07/2017
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-8">
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Bruto
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-xs-5 col-sm-6 col-md-5 semibold pr0">
-									Líquido
-								</div>
-
-								<div class="col-xs-7 col-sm-6 col-md-7 text-right semibold bold pl0">
-									R$ 9.999,00
-								</div>
-							</div>
-						</div>
-					</div>
+						{% empty %}
+						    
+						{% endfor %}
+					{% endif %}
 				</div>
 
 				<div class="card-footer no-padding">
@@ -411,7 +215,8 @@
 					<h4 class="card-title pink-text">O MEU REDIMENTO</h4>
 				</div>
 
-				<div class="card-content">
+				<div class="card-content p15">
+					<canvas id="rendimento" height="180"></canvas>
 				</div>
 			</div>
 		</div>

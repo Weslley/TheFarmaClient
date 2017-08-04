@@ -40,20 +40,36 @@
 			</h2>
 		</div>
 
-		<form class="form p15" action="#" accept-charset="UTF-8" method="post">
-			<input name="utf8" type="hidden" value="&#x2713;" />
-			<input type="hidden" name="authenticity_token" value="VyPUv7FfWpCziUMta6yN3U63P7coOCXHlCHn8nbniW9XQSHLH03NZB+vJnPB1dBLhd6Yj4EEQq1WxeDZOoVKHA==" />
+		<form class="form p15" action="{% url 'login' %}" method="post">{% csrf_token %}
 
-			<div class="form-group pmd-textfield pmd-textfield-floating-label mb30">
+			<div class="form-group pmd-textfield pmd-textfield-floating-label mb30 
+				{% if errors.email or errors.non_field_errors %}
+					has-error
+				{% endif %}">
 				<label for="login_email">Email ou Celular</label>
-				<input class="form-control" placeholder="" type="text" name="login[email]" id="login_email" />
+				<input class="form-control" placeholder="" type="text" name="email" id="login_email" />
 				<span class="pmd-textfield-focused"></span>
+				{% if errors.email or errors.non_field_errors %}
+					<span class="help-block">
+						{{ errors.email|first }}
+						{{ errors.non_field_errors|first }}
+					</span>
+				{% endif %}
 			</div>
 
-			<div class="form-group pmd-textfield pmd-textfield-floating-label with-show-password">
+			<div class="form-group pmd-textfield pmd-textfield-floating-label with-show-password 
+				{% if errors.senha or errors.non_field_errors %}
+					has-error
+				{% endif %}">
 				<label for="login_password">Password</label>
-				<input class="form-control" placeholder="" type="password" name="login[password]" id="login_password" />
+				<input class="form-control" placeholder="" type="password" name="password" id="login_password" />
 				<i class="fa fa-eye show-password"></i>
+				{% if errors.senha or errors.non_field_errors %}
+					<span class="help-block">
+						{{ errors.senha|first }}
+						{{ errors.non_field_errors|first }}
+					</span>
+				{% endif %}
 			</div>
 
 			<div class="row vcenter mt30">
@@ -63,7 +79,7 @@
 					</a>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6">
-					<buttton class="btn btn-pink btn-rounded btn-block btn-lg submit" type="submit">LOGAR</buttton>
+					<button class="btn btn-pink btn-rounded btn-block btn-lg submit" type="submit">LOGAR</button>
 				</div>
 			</div>
 		</form>        

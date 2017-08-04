@@ -2,24 +2,28 @@ from django.conf.urls import url
 
 from app.views import clients
 
-from app.views.admin import admin
+from app.views.admin import FinancialView
 from app.views.admin import products
 from app.views.admin import sales
-from app.views.admin import account
+from app.views.admin import AccountView
 
 from app.views.admin.reports import reports
 from app.views.admin.reports import products as reports_products
 from app.views.admin.reports import sales as reports_sales
 from app.views.admin.reports import stock as reports_stock
 
+from app.views.clients import LoginView
+from app.views.clients import logout
+
 
 urlpatterns = [
-    url(r'^$', clients.login, name='home'),
-    url(r'^clients/login$', clients.login, name='login'),
+    url(r'^$', LoginView.as_view(), name='home'),
+    url(r'^clients/login$', LoginView.as_view(), name='login'),
+    url(r'^clients/logout$', logout, name='logout'),
     url(r'^clients/register$', clients.register, name='register'),
 
     # ADMIN
-    url(r'^admin/$', admin.index, name='admin_path'),
+    url(r'^admin/financial$', FinancialView.as_view(), name='financial_path'),
 
     # PRODUCTS
     url(r'^admin/products$', products.index, name='products_path'),
@@ -31,7 +35,7 @@ urlpatterns = [
     # url(r'^admin/sales/(?P<id>\d+)$', sales.show, name='show_sales_path'),
 
     # ACCOUNT
-    url(r'^admin/account$', account.index, name='account_path'),
+    url(r'^admin/account$', AccountView.as_view(), name='account_path'),
 
     # REPORTS
     url(r'^admin/reports$',
