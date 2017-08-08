@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46 (44423) - http://www.bohemiancoding.com/sketch -->
+    <title>xxhdpi/Wallet</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="884" height="636"></rect>
+        <filter x="-0.8%" y="-0.8%" width="101.6%" height="102.2%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Proposta" transform="translate(-931.000000, -391.000000)">
+            <g id="Stacked-Group" transform="translate(238.000000, 302.000000)">
+                <g id="Card-View/Aberto/2">
+                    <g id="Card-View">
+                        <g id="Background">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        </g>
+                        <rect id="Rectangle-2" x="0" y="0" width="884" height="134"></rect>
+                        <g id="Sub-header" transform="translate(470.000000, 87.000000)" fill-opacity="0.396654212" fill-rule="nonzero" fill="#000000">
+                            <g id="Wallet" transform="translate(223.000000, 0.000000)">
+                                <g transform="translate(0.000000, 2.000000)" id="Shape">
+                                    <path d="M16.1538462,5.69230769 C16.1538462,5.69230769 5.47115385,5.69230769 3.629808,5.69230769 C3.08894215,5.69230769 2.60817292,5.58413477 2.60817292,5.07692308 L16.1538462,4.46153846 L16.1538462,3.23076923 C16.1538462,2.21153846 15.3269231,2 14.3076923,2 L3.24278831,3.84615385 C2.25721169,4.064904 2,4.48317292 2,5.07692308 L2,16.1538462 C2,17.1730769 2.82692308,18 3.84615385,18 L16.1538462,18 C17.1730769,18 18,17.1730769 18,16.1538462 L18,7.53846154 C18,6.51923077 17.1730769,5.69230769 16.1538462,5.69230769 Z M15.5384615,13.0769231 C14.8581729,13.0769231 14.3076923,12.5264425 14.3076923,11.8461538 C14.3076923,11.1658652 14.8581729,10.6153846 15.5384615,10.6153846 C16.2187502,10.6153846 16.7692308,11.1658652 16.7692308,11.8461538 C16.7692308,12.5264425 16.2187502,13.0769231 15.5384615,13.0769231 Z"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -13,7 +13,7 @@ class LoginView(TemplateView):
     def dispatch(self, request, *args, **kwargs):
         if 'auth_data' in self.request.session:
             return redirect('sales_path')
-        return super(AccountView, self).dispatch(request, *args, **kwargs)
+        return super(LoginView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request):
         """Método POST da view de login para autenticação."""
@@ -31,7 +31,7 @@ class LoginView(TemplateView):
 
         try:
             status_code, data = client.login()
-        except:
+        except Exception as err:
             return redirect('login')
 
         if status_code >= 400:
@@ -42,7 +42,8 @@ class LoginView(TemplateView):
                 'email': data['email'],
                 'id': data['id'],
                 'token': data['token'],
-                'nome': data['nome']
+                'nome': data['nome'],
+                'farmacia': data['farmacia_id']
             }
             self.request.session['auth_data'] = auth_data
             return redirect('sales_path')

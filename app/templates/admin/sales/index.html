@@ -25,7 +25,8 @@
 		});
 	});
 </script>
-
+<script type="text/javascript" src="{% static "javascripts/main.js" %}"></script>
+<script type="text/javascript" src="{% static "javascripts/sales.js" %}"></script>
 <script type="text/javascript" src="{% static "plugins/select2/pmd-select2.js" %}"></script>
 {% endcompress %}
 {% endblock %}
@@ -70,44 +71,29 @@
 
 	<div class="container">
 		<div id="sales" class="">
+			<button class="to-prev"></button>
+			<button class="to-next"></button>
 			{% for i in range %}
 
 			<div class="card p15 mb20">
+
 				<div class="container-fluid sale">
 
-					<div class="row pt15 pb15 fz24">
+					<div class="row pt15 fz24">
 						<div class="col-xs-12 col-sm-6 col-md-6 text-left">
-							<p class="semibold">#123456789</p>
+							<p class="order-id">Ordem #123456789</p>
 						</div>
 
 						<div class="col-xs-12 col-sm-6 col-md-6 text-right">
-							{# <p>Status: <span class="semibold green-text">Aguardando envio</span></p> #}
-							<p id="timer">5:00</p>
+							<p id="timer" class="semibold">05:00</p>
 						</div>
 					</div>
 
-					<div class="row statusbar">
-						<div class="col-xs-12 col-sm-12 col-md-6">
-							<p class="pink-text">
-								<span class="label block text-left">Data</span>
-								Mar 12, 2017 12:30
-							</p>
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-6">
-							<div class="row">
-								<div class="col-xs-6 col-sm-6 col-md-6 text-center">
-									<span>x2</span>
-								</div>
-
-								<div class="col-xs-6 col-sm-6 col-md-6">
-									<p>
-										<span class="label block text-left">Total</span>
-										R$ 9.999,00
-									</p>
-								</div>
-							</div>
-						</div>
+					<div class="row pb25 fz18">
+						<span class="troco">R$ 20,00</span>
+						<span class="forma-pagamento">Cartão de Crédito</span>
+						<span class="frete">Sim</span>
+						<span class="aceito-green">Aceito</span>
 					</div>
 
 					<div class="row header hidden-sm hidden-xs">
@@ -117,16 +103,16 @@
 
 						<div class="col-xs-6 col-sm-6 col-md-6">
 							<div class="row">
-								<div class="col-xs-4 col-sm-4 col-md-4 text-center">
-									<h5>Quantidade</h5>
+								<div class="col-xs-3 col-sm-3 col-md-3 text-center header-qtde">
+									<h5>Qtde</h5>
 								</div>
 
-								<div class="col-xs-4 col-sm-4 col-md-4">
-									<h5>PMC</h5>
+								<div class="col-xs-5 col-sm-5 col-md-5 text-center pink-text">
+									<h5>Preço Sugerido</h5>
 								</div>
 
-								<div class="col-xs-4 col-sm-4 col-md-4">
-									<h5>Valor</h5>
+								<div class="col-xs-4 col-sm-4 col-md-4 text-center" style="padding-left: 0px;">
+									<h5>Minha Proposta</h5>
 								</div>
 							</div>
 						</div>
@@ -141,7 +127,7 @@
 
 								<div class="col-xs-9 col-sm-8 col-md-9 pr0">
 									<span class="name">Rosuvastatina Cálcica 10mg Genérico Sandoz do Brasil 30 comprimidos…</span>
-									<span class="maker block pink-text hidden-xs">NEOQUIMICA</span>
+									<span class="maker">NEOQUIMICA</span>
 								</div>
 							</div>
 						</div>
@@ -152,12 +138,10 @@
 									<span class="quantity">x2</span>
 								</div>
 
-								<div class="col-xs-4 col-sm-4 col-md-4">
-									<div class="price">
-										<span class="pink-text">R$ 999,99</span>
-									</div>
+								<div class="price">
+									R$ 999,99
 								</div>
-								<div class="col-xs-4 col-sm-4 col-md-4">
+								<div class="proposal">
 									<div class="form-group pmd-textfield pmd-textfield-floating-label mb30" style="margin-top: 25px;">
 										<input class="form-control moeda" placeholder="" type="text"/>
 										<span class="pmd-textfield-focused"></span>
@@ -176,7 +160,7 @@
 
 								<div class="col-xs-9 col-sm-8 col-md-9 pr0">
 									<span class="name">Rosuvastatina Cálcica 10mg Genérico Sandoz do Brasil 30 comprimidos…</span>
-									<span class="maker block pink-text hidden-xs">NEOQUIMICA</span>
+									<span class="maker">NEOQUIMICA</span>
 								</div>
 							</div>
 						</div>
@@ -187,14 +171,12 @@
 									<span class="quantity">x1</span>
 								</div>
 
-								<div class="col-xs-4 col-sm-4 col-md-4">
-									<div class="price">
-										<span class="pink-text">R$ 999,99</span>
-									</div>
+								<div class="price">
+									R$ 999,99
 								</div>
-								<div class="col-xs-4 col-sm-4 col-md-4">
-									<div class="form-group pmd-textfield pmd-textfield-floating-label mb30" style="margin-top: 25px;">
-										<input class="form-control moeda" placeholder="" type="text"/>
+								<div class="proposal">
+									<div class="form-group" style="margin-top: 25px;">
+										<input class="form-control" placeholder="" type="text"/>
 										<span class="pmd-textfield-focused"></span>
 									</div>
 								</div>
@@ -203,30 +185,39 @@
 					</div>
 
 
-					<div class="row footer">
-						<div class="col-xs-12 col-sm-12 col-md-6">
-							<p>Para: <span class="pink-text">Henrique Loren Ipsun de Oliveira Carvalho</span></p>
+					<div class="row footer-list">
+						<div class="pull-right">
+							<p>Total <span>R$9.999,99</span></p>
 						</div>
+					</div>
 
-						<div class="col-xs-12 col-sm-12 col-md-6">
-							<p>Endereço: 
-								<span class="block">
+					<div class="footer-card">
+						<div class="col-footer-card">
+							<p class="cliente">
+									Henrique de Oliveira Carvalho
+							</p>
+						</div>
+						<div class="col-footer-card">
+							<p class="endereco block">
 									Rua Padre Malagrida Madre Loren Ipsun
 									Quadra 17 Casa 14
 									Renascença I, Teresina - Piaui
-								</span>
 							</p>
 						</div>
 					</div>
 
-					<div class="row actions">
-						<div class="col-xs-12 col-sm-12 col-md-12 text-right mt15 pr0 pr-xs-15">
-							<button class="btn btn-transparent-pink pink-text btn-flat btn-lg">
+					<div class="actions">
+						<div class="col-actions">
+							<button class="btn-cancelar-actions">
 								CANCELAR
 							</button>
 
-							<button class="btn btn-pink btn-flat btn-lg">
-								ACEITAR
+							{# <button class="btn-confirmar-actions"> #}
+								{# CONFIRMAR ENVIO #}
+							{# </button> #}
+
+							<button class="btn-enviar-actions">
+								ENVIAR PROPOSTA
 							</button>
 						</div>
 					</div>

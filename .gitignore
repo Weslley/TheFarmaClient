@@ -17,3 +17,6 @@ app/views/__pycache__/
 static/sass/
 thefarmasite/__pycache__/
 static/CACHE
+*.sublime-project
+node_modules/
+package-lock.json

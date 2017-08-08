@@ -185,10 +185,223 @@ button.btn-default:hover,
 }
 
 /*==================== SALES =====================*/
+// .timer-icon{
+	// background: url('/static/images/clock.svg');
+// }
+
 #sales{
+
+	.flot-btn-up-down{
+		box-shadow: 0 2px 15px 0 rgba(0,0,0,0.21);
+		display:block;
+		height: 64px;
+		width: 64px;
+		border-radius: 50%;
+		border: 0px;
+		position: fixed;
+		// left: 108%;
+    	right: 120px;
+    	z-index: 999 !important;
+	}
+
+	.to-prev{
+		@extend .flot-btn-up-down;
+		background: url("/static/images/up.png") no-repeat scroll 20px 20px #FFFFFF;
+		background-size: 25px auto;
+		margin-bottom: 24px;
+		bottom:50%;
+	}
+
+	.to-next{
+		@extend .flot-btn-up-down;
+		background: url("/static/images/down.png") no-repeat scroll 20px 20px #FFFFFF;
+		background-size: 25px auto;
+		bottom:40%;
+	}
+
+	.to-prev:focus,
+	.to-next:focus{
+		outline: 0px;
+	}
+
+	@media (min-width:768px){
+		.container{width:750px}
+	}
+	@media (min-width:992px){
+		.container{width:884px}
+	}
+	@media (min-width:1200px){
+		.container{width:884px}
+	}
+	// .container{
+		// width: 884px;
+	// }
+	.card{
+		padding-right: 32px;
+		padding-left: 32px;
+	}
 	.sale{
+		.header-qtde{
+			padding-right: 0px;
+			padding-left: 30px;
+		}
+		#timer{
+			font-size: 32px;
+		}
+		#timer:before{
+		    content: '';
+		    background:url('/static/images/clock.svg');
+		    background-size:cover;
+		        position:absolute;
+		    width:24px;
+		    height:24px;
+		    right: 100px;
+		    top: 8px;
+		    // margin-right:30px;
+		}
+		.pedido-info{
+			@extend .pull-right;
+			padding-left: 30px;
+			margin-left: 32px;
+		}
+
+		.name{
+			@extend .regular;
+			font-size: 16px;
+			color: rgba(0,0,0,0.80);
+		}
+
+		.maker{
+			@extend .semibold;
+			@extend .block;
+			@extend .hidden-xs;
+			font-size: 12px;
+			color: rgba(0,0,0,0.40);
+		}
+
+		.aceito-circle{
+			content: '';
+			float: left;
+			position:absolute;
+			width: 16px;
+			height: 16px;
+			border-radius: 100px;
+			margin-left: -30px;
+		    margin-top: 6px;
+		}
+
+		.aceito-green{
+			@extend .pedido-info;
+		}
+		.aceito-green:before{
+			@extend .aceito-circle;
+		 	background: rgba(126,211,33,1);
+		}
+
+		.aceito-red{
+			@extend .pedido-info;
+		}
+		.aceito-red:before{
+			@extend .aceito-circle;
+		  	background: rgba(233,30,99,1);
+		}
+
+
+		.aceito-yellow{
+			@extend .pedido-info;
+		}
+		.aceito-yellow:before{
+			@extend .aceito-circle;
+		 	background: rgba(245,166,35,1);
+		}
+
+		.frete{
+			@extend .pedido-info;
+		}
+		.frete:before{
+		    content: '';
+		    background:url('/static/images/frete.svg');
+		    background-size:cover;
+		        position:absolute;
+		    width:23px;
+		    height:16px;
+		    float: left;
+		    margin-left: -35px;
+		    margin-top: 6px;
+		}
+
+
+		.troco{
+			@extend .pedido-info;
+		}
+		.troco:before{
+		    content: '';
+		    background:url('/static/images/troco.svg');
+		    background-size:cover;
+		        position:absolute;
+		    width:20px;
+		    height:22px;
+		    float: left;
+		    margin-left: -35px;
+		    margin-top: 2px;
+		}
+
+		.forma-pagamento{
+			@extend .pedido-info;
+		}
+		.forma-pagamento:before{
+		    content: '';
+		    background:url('/static/images/wallet.svg');
+		    background-size:cover;
+		        position:absolute;
+		    width:16px;
+		    height:16px;
+		    float: left;
+		    margin-left: -28px;
+		    margin-top: 6px;
+		}
+
+		.price{
+			@extend .col-xs-4;
+			@extend .col-sm-4;
+			@extend .col-md-4;
+			@extend .pink-text;
+
+			padding-left: 0px; 
+		}
+
+		.proposal{
+			@extend .col-xs-4;
+			@extend .col-sm-4;
+			@extend .col-md-4;
+
+			padding-left: 3px;
+
+			.form-group{
+				@extend .pmd-textfield;
+				@extend .pmd-textfield-floating-label;
+				@extend .mb30;
+			}
+		}
+
+		.text-left{
+			padding-left: 0px;
+		}
+		.text-right{
+			padding-right: 0px;
+		}
 		font-size: 1.6rem;
 		p{line-height: normal;}
+		.order-id{
+			padding-top: 5px;
+			line-height: normal;
+			font-size: 22px;
+			color: #FF1967;
+		}
+		.timer{
+			font-size: 32px;
+			color: #FF1967;
+		}
 		.header{border-bottom: 1px solid #000;}
 		.statusbar{
 			padding: 10px 0px;
@@ -205,10 +418,135 @@ button.btn-default:hover,
 			padding: 10px 0px;
 			img{max-width: 64px;max-height: 64px;}
 		}
-		.footer{
-			border-bottom: 1px solid #000;
-			background: rgba(0, 0, 0, 0.03);
-			padding: 10px 0px;
+		.footer-list{
+			border-top: 1px solid #650000;
+			padding: 20px 0px;
+
+			.pull-right{
+				@extend .semibold;
+				font-size: 16px;
+				color: rgba(0,0,0,0.80);
+				
+				span{
+					@extend .regular;
+					font-size: 20px;
+					color: rgba(0,0,0,0.80);
+					margin-left: 32px;
+					margin-right: 28px;
+				}
+			}
+		}
+
+		.footer-card{
+			@extend .row;
+			background: rgba(0,0,0,0.03);
+			font-size: 14px;
+			color: rgba(0,0,0,0.80);
+
+			.col-footer-card{
+				@extend .col-xs-12;
+				@extend .col-sm-12;
+				@extend .col-md-6;
+
+				padding: 16px;
+
+				.cliente{
+					@extend .regular;
+				}
+				.cliente:before{
+					content: "Cliente: ";
+					@extend .semibold;
+				}
+
+				.identificacao{
+					@extend .regular;
+				}
+				.identificacao:before{
+					content: "Identificação: ";
+					@extend .semibold;
+				}
+
+				.endereco{
+					@extend .regular;
+					@extend .block;
+				}
+				.endereco:before{
+					content: "Endereço: ";
+					@extend .semibold;
+				}
+			}
+		}
+
+		.actions{
+			@extend .row;
+
+			.col-actions{
+				@extend .col-xs-12;
+				@extend .col-sm-12;
+				@extend .col-md-12;
+				@extend .text-right;
+				@extend .mt15;
+				@extend .pr0;
+				@extend .pr-xs-15;
+
+				margin-top: 0px;
+
+				.btn-actions{
+					margin-top: 24px;
+					margin-bottom: 24px;
+
+					margin-left: 16px;
+					margin-right: 16px;
+				}
+
+				.btn-cancelar-actions{
+					@extend .btn;
+					@extend .btn-transparent-pink;
+					@extend .pink-text;
+					@extend .btn-flat;
+					@extend .btn-lg;
+					@extend .btn-actions;
+
+					border: 1px solid #FF1967;
+					width: 180px;
+					height: 48px;
+
+					@extend .semibold;
+					font-size: 16px;
+					color: #FF1967;
+				}
+
+				.btn-confirmar-actions{
+					@extend .btn;
+					@extend .btn-pink;
+					@extend .btn-flat;
+					@extend .btn-lg;
+					@extend .btn-actions;
+
+					background: #7ED321;
+
+					width: 250px;
+					height: 48px;
+
+					@extend .bold;
+					font-size: 16px;
+					color: #FFFFFF;
+				}
+
+				.btn-enviar-actions{
+					@extend .btn-confirmar-actions;
+
+					background: #F5A623;
+				}
+
+				.btn-enviar-actions:hover{
+					background: #F5A623 !important;
+				}
+
+				.btn-confirmar-actions:hover{
+					background: #7ED321;
+				}
+			} 
 		}
 	}
 }

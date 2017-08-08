@@ -1,0 +1,20 @@
+{
+  "name": "thefarmaclient",
+  "version": "1.0.0",
+  "description": "Client que consome a api do thefarma",
+  "main": "main.js",
+  "scripts": {
+    "test": "./manage.py test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/TimeTheFarma/thefarmaclient.git"
+  },
+  "author": "Philippe Valfok",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/TimeTheFarma/thefarmaclient#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.13",
+    "gulp": "^3.9.1"
+  }
+}
