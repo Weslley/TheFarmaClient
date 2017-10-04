@@ -23,7 +23,8 @@ services:
       - "8000"
     environment:
      - DEBUG=False
-     - API_URL=http://localhost:8000
+     - API_URL=http://api.thefarma.com.br
+     - WS_URL=ws://sock.thefarma.com.br/farmacias/{id_farmacia}/?Authorization:Token {token_representante}
 
 volumes:
   static-data:
