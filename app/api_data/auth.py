@@ -26,6 +26,7 @@ class AuthClient(BaseClient):
             self.token = response.to_dict['token']
             return response.status_code, response.to_dict
         except HTTPError as err:
+            print(err)
             return err.status_code, err.to_dict
 
     def logout(self):
@@ -35,6 +36,6 @@ class AuthClient(BaseClient):
                 query_params={},
                 request_headers={}
             )
-            return response.status_code, response#.to_dict
+            return response.status_code, response
         except HTTPError as err:
             return err.status_code, err.to_dict

@@ -1,4 +1,16 @@
-$(function(){	
+
+
+socket.onmessage = function(e) {
+    var data = JSON.parse(e.data);
+    console.log(data);
+    if (window.location.href.indexOf('sales') != -1){
+        append_card_pedido(data);
+    }else{
+
+    }
+}
+
+$(function(){
 	init();
 
 	$('.show-password').click(function(event) {
@@ -7,7 +19,7 @@ $(function(){
 				$(this).attr('type', 'text');
 			}else if($(this).attr('type')==='text'){
 				$(this).attr('type', 'password');
-			}    
+			}
 		});
 	});
 

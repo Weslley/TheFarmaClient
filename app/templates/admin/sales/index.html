@@ -1,6 +1,6 @@
 {% extends  "layouts/admin.html" %}
 
-{% load i18n %} 
+{% load i18n %}
 {% load compress %}
 {% load staticfiles %}
 
@@ -17,6 +17,7 @@
 {% compress js %}
 <script type="text/javascript" src="{% static "plugins/select2/select2.full.min.js" %}"></script>
 <script type="text/javascript" src="{% static "plugins/dropzone/dropzone.min.js" %}"></script>
+<script type="text/javascript" src="{% static "plugins/cycle2/cycle2.js" %}"></script>
 <script type="text/javascript">
 	$(function(){
 		$(".select-simple").select2({
@@ -24,28 +25,31 @@
 			minimumResultsForSearch: Infinity,
 		});
 	});
+	var farm_wsckt = parseInt('{{ request.session.auth_data.farmacia }}');
 </script>
 <script type="text/javascript" src="{% static "javascripts/main.js" %}"></script>
 <script type="text/javascript" src="{% static "javascripts/sales.js" %}"></script>
 <script type="text/javascript" src="{% static "plugins/select2/pmd-select2.js" %}"></script>
 {% endcompress %}
+{# <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script> #}
+{# <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script> #}
 {% endblock %}
 
 {% block content %}
 <div id="sales">
-	<div class="row01 container-fluid fz14 no-padding-xs bg-white mb32">
+	<div class="row01 container-fluid fz14 no-padding-xs bg-white mb32" style="height:90px;">
 		<form action="#" class="row p15 no-margin-xs" role="form">
-			<div class="col-xs-12 col-sm-6 col-md-6">
+			<div class="col-xs-12 col-sm-12 col-md-12">
 				<div class="row">
-					<div class="col-xs-12 col-sm-6 col-md-6">
-						<div class="form-group pmd-textfield pmd-textfield-floating-label mb30 pr15 no-padding-xs">
-							<label for="">Pesquisar</label>
-							<input class="form-control" placeholder="" type="text" />
-							<span class="pmd-textfield-focused"></span>
-						</div>
+					<div class="col-xs-12 col-sm-2 col-md-2">
+						{# <div class="form-group pmd-textfield pmd-textfield-floating-label mb30 pr15 no-padding-xs"> #}
+							{# <label for="">Pesquisar</label> #}
+							{# <input class="form-control" placeholder="" type="text" /> #}
+							{# <span class="pmd-textfield-focused"></span> #}
+						{# </div> #}
 					</div>
 
-					<div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="col-xs-12 col-sm-4 col-md-4">
 						<div class="form-group pmd-textfield pmd-textfield-floating-label mb30 pr15 no-padding-xs">
 							<label for="">Organizar por</label>
 							<select class="select-simple form-control pmd-select2">
@@ -56,173 +60,201 @@
 							<span class="pmd-textfield-focused"></span>
 						</div>
 					</div>
+
+					<div class="col-xs-12 col-sm-4 col-md-4">
+						<div class="form-group pmd-textfield pmd-textfield-floating-label mb30 pr15 no-padding-xs">
+							<label for="">Status</label>
+							<select class="select-simple form-control pmd-select2">
+								<option          >ABERTO              </option>
+								<option value="1">ACEITO                          </option>
+								<option value="2">AGUARDANDO ENVIO DA FARMACIA    </option>
+								<option value="3">AGUARDANDO RETIRADA DO CLIENTE  </option>
+								<option value="4">ENVIADO                   	  </option>
+								<option value="5">ENTREGUE                        </option>
+								<option value="6">CANCELADO PELA FARMACIA    	  </option>
+								<option value="7">CANCELADO PELO CLIENTE          </option>
+								<option value="8">SEM_PROPOSTA                    </option>
+								<option value="9">TIMEOUT                         </option>
+							</select>
+							<span class="pmd-textfield-focused"></span>
+						</div>
+					</div>
 				</div>
 			</div>
 
-			<div class="col-xs-12 col-sm-6 col-md-6 mt20">
-				<button class="btn-transparent-pink btn-flat right">
-					PESQUISAR
-				</button>
-			</div>
+			{# <div class="col-xs-12 col-sm-6 col-md-6 mt20"> #}
+				{# <button class="btn-transparent-pink btn-flat right"> #}
+					{# PESQUISAR #}
+				{# </button> #}
+			{# </div> #}
 
 		</form>
-		
+
 	</div>
 
 	<div class="container">
-		<div id="sales" class="">
-			<button class="to-prev"></button>
-			<button class="to-next"></button>
-			{% for i in range %}
+		<div id="sales" class="slideshow vertical"
+		    data-cycle-fx=carousel
+		    data-cycle-timeout=0
+		    data-cycle-next="#to-next"
+		    data-cycle-prev="#to-prev"
+		    data-cycle-carousel-visible=5
+		    data-cycle-carousel-vertical=true
+		>
+			<button id="to-prev" class="to-prev"></button>
+			<button id="to-next" class="to-next"></button>
+			{% for pedido in pedidos %}
 
-			<div class="card p15 mb20">
+				<div class="card p15 mb20">
 
-				<div class="container-fluid sale">
+					<div class="container-fluid sale">
 
-					<div class="row pt15 fz24">
-						<div class="col-xs-12 col-sm-6 col-md-6 text-left">
-							<p class="order-id">Ordem #123456789</p>
-						</div>
-
-						<div class="col-xs-12 col-sm-6 col-md-6 text-right">
-							<p id="timer" class="semibold">05:00</p>
-						</div>
-					</div>
-
-					<div class="row pb25 fz18">
-						<span class="troco">R$ 20,00</span>
-						<span class="forma-pagamento">Cartão de Crédito</span>
-						<span class="frete">Sim</span>
-						<span class="aceito-green">Aceito</span>
-					</div>
-
-					<div class="row header hidden-sm hidden-xs">
-						<div class="col-xs-6 col-sm-6 col-md-6">
-							<h5>Produto</h5>
-						</div>
-
-						<div class="col-xs-6 col-sm-6 col-md-6">
-							<div class="row">
-								<div class="col-xs-3 col-sm-3 col-md-3 text-center header-qtde">
-									<h5>Qtde</h5>
-								</div>
-
-								<div class="col-xs-5 col-sm-5 col-md-5 text-center pink-text">
-									<h5>Preço Sugerido</h5>
-								</div>
-
-								<div class="col-xs-4 col-sm-4 col-md-4 text-center" style="padding-left: 0px;">
-									<h5>Minha Proposta</h5>
-								</div>
+						<div class="row pt15 fz24">
+							<div class="col-xs-12 col-sm-6 col-md-6 text-left">
+								<p class="order-id">Ordem #{{ pedido.id }}</p>
 							</div>
-						</div>
-					</div>
 
-					<div class="row item">
-						<div class="col-xs-12 col-sm-12 col-md-6">
-							<div class="row">
-								<div class="col-xs-3 col-sm-4 col-md-3">
-									<img src="{% static "images/box.png" %}" alt="Bottle" class="img-responsive center" alt="Box"/>
-								</div>
-
-								<div class="col-xs-9 col-sm-8 col-md-9 pr0">
-									<span class="name">Rosuvastatina Cálcica 10mg Genérico Sandoz do Brasil 30 comprimidos…</span>
-									<span class="maker">NEOQUIMICA</span>
-								</div>
+							<div class="col-xs-12 col-sm-6 col-md-6 text-right">
+								<p id="timer_{{ pedido_id }}" class="semibold"></p>
 							</div>
 						</div>
 
-						<div class="col-xs-12 col-sm-12 col-md-6">
-							<div class="row vcenter">
-								<div class="col-xs-4 col-sm-4 col-md-4 text-center">
-									<span class="quantity">x2</span>
-								</div>
+						<div class="row pb25 fz18">
+							{% if pedido.troco %}
+								<span class="troco">R$ {{ pedido.troco }}</span>
+							{% endif %}
+							<span class="forma-pagamento">{{ pedido.forma_pagamento }}</span>
+							<span class="frete">{% if pedido.delivery %}Sim{% else %}Não{% endif %}</span>
+							<span class="aceito-green">Aceito</span>
+						</div>
 
-								<div class="price">
-									R$ 999,99
-								</div>
-								<div class="proposal">
-									<div class="form-group pmd-textfield pmd-textfield-floating-label mb30" style="margin-top: 25px;">
-										<input class="form-control moeda" placeholder="" type="text"/>
-										<span class="pmd-textfield-focused"></span>
+						<div class="row header hidden-sm hidden-xs">
+							<div class="col-xs-6 col-sm-6 col-md-6">
+								<h5>Produto</h5>
+							</div>
+
+							<div class="col-xs-6 col-sm-6 col-md-6">
+								<div class="row">
+									<div class="quantidade">
+										<h5>Qtde</h5>
+									</div>
+
+									<div class="preco-sugerido">
+										<h5>Preço Sugerido</h5>
+									</div>
+
+									<div class="minha-proposta">
+										<h5>Minha Proposta</h5>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="row item">
-						<div class="col-xs-12 col-sm-12 col-md-6">
-							<div class="row">
-								<div class="col-xs-3 col-sm-4 col-md-3">
-									<img src="{% static "images/box.png" %}" alt="Bottle" class="img-responsive center" alt="Box"/>
-								</div>
+						<div class="row item">
+							<div class="col-xs-12 col-sm-12 col-md-6">
+								<div class="row">
+									<div class="col-xs-3 col-sm-4 col-md-3">
+										<img src="{% static "images/box.png" %}" alt="Bottle" class="img-responsive center" alt="Box"/>
+									</div>
 
-								<div class="col-xs-9 col-sm-8 col-md-9 pr0">
-									<span class="name">Rosuvastatina Cálcica 10mg Genérico Sandoz do Brasil 30 comprimidos…</span>
-									<span class="maker">NEOQUIMICA</span>
+									<div class="col-xs-9 col-sm-8 col-md-9 pr0">
+										<span class="name">Rosuvastatina Cálcica 10mg Genérico Sandoz do Brasil 30 comprimidos…</span>
+										<span class="maker">NEOQUIMICA</span>
+									</div>
 								</div>
 							</div>
-						</div>
 
-						<div class="col-xs-12 col-sm-12 col-md-6">
-							<div class="row vcenter">
-								<div class="col-xs-4 col-sm-4 col-md-4 text-center">
-									<span class="quantity">x1</span>
-								</div>
+							<div class="col-xs-12 col-sm-12 col-md-6">
+								<div class="row vcenter">
+									<div class="col-xs-4 col-sm-4 col-md-4 text-center">
+										<span class="quantity">x2</span>
+									</div>
 
-								<div class="price">
-									R$ 999,99
-								</div>
-								<div class="proposal">
-									<div class="form-group" style="margin-top: 25px;">
-										<input class="form-control" placeholder="" type="text"/>
-										<span class="pmd-textfield-focused"></span>
+									<div class="price">
+										R$ 999,99
+									</div>
+									<div class="proposal">
+										<div class="proposal-form">
+											<input class="form-control moeda" placeholder="" type="text"/>
+											<span class="pmd-textfield-focused"></span>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
+						<div class="row item">
+							<div class="col-xs-12 col-sm-12 col-md-6">
+								<div class="row">
+									<div class="col-xs-3 col-sm-4 col-md-3">
+										<img src="{% static "images/box.png" %}" alt="Bottle" class="img-responsive center" alt="Box"/>
+									</div>
 
-					<div class="row footer-list">
-						<div class="pull-right">
-							<p>Total <span>R$9.999,99</span></p>
+									<div class="col-xs-9 col-sm-8 col-md-9 pr0">
+										<span class="name">Rosuvastatina Cálcica 10mg Genérico Sandoz do Brasil 30 comprimidos…</span>
+										<span class="maker">NEOQUIMICA</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-12 col-md-6">
+								<div class="row vcenter">
+									<div class="col-xs-4 col-sm-4 col-md-4 text-center">
+										<span class="quantity">x1</span>
+									</div>
+
+									<div class="price">
+										R$ 999,99
+									</div>
+									<div class="proposal">
+										<div class="proposal-form" style="margin-top: 25px;">
+											<input class="form-control moeda" placeholder="" type="text"/>
+											<span class="pmd-textfield-focused"></span>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
-					</div>
 
-					<div class="footer-card">
-						<div class="col-footer-card">
-							<p class="cliente">
-									Henrique de Oliveira Carvalho
-							</p>
+
+						<div class="row footer-list">
+							<div class="pull-right">
+								<p>Total <span>R$ 9.999,99</span></p>
+							</div>
 						</div>
-						<div class="col-footer-card">
-							<p class="endereco block">
-									Rua Padre Malagrida Madre Loren Ipsun
-									Quadra 17 Casa 14
-									Renascença I, Teresina - Piaui
-							</p>
+
+						<div class="footer-card">
+							<div class="col-footer-card">
+								<p class="cliente">
+										Henrique de Oliveira Carvalho
+								</p>
+							</div>
+							<div class="col-footer-card">
+								<p class="endereco block">
+										Rua Padre Malagrida Madre Loren Ipsun
+										Quadra 17 Casa 14
+										Renascença I, Teresina - Piaui
+								</p>
+							</div>
 						</div>
-					</div>
 
-					<div class="actions">
-						<div class="col-actions">
-							<button class="btn-cancelar-actions">
-								CANCELAR
-							</button>
+						<div class="actions">
+							<div class="col-actions">
+								<button class="btn-cancelar-actions">
+									CANCELAR
+								</button>
 
-							{# <button class="btn-confirmar-actions"> #}
-								{# CONFIRMAR ENVIO #}
-							{# </button> #}
+								{# <button class="btn-confirmar-actions"> #}
+									{# CONFIRMAR ENVIO #}
+								{# </button> #}
 
-							<button class="btn-enviar-actions">
-								ENVIAR PROPOSTA
-							</button>
+								<button class="btn-enviar-actions">
+									ENVIAR PROPOSTA
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
 			{% endfor %}
 		</div>

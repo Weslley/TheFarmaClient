@@ -4,6 +4,8 @@ from django.views.generic import TemplateView
 
 from app.api_data.auth import AuthClient
 
+from django.conf import settings
+
 
 class LoginView(TemplateView):
     """Class View para autenticação."""
@@ -29,10 +31,11 @@ class LoginView(TemplateView):
             data={'email': login, 'password': password}
         )
 
-        try:
-            status_code, data = client.login()
-        except Exception as err:
-            return redirect('login')
+        # try:
+        status_code, data = client.login()
+        # except Exception as err:
+            # print(err)
+            # return redirect('login')
 
         if status_code >= 400:
             return self.render_to_response(self.get_context_data(errors=data))
@@ -46,6 +49,12 @@ class LoginView(TemplateView):
                 'farmacia': data['farmacia_id']
             }
             self.request.session['auth_data'] = auth_data
+            self.request.session[
+                'websocket_url'
+            ] = settings.WEBSOCKET_URL.format(
+                id_farmacia=auth_data['farmacia'],
+                token_representante=auth_data['token'],
+            )
             return redirect('sales_path')
         return redirect('login')
 

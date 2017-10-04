@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['*']
 
 
 API_URL_BASE = config('API_URL')
+WEBSOCKET_URL = config('WS_URL')
 
 
 INSTALLED_APPS = [

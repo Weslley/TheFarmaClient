@@ -4,16 +4,156 @@
 		"selected_items":
 		[
 			[
-				"In",
-				"IntegerField〔class〕"
+				"quant",
+				"quantidade"
 			],
 			[
-				"class",
-				"classmethod\tclassmethod"
+				"quanti",
+				"quantity"
+			],
+			[
+				"up",
+				"update_total_pedido"
+			],
+			[
+				"appe",
+				"appendChild"
+			],
+			[
+				"pro",
+				"proposal-form"
+			],
+			[
+				"S",
+				"SalesView\tmodule"
+			],
+			[
+				"btn",
+				"btn_cancel"
+			],
+			[
+				"to",
+				"to-next"
+			],
+			[
+				"timer",
+				"timer_p"
+			],
+			[
+				"orde",
+				"order_p"
+			],
+			[
+				"footer",
+				"footer_list"
+			],
+			[
+				"create",
+				"create_elem"
+			],
+			[
+				"creat",
+				"create_elem"
+			],
+			[
+				"col",
+				"col_cliente_footer_card"
 			],
 			[
 				"nome",
-				"nome_list〔variable〕"
+				"nome_cliente"
+			],
+			[
+				"foot",
+				"footer_list_pull_right"
+			],
+			[
+				"span",
+				"span_total"
+			],
+			[
+				"cr",
+				"createElement"
+			],
+			[
+				"row",
+				"row_item"
+			],
+			[
+				"div",
+				"div_form_proposta"
+			],
+			[
+				"inpu",
+				"input_proposta"
+			],
+			[
+				"quan",
+				"quantidade"
+			],
+			[
+				"item",
+				"item_qtde"
+			],
+			[
+				"row_col",
+				"row_col_item_image_nome"
+			],
+			[
+				"div_",
+				"div_nome_maker"
+			],
+			[
+				"span_item",
+				"span_item_nome"
+			],
+			[
+				"heade",
+				"header_tabela"
+			],
+			[
+				"text",
+				"textContent"
+			],
+			[
+				"crea",
+				"create_elem"
+			],
+			[
+				"class",
+				"classe"
+			],
+			[
+				"te",
+				"textContent"
+			],
+			[
+				"ro",
+				"row_header"
+			],
+			[
+				"spa",
+				"span_status"
+			],
+			[
+				"order",
+				"order_id"
+			],
+			[
+				"get",
+				"get_parent_by_class"
+			],
+			[
+				"paren",
+				"parent_class"
+			],
+			[
+				"scr",
+				"scroll_prev_next_elem"
+			],
+			[
+				"In",
+				"IntegerField〔class〕"
 			],
 			[
 				"nom",
@@ -56,10 +196,6 @@
 				"margin-top"
 			],
 			[
-				"text",
-				"text-right"
-			],
-			[
 				"paddi",
 				"padding-right"
 			],
@@ -84,16 +220,8 @@
 				"input_parent〔variable〕"
 			],
 			[
-				"span",
-				"span_error〔variable〕"
-			],
-			[
 				"cre",
 				"createElement〔function〕"
-			],
-			[
-				"crea",
-				"create_task"
 			],
 			[
 				"appl",
@@ -112,14 +240,6 @@
 				"self.driver.quit"
 			],
 			[
-				"inpu",
-				"input_cfg"
-			],
-			[
-				"btn",
-				"btn_restore〔variable〕"
-			],
-			[
 				"fin",
 				"find_element_by_id"
 			],
@@ -130,10 +250,6 @@
 			[
 				"backup",
 				"backup_path〔variable〕"
-			],
-			[
-				"to",
-				"to_add〔variable〕"
 			],
 			[
 				"try",
@@ -268,16 +384,8 @@
 				"ItemFormSet\tmodule"
 			],
 			[
-				"get",
-				"getElementsByClassName"
-			],
-			[
 				"It",
 				"ItemFormSet\tmodule"
-			],
-			[
-				"item",
-				"item_formset\tparam"
 			],
 			[
 				"ven",
@@ -406,128 +514,79 @@
 			[
 				"des",
 				"destin"
-			],
-			[
-				"core",
-				"core_urls\timport"
-			],
-			[
-				"ur",
-				"urls"
-			],
-			[
-				"url",
-				"url_boleto"
-			],
-			[
-				"conta",
-				"conta_receber"
-			],
-			[
-				"Con",
-				"ContaReceberParcela\tclass"
-			],
-			[
-				"widt",
-				"width"
-			],
-			[
-				"boleto_",
-				"boleto_status"
-			],
-			[
-				"col",
-				"col-md-6"
-			],
-			[
-				"modal",
-				"modal-lg"
-			],
-			[
-				"K",
-				"KeyError\tclass"
-			],
-			[
-				"exc",
-				"except"
-			],
-			[
-				"vis",
-				"vistoria_data\tstatement"
-			],
-			[
-				"assin",
-				"assinar_xml\tfunction"
-			],
-			[
-				"node",
-				"node_to_sign\tstatement"
-			],
-			[
-				"nf",
-				"nfse\tstatement"
-			],
-			[
-				"dict",
-				"dict_nfse\tparam"
-			],
-			[
-				"dict_",
-				"dict_nfse\tparam"
-			],
-			[
-				"Key",
-				"KeyboardInterrupt\tclass"
-			],
-			[
-				"tpNotaC",
-				"tpNotaCancelamentoNFSe\tstatement"
-			],
-			[
-				"list",
-				"lista_rps\tstatement"
-			],
-			[
-				"lis",
-				"lista_rps"
-			],
-			[
-				"nfs",
-				"nfse\tforstmt"
-			],
-			[
-				"ass",
-				"assinar_lote_rps\tfunction"
-			],
-			[
-				"consul",
-				"consultar_sequencial_rps\tfunction"
-			],
-			[
-				"di",
-				"dict_consulta_seq_rps\tparam"
-			],
-			[
-				"con",
-				"consultar_sequencial_rps\tfunction"
-			],
-			[
-				"consulta",
-				"consulta\tstatement"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"contents": "Package Control Messages\n========================\n\nAnaconda\n--------\n\n  \n  \n                                                            |\n                _` |  __ \\    _` |   __|   _ \\   __ \\    _` |   _` |\n               (   |  |   |  (   |  (     (   |  |   |  (   |  (   |\n              \\__,_| _|  _| \\__,_| \\___| \\___/  _|  _| \\__,_| \\__,_|\n  \n                                       The Sublime Text 3 Python IDE\n  \n  \n  Welcome to anaconda, the Sublime Text 3 Python IDE. We hope you enjoy it :)\n  \n  Anaconda works fine out of the box but you can configure it to totally adapt\n  it to your needs or style.\n  \n  For a complete guide of use and configuration take a look at:\n  \n    http://damnwidget.github.io/anaconda/\n  \n  Please, consider donating to maintain this project alive:\n  \n    https://pledgie.com/campaigns/32230\n",
+			"file": "static/javascripts/admin.js",
 			"settings":
 			{
-				"buffer_size": 830,
-				"line_ending": "Unix",
-				"name": "Package Control Messages",
-				"read_only": true,
-				"scratch": true
+				"buffer_size": 1617,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/templates/admin/account/index.html",
+			"settings":
+			{
+				"buffer_size": 14977,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/templates/layouts/admin.html",
+			"settings":
+			{
+				"buffer_size": 3276,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/templates/admin/sales/index.html",
+			"settings":
+			{
+				"buffer_size": 8291,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/admin/account.py",
+			"settings":
+			{
+				"buffer_size": 3263,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/admin/sales.py",
+			"settings":
+			{
+				"buffer_size": 669,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/templates/layouts/application.html",
+			"settings":
+			{
+				"buffer_size": 1797,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "static/javascripts/sales.js",
+			"settings":
+			{
+				"buffer_size": 17696,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -538,10 +597,18 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 372.0,
-		"last_filter": "ip",
+		"height": 39.0,
+		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"vmen",
+				"View: Toggle Menu"
+			],
+			[
+				"tsb",
+				"View: Toggle Side Bar"
+			],
 			[
 				"ip",
 				"Package Control: Install Package"
@@ -555,20 +622,12 @@
 				"Package Control: Remove Package"
 			],
 			[
-				"vmen",
-				"View: Toggle Menu"
-			],
-			[
 				"remove",
 				"Package Control: Remove Package"
 			],
 			[
 				"Django:",
 				"Django: Run Server"
-			],
-			[
-				"tsb",
-				"View: Toggle Status Bar"
 			],
 			[
 				"remoc",
@@ -615,7 +674,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 453.0
+		"width": 417.0
 	},
 	"console":
 	{
@@ -636,10 +695,34 @@
 	},
 	"expanded_folders":
 	[
-		"/home/philippeoz/MEGA/infog2/thefarmaclient"
+		"/home/philippeoz/MEGA/infog2/thefarmaclient",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/app",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/templates",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/templates/admin",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/templates/admin/account",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/templates/admin/sales",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/templates/clients",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/templates/layouts",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/views",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/views/admin",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/static",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/static/javascripts"
 	],
 	"file_history":
 	[
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/api_data/account.py",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/static/stylesheets/admin.scss",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/views/admin/account.py",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/views/clients.py",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/views/admin/__init__.py",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/urls.py",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/static/javascripts/sales.js",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/thefarmacustomer/settings.ini",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/templates/admin/sales/index.html",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/views/admin/sales.py",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/static/javascripts/main.js",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/api_data/client.py",
+		"/home/philippeoz/MEGA/infog2/thefarmaclient/db.sqlite3",
 		"/home/philippeoz/MEGA/infog2/manager_pluspdv/manager_pluspdv/settings.py",
 		"/home/philippeoz/MEGA/infog2/manager_pluspdv/core/utils/enums.py",
 		"/home/philippeoz/MEGA/infog2/manager_pluspdv/core/models/__init__.py",
@@ -650,15 +733,8 @@
 		"/home/philippeoz/MEGA/infog2/manager_pluspdv/core/utils/options.py",
 		"/home/philippeoz/MEGA/infog2/thefarmaclient/static/javascripts/account.js",
 		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/templates/admin/account/index.html",
-		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/api_data/client.py",
 		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/templates/clients/login.html",
-		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/urls.py",
-		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/views/admin/account.py",
-		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/templates/admin/sales/index.html",
-		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/views/clients.py",
 		"/home/philippeoz/Desktop/script.js",
-		"/home/philippeoz/MEGA/infog2/thefarmaclient/static/javascripts/main.js",
-		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/api_data/account.py",
 		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/api_data/financial.py",
 		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/views/admin/admin.py",
 		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/templates/layouts/admin.html",
@@ -666,10 +742,8 @@
 		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/templatetags/__init__.py",
 		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/templatetags/helper.py",
 		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/utils.py",
-		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/views/admin/__init__.py",
 		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/api_data/utils.py",
 		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/middleware.py",
-		"/home/philippeoz/MEGA/infog2/thefarmaclient/thefarmacustomer/settings.ini",
 		"/home/philippeoz/MEGA/infog2/thefarmaclient/thefarmacustomer/settings.py",
 		"/home/philippeoz/.config/sublime-text-3/Packages/Python Flake8 Lint/Flake8Lint.sublime-settings",
 		"/home/philippeoz/MEGA/infog2/thefarmaclient/app/forms.py",
@@ -763,15 +837,11 @@
 		"/home/philippeoz/MEGA/infog2/PyNFSe/PyNFSe/utils/entidades/pi/teresina/rps.py",
 		"/home/philippeoz/MEGA/infog2/PyNFSe/PyNFSe/utils/entidades/pr/curitiba/__init__.py",
 		"/home/philippeoz/MEGA/infog2/PyNFSe/PyNFSe/utils/entidades/pi/teresina/__init__.py",
-		"/home/philippeoz/MEGA/infog2/PyNFSe/PyNFSe/utils/entidades/__init__.py",
-		"/home/philippeoz/MEGA/infog2/PyNFSe/PyNFSe/utils/options/pi/teresina/tipo_deducao.py",
-		"/home/philippeoz/MEGA/infog2/PyNFSe/PyNFSe/utils/errors.py",
-		"/home/philippeoz/MEGA/infog2/PyNFSe/PyNFSe/nfse/pi/teresina/comunicacao.py",
-		"/home/philippeoz/MEGA/infog2/PyNFSe/PyNFSe/utils/entidades/pi/teresina/base.py"
+		"/home/philippeoz/MEGA/infog2/PyNFSe/PyNFSe/utils/entidades/__init__.py"
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 43.0
 	},
 	"find_in_files":
 	{
@@ -793,6 +863,25 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"AccountView",
+			" =",
+			"= ",
+			"R$",
+			"moeda",
+			" && $next[0] != elem",
+			"startTimer",
+			"nome",
+			"image",
+			"preco_sugerido",
+			"header-qtde",
+			"),",
+			"aceito",
+			"forma_pagamento",
+			"troco",
+			"order",
+			"'.card.p15.mb20'",
+			"\".card.p15.mb20\"",
+			"go_to_card",
 			"price",
 			"footer",
 			".semi",
@@ -901,26 +990,7 @@
 			"condutor_form",
 			"0px 0px 15px 0px rgba(0, 0, 0, 0.22);",
 			"ul_with_max_height",
-			"#f5f5f5",
-			"$nav-color",
-			"models.Model",
-			"Menu",
-			"bottom",
-			"$nav",
-			"$bo",
-			"$bottom",
-			"    ",
-			"   ",
-			"container",
-			"#e87e00",
-			"#b66300",
-			"#34CACA",
-			"#45D6D6",
-			"form-style-8",
-			"b66300",
-			"#b66300",
-			"#f00",
-			"topnav"
+			"#f5f5f5"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -938,31 +1008,178 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 5,
 			"sheets":
 			[
 				{
 					"buffer": 0,
+					"file": "static/javascripts/admin.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 830,
+						"buffer_size": 1617,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								830,
-								830
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"auto_indent": false,
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_width": 2,
-							"word_wrap": true
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/templates/admin/account/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 14977,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								35,
+								35
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/HTML (Django).tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/templates/layouts/admin.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3276,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/HTML (Django).tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/templates/admin/sales/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8291,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/HTML (Django).tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/views/admin/account.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3263,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								555,
+								555
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 252.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/views/admin/sales.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 669,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								308,
+								308
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -970,13 +1187,72 @@
 					},
 					"stack_index": 0,
 					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "app/templates/layouts/application.html",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 1797,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/HTML (Django).tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "static/javascripts/sales.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 17696,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
 				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 22.0
+		"height": 21.0
 	},
 	"input":
 	{
@@ -1023,6 +1299,50 @@
 		"selected_items":
 		[
 			[
+				"sales",
+				"app/views/admin/sales.py"
+			],
+			[
+				"account",
+				"app/views/admin/account.py"
+			],
+			[
+				"salesinde",
+				"app/templates/admin/sales/index.html"
+			],
+			[
+				"admin",
+				"app/templates/layouts/admin.html"
+			],
+			[
+				"settin",
+				"thefarmacustomer/settings.ini"
+			],
+			[
+				"main",
+				"static/javascripts/main.js"
+			],
+			[
+				"url",
+				"app/urls.py"
+			],
+			[
+				"client",
+				"app/views/clients.py"
+			],
+			[
+				"",
+				"app/templates/admin/sales/index.html"
+			],
+			[
+				"admin.scs",
+				"static/stylesheets/admin.scss"
+			],
+			[
+				"admin.sc",
+				"static/stylesheets/admin.scss"
+			],
+			[
 				"clie",
 				"app/views/clients.py"
 			],
@@ -1031,28 +1351,8 @@
 				"app/api_data/client.py"
 			],
 			[
-				"account",
-				"static/javascripts/account.js"
-			],
-			[
 				"accountine",
 				"app/templates/admin/account/index.html"
-			],
-			[
-				"sales",
-				"app/templates/admin/sales/index.html"
-			],
-			[
-				"url",
-				"app/urls.py"
-			],
-			[
-				"salesinde",
-				"app/templates/admin/sales/index.html"
-			],
-			[
-				"main",
-				"static/javascripts/main.js"
 			],
 			[
 				"login",
@@ -1061,10 +1361,6 @@
 			[
 				"accountinde",
 				"app/templates/admin/account/index.html"
-			],
-			[
-				"settin",
-				"thefarmacustomer/settings.ini"
 			],
 			[
 				"accountin",
@@ -1513,26 +1809,6 @@
 			[
 				"apiur",
 				"api/urls.py"
-			],
-			[
-				"cliente",
-				"templates/relatorios/cliente.html"
-			],
-			[
-				"usuarios",
-				"legado/views/usuarios.py"
-			],
-			[
-				"oficinas",
-				"legado/views/oficinas.py"
-			],
-			[
-				"formapa",
-				"legado/views/formapagamento.py"
-			],
-			[
-				"faturas",
-				"legado/views/faturas.py"
 			]
 		],
 		"width": 0.0

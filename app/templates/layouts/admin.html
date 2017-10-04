@@ -18,6 +18,9 @@
   {% endcompress %}
 
   {% block styles %}{% endblock %}
+  <script type="text/javascript">
+    var socket = new WebSocket('{{ request.session.websocket_url }}');
+  </script>
 </head>
 <body>
 
@@ -103,7 +106,6 @@
   <script type="text/javascript" src="{% static "javascripts/admin.js" %}"></script>
 
   {% endcompress %}
-
   {% block scripts %}{% endblock %}
 </body>
 </html>

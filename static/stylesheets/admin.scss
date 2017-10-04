@@ -199,9 +199,15 @@ button.btn-default:hover,
 		border-radius: 50%;
 		border: 0px;
 		position: fixed;
-		// left: 108%;
+		display: block;
     	right: 120px;
     	z-index: 999 !important;
+	}
+
+	@media (max-width:1235px){
+		.flot-btn-up-down{
+			display: none;
+		}
 	}
 
 	.to-prev{
@@ -241,10 +247,6 @@ button.btn-default:hover,
 		padding-left: 32px;
 	}
 	.sale{
-		.header-qtde{
-			padding-right: 0px;
-			padding-left: 30px;
-		}
 		#timer{
 			font-size: 32px;
 		}
@@ -265,6 +267,39 @@ button.btn-default:hover,
 			margin-left: 32px;
 		}
 
+		.quantidade{
+			@extend .col-xs-3;
+			@extend .col-sm-3;
+			@extend .col-md-3;
+			@extend .text-center;
+			padding-right: 0px;
+			padding-left: 30px;
+		}
+
+		.preco-sugerido{
+			@extend .col-xs-5;
+			@extend .col-sm-5;
+			@extend .col-md-5;
+			@extend .text-center;
+			@extend .pink-text;
+		}
+
+		.minha-proposta{
+			@extend .col-xs-4;
+			@extend .col-sm-4;
+			@extend .col-md-4;
+			@extend .text-center;
+			padding-left: 0px;
+		}
+
+		.proposal-form{
+			@extend .form-group;
+			@extend .pmd-textfield;
+			@extend .pmd-textfield-floating-label;
+			@extend .mb30;
+			margin-top: 25px;
+		}
+
 		.name{
 			@extend .regular;
 			font-size: 16px;
@@ -279,7 +314,7 @@ button.btn-default:hover,
 			color: rgba(0,0,0,0.40);
 		}
 
-		.aceito-circle{
+		.status-circle{
 			content: '';
 			float: left;
 			position:absolute;
@@ -290,28 +325,28 @@ button.btn-default:hover,
 		    margin-top: 6px;
 		}
 
-		.aceito-green{
+		.status-green{
 			@extend .pedido-info;
 		}
-		.aceito-green:before{
-			@extend .aceito-circle;
+		.status-green:before{
+			@extend .status-circle;
 		 	background: rgba(126,211,33,1);
 		}
 
-		.aceito-red{
+		.status-red{
 			@extend .pedido-info;
 		}
-		.aceito-red:before{
-			@extend .aceito-circle;
+		.status-red:before{
+			@extend .status-circle;
 		  	background: rgba(233,30,99,1);
 		}
 
 
-		.aceito-yellow{
+		.status-yellow{
 			@extend .pedido-info;
 		}
-		.aceito-yellow:before{
-			@extend .aceito-circle;
+		.status-yellow:before{
+			@extend .status-circle;
 		 	background: rgba(245,166,35,1);
 		}
 
@@ -493,7 +528,7 @@ button.btn-default:hover,
 
 				.btn-actions{
 					margin-top: 24px;
-					margin-bottom: 24px;
+					margin-bottom: 9px;
 
 					margin-left: 16px;
 					margin-right: 16px;
@@ -528,7 +563,9 @@ button.btn-default:hover,
 					width: 250px;
 					height: 48px;
 
-					@extend .bold;
+					margin-right: 0px;
+
+					@extend .semibold;
 					font-size: 16px;
 					color: #FFFFFF;
 				}

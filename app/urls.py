@@ -4,7 +4,7 @@ from app.views import clients
 
 from app.views.admin import FinancialView
 from app.views.admin import products
-from app.views.admin import sales
+from app.views.admin import SalesView
 from app.views.admin import AccountView
 
 from app.views.admin.reports import reports
@@ -31,7 +31,7 @@ urlpatterns = [
     #   products.show, name='show_product_path'),
 
     # SALES
-    url(r'^admin/sales$', sales.index, name='sales_path'),
+    url(r'^admin/sales$', SalesView.as_view(), name='sales_path'),
     # url(r'^admin/sales/(?P<id>\d+)$', sales.show, name='show_sales_path'),
 
     # ACCOUNT
