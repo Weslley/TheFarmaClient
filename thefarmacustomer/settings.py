@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django_gulp',
     'django.contrib.staticfiles',
+    'pipeline',
     'compressor',
     'app'
 ]
@@ -137,6 +137,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
+    'pipeline.finders.PipelineFinder',
 )
 
 COMPRESS_PRECOMPILERS = (

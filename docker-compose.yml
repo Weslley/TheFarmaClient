@@ -4,7 +4,7 @@ services:
     image: nginx:alpine
     container_name: farmacia_nginx
     ports:
-      - "80:8000"
+      - "880:8000"
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
       - static-data:/staticfiles
@@ -15,7 +15,7 @@ services:
   web:
     build: .
     container_name: farmacia_app
-    command: bash -c "python manage.py migrate && gunicorn thefarmacustomer.wsgi:application -b 0.0.0.0:8000  --workers 3 --log-level=debug"
+    command: bash -c "python manage.py migrate && python manage.py collectstatic --no-input && gunicorn thefarmacustomer.wsgi:application -b 0.0.0.0:8000  --workers 3 --log-level=debug"
     volumes:
       - static-data:/thefarmaclient/staticfiles
       - media-data:/thefarmaclient/media
