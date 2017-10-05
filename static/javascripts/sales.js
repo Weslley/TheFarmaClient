@@ -84,7 +84,7 @@ function create_elem(tag, classe){
 
 
 function money(value){
-    return "R$ "+parseFloat(value).toFixed(2).replace('.', ',');
+    return "R$ " + parseFloat(value).toFixed(2).replace('.', ',');
 }
 
 
@@ -208,14 +208,14 @@ function append_card_pedido(data_content){
                             var div_image = create_elem('div', 'col-xs-3 col-sm-4 col-md-3');
                                 var item_image = create_elem('img', 'img-responsive center');
                                     item_image.setAttribute('src',
-                                        pedido_itens[i]['imagem'] && pedido_itens[i]['imagem'] != null ?
+                                        pedido_itens[i]['imagem'] && pedido_itens[i]['apresentacao']['imagem'] != null ?
                                         pedido_itens[i]['imagem'] : '/static/images/box.png');
                                     item_image.setAttribute('alt', 'Bottle');
                                     item_image.setAttribute('alt', 'Box');
                                 div_image.appendChild(item_image);
                             var div_nome_maker = create_elem('div', 'col-xs-9 col-sm-8 col-md-9 pr0');
                                 var span_item_nome = create_elem('span', 'name');
-                                    span_item_nome.textContent = pedido_itens[i]['apresentacao']['nome'];
+                                    span_item_nome.textContent = pedido_itens[i]['apresentacao']['produto']['nome'] + ' ' + pedido_itens[i]['apresentacao']['nome'];
                                 var span_item_maker = create_elem('span', 'maker');
                                     span_item_maker.textContent = pedido_itens[i]['apresentacao']['fabricante'];
                                 div_nome_maker.appendChild(span_item_nome);
@@ -230,7 +230,7 @@ function append_card_pedido(data_content){
                                     item_qtde.textContent = 'x'+pedido_itens[i]['quantidade'];
                                 div_qtde.appendChild(item_qtde);
                             var div_preco = create_elem('div', 'price');
-                                div_preco.textContent = money(pedido_itens[i]['PMC']);
+                                div_preco.textContent = money(pedido_itens[i].apresentacao.pmc.replace(',', '.'));
                             var div_proposta = create_elem('div', 'proposal');
                                 var div_form_proposta = create_elem('div', 'proposal-form');
                                     var input_proposta = create_elem('input', 'form-control moeda');
@@ -247,8 +247,11 @@ function append_card_pedido(data_content){
                     row_item.appendChild(col_item_image_nome);
                     row_item.appendChild(col_item_detalhes);
                 fluid.appendChild(row_item);
-                total += pedido_itens[i]['quantidade'] * pedido_itens[i]['PMC'];
+                console.log(pedido_itens[i]['quantidade']);
+                console.log(pedido_itens[i].apresentacao.pmc);
+                total += pedido_itens[i]['quantidade'] * parseFloat(pedido_itens[i].apresentacao.pmc.replace(',', '.')).toFixed(2);
             }
+            console.log(total);
             var footer_list = create_elem('div', 'row footer-list');
                 var footer_list_pull_right = create_elem('div', 'pull-right');
                     var footer_total = document.createElement('p');
@@ -273,7 +276,7 @@ function append_card_pedido(data_content){
                             data_content['logradouro'],
                             data_content['numero'],
                             data_content['bairro'],
-                            data_content['cidade']+' - '+data_content['uf']
+                            data_content['cidade']
                         ];
                         var str_endereco = list_endereco.join(', ');
                         endereco_cliente.textContent = str_endereco;
