@@ -1,6 +1,7 @@
 .idea/*
 *.pyc
 *.ini
+*.sqlite3
 *.cpython
 bin/*
 logs/*

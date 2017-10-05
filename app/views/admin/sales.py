@@ -31,7 +31,7 @@ class SalesView(TemplateView):
             context['errors'] = data
 
         elif status_code == 200:
-            context['pedidos'] = data
+            context['pedidos'] = data['results']
 
         return context
 
