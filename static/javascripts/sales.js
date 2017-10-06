@@ -246,6 +246,9 @@ function append_card_pedido(data_content){
                 update_proposal_total(_order_id);
             }
         })();
+        if(data_content.status != 0){
+            input_proposta.setAttribute('disabled', true);
+        }
         // $(input_proposta).on('keyup', update_total_pedido);
         var span_focused = create_elem('span', 'pmd-textfield-focused');
         div_form_proposta.appendChild(input_proposta);
@@ -295,10 +298,25 @@ function append_card_pedido(data_content){
     var col_actions = create_elem('div', 'col-actions');
     var btn_cancel = create_elem('button', 'btn-cancelar-actions');
     var btn_send = create_elem('button', 'btn-enviar-actions');
-    var btn_confirm = create_elem('button', 'btn-confirmar-actions hidden');
+    var btn_confirm = create_elem('button', 'btn-confirmar-actions');
     btn_confirm.textContent = 'CONFIRMAR ' + ((data_content.delivery) ? 'O ENVIO' : 'A ENTREGA');
     btn_cancel.textContent = 'CANCELAR';
     btn_send.textContent = 'ENVIAR PROPOSTA';
+    switch (data_content.status){
+        case 0:
+            btn_confirm.className += ' hidden';
+            break;
+        case 1:
+        case 2:
+        case 3:
+            btn_send.className += ' hidden';
+            break;
+        default:
+            btn_send.className += ' hidden';
+            btn_cancel.className += ' hidden';
+            btn_confirm.className += ' hidden';
+            break;
+    }
     btn_send.onclick = (function() {
         var _order_id = order_id;
         return function() {
@@ -333,7 +351,12 @@ function append_card_pedido(data_content){
         $('.container #sales').append(card);
     }
 
-    startTimer(data_content['tempo'], $(timer_p));
+    if(data_content.status == 0 && data_content.tempo != 0){
+        startTimer(data_content.tempo, $(timer_p));
+    }else{
+        timer_p.remove();
+    }
+
     $(card).show({
         start: function (){
             $(card).animate(
@@ -371,8 +394,8 @@ function update_total_pedido_after(event){
 document.addEventListener('DOMContentLoaded', function() {
 
 
-    var fiveMinutes = 300;
-    startTimer(fiveMinutes, $('#timer'));
+    // var fiveMinutes = 300;
+    // startTimer(fiveMinutes, $('#timer'));
 
     // $('.to-next').click(function(e){
     // e.preventDefault();
