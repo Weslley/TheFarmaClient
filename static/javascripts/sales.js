@@ -408,7 +408,26 @@ function update_proposal_total(id_pedido) {
 }
 
 function send_proposal(id_pedido) {
-    alert('Enviando proposta.');
+    //admin/send/proposal
+    var _data = get_total_proposal(id_pedido);
+    var data_post = {'id': id_pedido, 'pedido': _data['id'], 'itens': JSON.stringify(_data['itens'])};
+    data_post.csrf_token = $('[name=csrfmiddlewaretoken]').val();
+    $.ajax({
+            url: '/admin/send/proposal',
+            type: "POST",
+            data: data_post,
+            headers: {
+                "X-CSRFToken": data_post.csrf_token
+            },
+            success: function(data) {
+                alert('Proposta enviada com sucesso !');
+                console.log(data);
+            },
+            error: function(data) {
+                alert('Erro ao enviar proposta !');
+                console.log(data);
+            }
+        });
 }
 
 function cancel_proposal(id_pedido) {

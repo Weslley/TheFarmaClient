@@ -1,5 +1,6 @@
-from django.views.generic import TemplateView
-
+from django.http.response import JsonResponse
+from django.views.generic import TemplateView, View
+import json
 from app.api_data.sales import SalesClient
 
 
@@ -34,6 +35,31 @@ class SalesView(TemplateView):
             context['pedidos'] = data['results']
 
         return context
+
+
+class SubmitProposal(View):
+
+    def dispatch(self, request, *args, **kwargs):
+        self.auth_data = self.request.session['auth_data']
+        return super(SubmitProposal, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        sale_id = request.POST.get('id')
+        itens = request.POST.get('itens')
+        itens = json.loads(itens)
+        data = {
+            "itens_proposta": [{'id': _['id'], 'valor_unitario': _['valor'], 'possui': True} for _ in itens]
+        }
+        data_returned = {}
+        status_code = 200
+        client = SalesClient(data=data, **self.auth_data)
+
+        try:
+            status_code, data_returned = client.submit_proposal(sale_id)
+        except Exception as err:
+            data_returned['errors'] = 'Erro ao obter informações do servidor.'
+
+        return JsonResponse(data_returned, status=status_code)
 
 
 # def index(request):

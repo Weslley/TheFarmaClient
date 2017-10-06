@@ -36,6 +36,7 @@
 {% endblock %}
 
 {% block content %}
+    {% csrf_token %}
 <div id="sales">
 	<div class="row01 container-fluid fz14 no-padding-xs bg-white mb32" style="height:90px;">
 		<form action="#" class="row p15 no-margin-xs" role="form">
