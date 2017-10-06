@@ -129,46 +129,47 @@ function append_card_pedido(data_content){
     }
     if(data_content.status !== null && data_content.status !== ''){
         var span_status = document.createElement('span');
+        span_status.setAttribute('order-status', data_content.status);
         switch(data_content.status){
             case 0:
                 span_status.textContent = 'Aberto';
-                span_status.setAttribute('class', 'status-yellow');
+                span_status.setAttribute('class', 'status-yellow order-status');
                 break;
             case 1:
                 span_status.textContent = 'Aceito';
-                span_status.setAttribute('class', 'status-green');
+                span_status.setAttribute('class', 'status-green order-status');
                 break;
             case 2:
                 span_status.textContent = 'Aguardando envio da farmácia';
-                span_status.setAttribute('class', 'status-green');
+                span_status.setAttribute('class', 'status-green order-status');
                 break;
             case 3:
                 span_status.textContent = 'Aguardando retirada do cliente';
-                span_status.setAttribute('class', 'status-green');
+                span_status.setAttribute('class', 'status-green order-status');
                 break;
             case 4:
                 span_status.textContent = 'Enviado';
-                span_status.setAttribute('class', 'status-green');
+                span_status.setAttribute('class', 'status-green order-status');
                 break;
             case 5:
                 span_status.textContent = 'Entregue';
-                span_status.setAttribute('class', 'status-green');
+                span_status.setAttribute('class', 'status-green order-status');
                 break;
             case 6:
                 span_status.textContent = 'Cancelado pela farmácia';
-                span_status.setAttribute('class', 'status-red');
+                span_status.setAttribute('class', 'status-red order-status');
                 break;
             case 7:
                 span_status.textContent = 'Cancelado pelo cliente';
-                span_status.setAttribute('class', 'status-red');
+                span_status.setAttribute('class', 'status-red order-status');
                 break;
             case 8:
                 span_status.textContent = 'Sem proposta';
-                span_status.setAttribute('class', 'status-yellow');
+                span_status.setAttribute('class', 'status-yellow order-status');
                 break;
             case 9:
                 span_status.textContent = 'Tempo excedido';
-                span_status.setAttribute('class', 'status-red');
+                span_status.setAttribute('class', 'status-red order-status');
                 break;
         }
         row_infos.appendChild(span_status);
@@ -293,10 +294,12 @@ function append_card_pedido(data_content){
     var actions = create_elem('div', 'actions');
     var col_actions = create_elem('div', 'col-actions');
     var btn_cancel = create_elem('button', 'btn-cancelar-actions');
+    var btn_send = create_elem('button', 'btn-enviar-actions');
+    var btn_confirm = create_elem('button', 'btn-confirmar-actions hidden');
+    btn_confirm.textContent = 'CONFIRMAR ' + ((data_content.delivery) ? 'O ENVIO' : 'A ENTREGA');
     btn_cancel.textContent = 'CANCELAR';
-    var btn_enviar = create_elem('button', 'btn-enviar-actions');
-    btn_enviar.textContent = 'ENVIAR PROPOSTA';
-    btn_enviar.onclick = (function() {
+    btn_send.textContent = 'ENVIAR PROPOSTA';
+    btn_send.onclick = (function() {
         var _order_id = order_id;
         return function() {
             send_proposal(_order_id);
@@ -308,8 +311,15 @@ function append_card_pedido(data_content){
             cancel_proposal(_order_id);
         }
     })();
+    btn_confirm.onclick = (function() {
+        var _order_id = order_id;
+        return function() {
+            confirm_order(_order_id);
+        }
+    })();
     col_actions.appendChild(btn_cancel);
-    col_actions.appendChild(btn_enviar);
+    col_actions.appendChild(btn_send);
+    col_actions.appendChild(btn_confirm);
     actions.appendChild(col_actions);
     fluid.appendChild(footer_list);
     fluid.appendChild(footer_card);
@@ -430,6 +440,23 @@ function send_proposal(id_pedido) {
         });
 }
 
+function confirm_order(id_pedido) {
+
+}
+
 function cancel_proposal(id_pedido) {
     alert('cancelando proposta.')
+}
+
+function checkout(id_pedido) {
+    $('.card.p15.mb20[order-id='+ id_pedido +']').find('span.order-status').text('Aceito');
+    $('.card.p15.mb20[order-id='+ id_pedido +']').find('span.order-status').removeClass('status-yellow');
+    $('.card.p15.mb20[order-id='+ id_pedido +']').find('span.order-status').addClass('status-green');
+    $('.card.p15.mb20[order-id='+ id_pedido +']').find('span.order-status').attr('order-status', 1);
+    $('.card.p15.mb20[order-id='+ id_pedido +']').find('.btn-enviar-actions').addClass('hidden');
+    $('.card.p15.mb20[order-id='+ id_pedido +']').find('.btn-confirmar-actions').removeClass('hidden');
+    $('.card.p15.mb20[order-id=' + id_pedido + ']').find('.row.item').each(function( index, element ) {
+        $(element).find('.form-control.moeda').attr('disabled', true);
+    });
+    $('.card.p15.mb20[order-id=' + id_pedido + ']').find('#timer').remove();
 }
