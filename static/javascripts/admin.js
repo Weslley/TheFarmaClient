@@ -11,7 +11,7 @@ socket.onmessage = function(e) {
         }
     }else if (data.tipo == 1){
     	// Checkout
-		checkout(data.pedido.id);
+		checkout(data.pedido);
 
 	}else if (data.tipo == 0){
 		// Cancelamento

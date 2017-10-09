@@ -453,8 +453,21 @@ function send_proposal(id_pedido) {
                 "X-CSRFToken": data_post.csrf_token
             },
             success: function(data) {
-                alert('Proposta enviada com sucesso !');
                 console.log(data);
+                $card = $('.card.p15.mb20[order-id=' + id_pedido + ']').first();
+
+                $card.attr('style', '');
+
+                $card.animate(
+                    {right:'-500px', opacity: 0},
+                    {
+                        queue: false,
+                        duration: 500,
+                        complete: function (){
+                            $card.remove();
+                        }
+                    }
+                );
             },
             error: function(data) {
                 alert('Erro ao enviar proposta !');
@@ -471,15 +484,20 @@ function cancel_proposal(id_pedido) {
     alert('cancelando proposta.')
 }
 
-function checkout(id_pedido) {
-    $('.card.p15.mb20[order-id='+ id_pedido +']').find('span.order-status').text('Aceito');
-    $('.card.p15.mb20[order-id='+ id_pedido +']').find('span.order-status').removeClass('status-yellow');
-    $('.card.p15.mb20[order-id='+ id_pedido +']').find('span.order-status').addClass('status-green');
-    $('.card.p15.mb20[order-id='+ id_pedido +']').find('span.order-status').attr('order-status', 1);
-    $('.card.p15.mb20[order-id='+ id_pedido +']').find('.btn-enviar-actions').addClass('hidden');
-    $('.card.p15.mb20[order-id='+ id_pedido +']').find('.btn-confirmar-actions').removeClass('hidden');
-    $('.card.p15.mb20[order-id=' + id_pedido + ']').find('.row.item').each(function( index, element ) {
-        $(element).find('.form-control.moeda').attr('disabled', true);
-    });
-    $('.card.p15.mb20[order-id=' + id_pedido + ']').find('#timer').remove();
+function checkout(data) {
+    // $('.card.p15.mb20[order-id='+ id_pedido +']').find('span.order-status').text('Aceito');
+    // $('.card.p15.mb20[order-id='+ id_pedido +']').find('span.order-status').removeClass('status-yellow');
+    // $('.card.p15.mb20[order-id='+ id_pedido +']').find('span.order-status').addClass('status-green');
+    // $('.card.p15.mb20[order-id='+ id_pedido +']').find('span.order-status').attr('order-status', 1);
+    // $('.card.p15.mb20[order-id='+ id_pedido +']').find('.btn-enviar-actions').addClass('hidden');
+    // $('.card.p15.mb20[order-id='+ id_pedido +']').find('.btn-confirmar-actions').removeClass('hidden');
+    // $('.card.p15.mb20[order-id=' + id_pedido + ']').find('.row.item').each(function( index, element ) {
+    //     $(element).find('.form-control.moeda').attr('disabled', true);
+    // });
+    // $('.card.p15.mb20[order-id=' + id_pedido + ']').find('#timer').remove();
+    if (window.location.href.indexOf('sales') != -1){
+        append_card_pedido(data);
+    }else{
+
+    }
 }
