@@ -443,13 +443,8 @@ function update_proposal_total(id_pedido) {
 function send_proposal(id_pedido) {
     //admin/send/proposal
     var _data = get_total_proposal(id_pedido);
-    for (i = 0; i < _data.itens.length; i++){
-        var valor = _data.itens[i]['valor'];
-        console.log(valor);
-        if(valor <= 0){
-            alert('Valores não podem ser iguais a 0(zero)');
-            return 0;
-        }
+    if (!validate_itens(_data)){
+        return 0;
     }
     var data_post = {'id': id_pedido, 'pedido': _data['id'], 'itens': JSON.stringify(_data['itens'])};
     data_post.csrf_token = $('[name=csrfmiddlewaretoken]').val();
@@ -508,4 +503,26 @@ function checkout(data) {
     }else{
 
     }
+}
+
+function clean_itens(data) {
+    for (i = 0; i < data.itens.length; i++){
+        var item_id = data.itens[i]['id'];
+        $('.row.item[item-id=' + item_id + '] .proposal-form').removeClass('has-error');
+        $('.row.item[item-id=' + item_id + '] .proposal-form span.help-block').remove();
+    }
+}
+
+function validate_itens(data) {
+    clean_itens(data);
+    for (i = 0; i < data.itens.length; i++){
+        var valor = data.itens[i]['valor'];
+        var item_id = data.itens[i]['id'];
+        if(valor <= 0){
+            $('.row.item[item-id=' + item_id + '] .proposal-form').addClass('has-error');
+            $('.row.item[item-id=' + item_id + '] .proposal-form').append('<span class="help-block">Não pode ser 0.</span>');
+            return false;
+        }
+    }
+    return true;
 }
