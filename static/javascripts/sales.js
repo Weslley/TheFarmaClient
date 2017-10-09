@@ -230,8 +230,8 @@ function append_card_pedido(data_content){
         var col_item_detalhes = create_elem('div', 'col-xs-12 col-sm-12 col-md-6');
         var row_col_item_detalhe = create_elem('div', 'row vcenter');
         var div_qtde = create_elem('div', 'col-xs-4 col-sm-4 col-md-4 text-center');
-        var item_qtde = create_elem('span', 'quantity');
-        item_qtde.textContent = 'x'+pedido_itens[i].quantidade;
+        var item_qtde = create_elem('input', 'form-control quantity');
+        item_qtde.value = pedido_itens[i].quantidade;
         div_qtde.appendChild(item_qtde);
         var div_preco = create_elem('div', 'price');
         div_preco.textContent = money(pedido_itens[i].apresentacao.pmc.replace(',', '.'));
@@ -397,10 +397,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // var fiveMinutes = 300;
     // startTimer(fiveMinutes, $('#timer'));
 
-    // $('.to-next').click(function(e){
-    // e.preventDefault();
-    // scroll_prev_next_elem(true, ".card.p15.mb20");
-    // });
+    $('.to-next').click(function(e){
+    e.preventDefault();
+    scroll_prev_next_elem(true, ".card.p15.mb20");
+    });
 
     // $('.to-prev').click(function(e){
     // e.preventDefault();
@@ -441,7 +441,6 @@ function update_proposal_total(id_pedido) {
 }
 
 function send_proposal(id_pedido) {
-    //admin/send/proposal
     var _data = get_total_proposal(id_pedido);
     if (!validate_itens(_data)){
         return 0;
@@ -488,16 +487,6 @@ function cancel_proposal(id_pedido) {
 }
 
 function checkout(data) {
-    // $('.card.p15.mb20[order-id='+ id_pedido +']').find('span.order-status').text('Aceito');
-    // $('.card.p15.mb20[order-id='+ id_pedido +']').find('span.order-status').removeClass('status-yellow');
-    // $('.card.p15.mb20[order-id='+ id_pedido +']').find('span.order-status').addClass('status-green');
-    // $('.card.p15.mb20[order-id='+ id_pedido +']').find('span.order-status').attr('order-status', 1);
-    // $('.card.p15.mb20[order-id='+ id_pedido +']').find('.btn-enviar-actions').addClass('hidden');
-    // $('.card.p15.mb20[order-id='+ id_pedido +']').find('.btn-confirmar-actions').removeClass('hidden');
-    // $('.card.p15.mb20[order-id=' + id_pedido + ']').find('.row.item').each(function( index, element ) {
-    //     $(element).find('.form-control.moeda').attr('disabled', true);
-    // });
-    // $('.card.p15.mb20[order-id=' + id_pedido + ']').find('#timer').remove();
     if (window.location.href.indexOf('sales') != -1){
         append_card_pedido(data);
     }else{
