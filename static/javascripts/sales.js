@@ -443,6 +443,14 @@ function update_proposal_total(id_pedido) {
 function send_proposal(id_pedido) {
     //admin/send/proposal
     var _data = get_total_proposal(id_pedido);
+    for (i = 0; i < _data.itens.length; i++){
+        var valor = _data.itens[i]['valor'];
+        console.log(valor);
+        if(valor <= 0){
+            alert('Valores não podem ser iguais a 0(zero)');
+            return 0;
+        }
+    }
     var data_post = {'id': id_pedido, 'pedido': _data['id'], 'itens': JSON.stringify(_data['itens'])};
     data_post.csrf_token = $('[name=csrfmiddlewaretoken]').val();
     $.ajax({
