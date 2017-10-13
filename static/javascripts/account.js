@@ -15,7 +15,7 @@ function save_dados_pessoais(){
     data_post.celular = $('#celular').val().replace(/[^a-z0-9]/gi,'');
     
     data_post.csrf_token = $('[name=csrfmiddlewaretoken]').val();
-    data_post.form = 'dados_pessoais'
+    data_post.form = 'dados_pessoais';
 
     clean_errors('dados_pessoais_form');
 
@@ -36,7 +36,7 @@ function save_dados_empresa(){
     data_post.cnpj = $('#cnpj').val().replace(/[^a-z0-9]/gi,'');
     
     data_post.csrf_token = $('[name=csrfmiddlewaretoken]').val();
-    data_post.form = 'dados_empresa'
+    data_post.form = 'dados_empresa';
 
     clean_errors('dados_empresa_form');
 
@@ -59,9 +59,9 @@ function save_dados_conta_bancaria(){
     data_post.digito_conta = $('#digito_conta').val().replace(/[^a-z0-9]/gi,'');
 
     data_post.csrf_token = $('[name=csrfmiddlewaretoken]').val();
-    data_post.form = 'conta_bancaria'
+    data_post.form = 'conta_bancaria';
 
-    clean_errors('conta_bancaria_form')
+    clean_errors('conta_bancaria_form');
 
     ajax_request(data_post, null, 'POST',
         function(data, textStatus) {
