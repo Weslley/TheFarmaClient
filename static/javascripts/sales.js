@@ -229,10 +229,13 @@ function append_card_pedido(data_content){
         col_item_image_nome.appendChild(row_col_item_image_nome);
         var col_item_detalhes = create_elem('div', 'col-xs-12 col-sm-12 col-md-6');
         var row_col_item_detalhe = create_elem('div', 'row vcenter');
-        var div_qtde = create_elem('div', 'col-xs-4 col-sm-4 col-md-4 text-center');
-        var item_qtde = create_elem('input', 'form-control quantity');
-        item_qtde.value = pedido_itens[i].quantidade;
-        div_qtde.appendChild(item_qtde);
+        var div_qtde = create_elem('div', 'col-xs-4 col-sm-4 col-md-4 text-center proposal');
+        var div_form_quantidade_proposta = create_elem('div', 'proposal-form');
+        var input_item_qtde = create_elem('input', 'form-control quantity');
+        input_item_qtde.setAttribute('type', 'number');
+        input_item_qtde.value = pedido_itens[i].quantidade;
+        div_form_quantidade_proposta.appendChild(input_item_qtde);
+        div_qtde.appendChild(div_form_quantidade_proposta);
         var div_preco = create_elem('div', 'price');
         div_preco.textContent = money(pedido_itens[i].apresentacao.pmc.replace(',', '.'));
         var div_proposta = create_elem('div', 'proposal');
@@ -240,6 +243,12 @@ function append_card_pedido(data_content){
         var input_proposta = create_elem('input', 'form-control moeda');
         input_proposta.setAttribute('type', 'text');
         input_proposta.value = money(pedido_itens[i].apresentacao.pmc.replace(',', '.'));
+        input_item_qtde.onkeyup = (function() {
+            var _order_id = order_id;
+            return function() {
+                update_proposal_total(_order_id);
+            }
+        })();
         input_proposta.onkeyup = (function() {
             var _order_id = order_id;
             return function() {
@@ -248,6 +257,7 @@ function append_card_pedido(data_content){
         })();
         if(data_content.status != 0){
             input_proposta.setAttribute('disabled', true);
+            input_item_qtde.setAttribute('disabled', true);
         }
         // $(input_proposta).on('keyup', update_total_pedido);
         var span_focused = create_elem('span', 'pmd-textfield-focused');
@@ -425,10 +435,14 @@ function get_total_proposal(id_pedido) {
     var total = 0;
     var itens = [];
     $('.card.p15.mb20[order-id=' + id_pedido + ']').find('.row.item').each(function( index, element ) {
-        var quantity = $(element).attr('item-quantity');
+        var quantity = parseInt($(element).find('.form-control.quantity').first().val().replace(',', '.'));
+        if(quantity == undefined || quantity == NaN){
+            quantity = 0;
+        }
         var value = parseFloat($(element).find('.form-control.moeda').first().val().replace('R$ ', '').replace(',', '.'));
         total += quantity * value;
-        itens.push(JSON.parse('{"id": ' + $(element).attr('item-id') + ', "quantidade": ' + quantity + ', "valor": ' + value + '}'))
+        var max_quantity = $(element).attr('item-quantity');
+        itens.push(JSON.parse('{"id": ' + $(element).attr('item-id') + ', "quantidade": ' + quantity + ', "max_quantidade": '+ max_quantity + ', "valor": ' + value + '}'))
     });
     var proposal = JSON.parse('{}');
     proposal.total = total;
@@ -507,9 +521,27 @@ function validate_itens(data) {
     for (i = 0; i < data.itens.length; i++){
         var valor = data.itens[i]['valor'];
         var item_id = data.itens[i]['id'];
+        var quantidade = data.itens[i]['quantidade'];
+        var max_quantidade = data.itens[i]['max_quantidade'];
+
+        if(quantidade < 0){
+            var parent = $('.row.item[item-id=' + item_id + '] .proposal-form .quantity').parent();
+            $(parent).addClass('has-error');
+            $(parent).append('<span class="help-block">Não pode menor que 0.</span>');
+            return false;
+        }
+
+        if(quantidade > max_quantidade){
+            var parent = $('.row.item[item-id=' + item_id + '] .proposal-form .quantity').parent();
+            $(parent).addClass('has-error');
+            $(parent).append('<span class="help-block">Não pode ser maior que '+ max_quantidade +'.</span>');
+            return false;
+        }
+
         if(valor <= 0){
-            $('.row.item[item-id=' + item_id + '] .proposal-form').addClass('has-error');
-            $('.row.item[item-id=' + item_id + '] .proposal-form').append('<span class="help-block">Não pode ser 0.</span>');
+            var parent = $('.row.item[item-id=' + item_id + '] .proposal-form .moeda').parent();
+            $(parent).addClass('has-error');
+            $(parent).append('<span class="help-block">Não pode ser 0.</span>');
             return false;
         }
     }
