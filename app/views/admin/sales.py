@@ -48,7 +48,9 @@ class SubmitProposal(View):
         itens = request.POST.get('itens')
         itens = json.loads(itens)
         data = {
-            "itens_proposta": [{'id': _['id'], 'valor_unitario': _['valor'], 'possui': True} for _ in itens]
+            "itens_proposta": [
+                {'id': _['id'], 'valor_unitario': _['valor'], 'possui': True, 'quantidade': _['quantidade']} for _ in itens
+            ]
         }
         data_returned = {}
         status_code = 200
