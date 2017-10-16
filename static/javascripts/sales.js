@@ -357,7 +357,7 @@ function append_card_pedido(data_content){
     var btn_cancel = create_elem('button', 'btn-cancelar-actions');
     var btn_send = create_elem('button', 'btn-enviar-actions');
     var btn_confirm = create_elem('button', 'btn-confirmar-actions');
-    btn_confirm.textContent = 'CONFIRMAR ' + ((data_content.delivery) ? 'O ENVIO' : 'A ENTREGA');
+    btn_confirm.textContent = 'CONFIRMAR ' + ((data_content.delivery && data_content.status == 2) ? 'O ENVIO' : 'A ENTREGA');
     btn_cancel.textContent = 'CANCELAR';
     btn_send.textContent = 'ENVIAR PROPOSTA';
     switch (data_content.status){
@@ -373,6 +373,7 @@ function append_card_pedido(data_content){
         case 1:
         case 2:
         case 3:
+        case 4:
             if (selected_pharmacy == farm_wsckt) {
                 btn_send.className += ' hidden';
                 btn_cancel.className += ' hidden';
@@ -402,8 +403,16 @@ function append_card_pedido(data_content){
     })();
     btn_confirm.onclick = (function() {
         var _order_id = order_id;
-        return function() {
-            confirm_order(_order_id);
+        var _status = data_content.status;
+        var _delivery = data_content.delivery;
+        if (_status == 2){
+            return function() {
+                confirm_order_dispatch(_order_id, _delivery);
+            }
+        }else{
+            return function() {
+                confirm_order_delivery(_order_id);
+            }
         }
     })();
     col_actions.appendChild(btn_cancel);
@@ -523,72 +532,120 @@ function send_proposal(id_pedido) {
     var data_post = {'id': id_pedido, 'pedido': _data['id'], 'itens': JSON.stringify(_data['itens'])};
     data_post.csrf_token = $('[name=csrfmiddlewaretoken]').val();
     $.ajax({
-            url: '/admin/proposal/send',
-            type: "POST",
-            data: data_post,
-            headers: {
-                "X-CSRFToken": data_post.csrf_token
-            },
-            success: function(data) {
-                console.log(data);
-                $card = $('.card.p15.mb20[order-id=' + id_pedido + ']').first();
+        url: '/admin/proposal/send',
+        type: "POST",
+        data: data_post,
+        headers: {
+            "X-CSRFToken": data_post.csrf_token
+        },
+        success: function(data) {
+            console.log(data);
+            $card = $('.card.p15.mb20[order-id=' + id_pedido + ']').first();
 
-                $card.attr('style', '');
+            $card.attr('style', '');
 
-                $card.animate(
-                    {right:'-500px', opacity: 0},
-                    {
-                        queue: false,
-                        duration: 500,
-                        complete: function (){
-                            $card.remove();
-                        }
+            $card.animate(
+                {right:'-500px', opacity: 0},
+                {
+                    queue: false,
+                    duration: 500,
+                    complete: function (){
+                        $card.remove();
                     }
-                );
-            },
-            error: function(data) {
-                alert('Erro ao enviar proposta !');
-                console.log(data);
-            }
-        });
+                }
+            );
+        },
+        error: function(data) {
+            alert('Erro ao enviar proposta !');
+            console.log(data);
+        }
+    });
 }
 
-function confirm_order(id_pedido) {
+function confirm_order_dispatch(id_pedido, delivery) {
+    $.ajax({
+        url: '/admin/proposal/' + id_pedido + '/confirm_dispatch',
+        type: "POST",
+        data: {
+            'csrf_token': $('[name=csrfmiddlewaretoken]').val()
+        },
+        headers: {
+            "X-CSRFToken": $('[name=csrfmiddlewaretoken]').val()
+        },
+        success: function(data) {
+            console.log(data);
+            var card = $('.card.p15.mb20[order-id=' + id_pedido + ']').first();
+            if (data.status == 4){
+                var button = $(card).find('button.btn-confirmar-actions').first();
+                $(card).find('span.order-status').text('Enviado');
+                $(button).text('CONFIRMAR A ENTREGA');
+            } else {
+                $(card).find('button').remove();
+                $(card).find('span.order-status').text('Entregue');
+            }
+        },
+        error: function(data) {
+            alert('Erro ao confirmar envio !');
+            console.log(data);
+        }
+    });
+}
 
+function confirm_order_delivery(id_pedido) {
+    $.ajax({
+        url: '/admin/proposal/' + id_pedido + '/confirm_delivery',
+        type: "POST",
+        data: {
+            'csrf_token': $('[name=csrfmiddlewaretoken]').val()
+        },
+        headers: {
+            "X-CSRFToken": $('[name=csrfmiddlewaretoken]').val()
+        },
+        success: function(data) {
+            console.log(data);
+            var card = $('.card.p15.mb20[order-id=' + id_pedido + ']').first();
+            $(card).find('button').remove();
+            $(card).find('span.order-status').text('Entregue');
+        },
+        error: function(data) {
+            alert('Erro ao confirmar entrega !');
+            console.log(data);
+        }
+    });
 }
 
 function cancel_proposal(id_pedido) {
     $.ajax({
-            url: '/admin/proposal/' + id_pedido + '/cancel',
-            type: "POST",
-            data: {
-                'csrf_token': $('[name=csrfmiddlewaretoken]').val()
-            },
-            headers: {
-                "X-CSRFToken": $('[name=csrfmiddlewaretoken]').val()
-            },
-            success: function(data) {
-                console.log(data);
-                $card = $('.card.p15.mb20[order-id=' + id_pedido + ']').first();
+        url: '/admin/proposal/' + id_pedido + '/cancel',
+        type: "POST",
+        data: {
+            'csrf_token': $('[name=csrfmiddlewaretoken]').val()
+        },
+        headers: {
+            "X-CSRFToken": $('[name=csrfmiddlewaretoken]').val()
+        },
+        success: function(data) {
+            console.log(data);
+            $card = $('.card.p15.mb20[order-id=' + id_pedido + ']').first();
 
-                $card.attr('style', '');
+            $card.attr('style', '');
 
-                $card.animate(
-                    {right:'-500px', opacity: 0},
-                    {
-                        queue: false,
-                        duration: 500,
-                        complete: function (){
-                            $card.remove();
-                        }
+            $card.animate(
+                {right:'-500px', opacity: 0},
+                {
+                    queue: false,
+                    duration: 500,
+                    complete: function (){
+                        $card.remove();
                     }
-                );
-            },
-            error: function(data) {
-                alert('Erro ao cancelar proposta !');
-                console.log(data);
-            }
-        });
+                }
+            );
+        },
+        error: function(data) {
+            alert('Erro ao cancelar proposta !');
+            console.log(data);
+        }
+    });
 }
 
 function checkout(data) {

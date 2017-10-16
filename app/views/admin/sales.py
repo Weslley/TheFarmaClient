@@ -90,3 +90,51 @@ class CancelProposal(View):
 
 # def show(request,id):
     # return render(request,'admin/sales/show.html')
+
+
+class DispatchProposal(View):
+
+    def dispatch(self, request, *args, **kwargs):
+        self.auth_data = self.request.session['auth_data']
+        return super(DispatchProposal, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        sale_id = kwargs['id']
+        status_code = 400
+        client = SalesClient(**self.auth_data)
+        data_returned = {}
+
+        try:
+            status_code, data_returned = client.confirm_dispatch(sale_id)
+        except Exception as err:
+            print(err)
+            data_returned['errors'] = 'Erro ao obter informações do servidor.'
+
+        return JsonResponse(data_returned, status=status_code)
+
+
+class DeliveryProposal(View):
+
+    def dispatch(self, request, *args, **kwargs):
+        self.auth_data = self.request.session['auth_data']
+        return super(DeliveryProposal, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        sale_id = kwargs['id']
+        status_code = 400
+        client = SalesClient(**self.auth_data)
+        data_returned = {}
+
+        try:
+            status_code, data_returned = client.confirm_delivery(sale_id)
+        except Exception as err:
+            print(err)
+            data_returned['errors'] = 'Erro ao obter informações do servidor.'
+
+        return JsonResponse(data_returned, status=status_code)
+
+# def index(request):
+    # return render(request,'admin/sales/index.html',{'range': range(10)})
+
+# def show(request,id):
+    # return render(request,'admin/sales/show.html')

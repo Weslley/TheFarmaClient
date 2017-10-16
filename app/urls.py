@@ -11,7 +11,7 @@ from app.views.admin.reports import reports
 from app.views.admin.reports import products as reports_products
 from app.views.admin.reports import sales as reports_sales
 from app.views.admin.reports import stock as reports_stock
-from app.views.admin.sales import SubmitProposal, CancelProposal
+from app.views.admin.sales import SubmitProposal, CancelProposal, DispatchProposal, DeliveryProposal
 
 from app.views.clients import LoginView
 from app.views.clients import logout
@@ -35,6 +35,8 @@ urlpatterns = [
     url(r'^admin/sales$', SalesView.as_view(), name='sales_path'),
     url(r'^admin/proposal/send$', SubmitProposal.as_view(), name='send_proposal'),
     url(r'^admin/proposal/(?P<id>[0-9]+)/cancel$', CancelProposal.as_view(), name='cancel_proposal'),
+    url(r'^admin/proposal/(?P<id>[0-9]+)/confirm_dispatch$', DispatchProposal.as_view(), name='confirm_dispatch'),
+    url(r'^admin/proposal/(?P<id>[0-9]+)/confirm_delivery$', DeliveryProposal.as_view(), name='confirm_delivery'),
     # url(r'^admin/sales/(?P<id>\d+)$', sales.show, name='show_sales_path'),
 
     # ACCOUNT

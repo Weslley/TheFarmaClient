@@ -36,3 +36,25 @@ class SalesClient(BaseClient):
             return response.status_code, response.to_dict
         except HTTPError as err:
             return err.status_code, err.to_dict
+
+    def confirm_dispatch(self, sale_id):
+        try:
+            response = self.client.pedidos._(sale_id).confirmar_envio.post(
+                request_body={},
+                query_params={},
+                request_headers={}
+            )
+            return response.status_code, response.to_dict
+        except HTTPError as err:
+            return err.status_code, err.to_dict
+
+    def confirm_delivery(self, sale_id):
+        try:
+            response = self.client.pedidos._(sale_id).confirmar_entrega.post(
+                request_body={},
+                query_params={},
+                request_headers={}
+            )
+            return response.status_code, response.to_dict
+        except HTTPError as err:
+            return err.status_code, err.to_dict
