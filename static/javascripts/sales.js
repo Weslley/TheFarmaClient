@@ -94,6 +94,8 @@ function from_money(value){
 
 
 function append_card_pedido(data_content){
+    // farm_wsckt
+    var selected_pharmacy = data_content.farmacia_selecionada;
     var order_id = data_content.id;
     var pedido_itens = data_content.itens_proposta;
 
@@ -136,28 +138,58 @@ function append_card_pedido(data_content){
                 span_status.setAttribute('class', 'status-yellow order-status');
                 break;
             case 1:
-                span_status.textContent = 'Aceito';
-                span_status.setAttribute('class', 'status-green order-status');
+                if (selected_pharmacy == farm_wsckt) {
+                    span_status.textContent = 'Aceito' ;
+                    span_status.setAttribute('class', 'status-green order-status');
+                }else{
+                    span_status.textContent = 'Negado' ;
+                    span_status.setAttribute('class', 'status-red order-status');
+                }
                 break;
             case 2:
-                span_status.textContent = 'Aguardando envio da farmácia';
-                span_status.setAttribute('class', 'status-green order-status');
+                if (selected_pharmacy == farm_wsckt) {
+                    span_status.textContent = 'Aguardando envio da farmácia';
+                    span_status.setAttribute('class', 'status-green order-status');
+                }else{
+                    span_status.textContent = 'Negado' ;
+                    span_status.setAttribute('class', 'status-red order-status');
+                }
                 break;
             case 3:
-                span_status.textContent = 'Aguardando retirada do cliente';
-                span_status.setAttribute('class', 'status-green order-status');
+                if (selected_pharmacy == farm_wsckt) {
+                    span_status.textContent = 'Aguardando retirada do cliente';
+                    span_status.setAttribute('class', 'status-green order-status');
+                }else{
+                    span_status.textContent = 'Negado' ;
+                    span_status.setAttribute('class', 'status-red order-status');
+                }
                 break;
             case 4:
-                span_status.textContent = 'Enviado';
-                span_status.setAttribute('class', 'status-green order-status');
+                if (selected_pharmacy == farm_wsckt) {
+                    span_status.textContent = 'Enviado';
+                    span_status.setAttribute('class', 'status-green order-status');
+                }else{
+                    span_status.textContent = 'Negado' ;
+                    span_status.setAttribute('class', 'status-red order-status');
+                }
                 break;
             case 5:
-                span_status.textContent = 'Entregue';
-                span_status.setAttribute('class', 'status-green order-status');
+                if (selected_pharmacy == farm_wsckt) {
+                    span_status.textContent = 'Entregue';
+                    span_status.setAttribute('class', 'status-green order-status');
+                }else{
+                    span_status.textContent = 'Negado' ;
+                    span_status.setAttribute('class', 'status-red order-status');
+                }
                 break;
             case 6:
-                span_status.textContent = 'Cancelado pela farmácia';
-                span_status.setAttribute('class', 'status-red order-status');
+                if (selected_pharmacy == farm_wsckt) {
+                    span_status.textContent = 'Cancelado pela farmácia';
+                    span_status.setAttribute('class', 'status-red order-status');
+                }else{
+                    span_status.textContent = 'Negado' ;
+                    span_status.setAttribute('class', 'status-red order-status');
+                }
                 break;
             case 7:
                 span_status.textContent = 'Cancelado pelo cliente';
@@ -168,8 +200,13 @@ function append_card_pedido(data_content){
                 span_status.setAttribute('class', 'status-yellow order-status');
                 break;
             case 9:
-                span_status.textContent = 'Tempo excedido';
-                span_status.setAttribute('class', 'status-red order-status');
+                if (data_content.status_submissao != 2) {
+                    span_status.textContent = 'Tempo excedido';
+                    span_status.setAttribute('class', 'status-red order-status');
+                } else {
+                    span_status.textContent = 'Negado' ;
+                    span_status.setAttribute('class', 'status-red order-status');
+                }
                 break;
         }
         row_infos.appendChild(span_status);
@@ -319,7 +356,13 @@ function append_card_pedido(data_content){
         case 1:
         case 2:
         case 3:
-            btn_send.className += ' hidden';
+            if (selected_pharmacy == farm_wsckt) {
+                btn_send.className += ' hidden';
+            }else{
+                btn_send.className += ' hidden';
+                btn_cancel.className += ' hidden';
+                btn_confirm.className += ' hidden';
+            }
             break;
         default:
             btn_send.className += ' hidden';
