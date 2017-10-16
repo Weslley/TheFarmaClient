@@ -134,8 +134,13 @@ function append_card_pedido(data_content){
         span_status.setAttribute('order-status', data_content.status);
         switch(data_content.status){
             case 0:
-                span_status.textContent = 'Aberto';
-                span_status.setAttribute('class', 'status-yellow order-status');
+                if(data_content.status_submissao == 2){
+                    span_status.textContent = 'Cancelado pela farmácia';
+                    span_status.setAttribute('class', 'status-red order-status');
+                } else {
+                    span_status.textContent = 'Aberto';
+                    span_status.setAttribute('class', 'status-yellow order-status');
+                }
                 break;
             case 1:
                 if (selected_pharmacy == farm_wsckt) {
@@ -186,6 +191,9 @@ function append_card_pedido(data_content){
                 if (selected_pharmacy == farm_wsckt) {
                     span_status.textContent = 'Cancelado pela farmácia';
                     span_status.setAttribute('class', 'status-red order-status');
+                } else if(data_content.status_submissao == 2){
+                    span_status.textContent = 'Cancelado pela farmácia';
+                    span_status.setAttribute('class', 'status-red order-status');
                 }else{
                     span_status.textContent = 'Negado' ;
                     span_status.setAttribute('class', 'status-red order-status');
@@ -200,8 +208,11 @@ function append_card_pedido(data_content){
                 span_status.setAttribute('class', 'status-yellow order-status');
                 break;
             case 9:
-                if (data_content.status_submissao != 2) {
+                if (data_content.status_submissao == 0) {
                     span_status.textContent = 'Tempo excedido';
+                    span_status.setAttribute('class', 'status-red order-status');
+                } else if(data_content.status_submissao == 2){
+                    span_status.textContent = 'Cancelado pela farmácia';
                     span_status.setAttribute('class', 'status-red order-status');
                 } else {
                     span_status.textContent = 'Negado' ;
@@ -351,13 +362,20 @@ function append_card_pedido(data_content){
     btn_send.textContent = 'ENVIAR PROPOSTA';
     switch (data_content.status){
         case 0:
-            btn_confirm.className += ' hidden';
+            if(data_content.status_submissao == 2){
+                btn_send.className += ' hidden';
+                btn_cancel.className += ' hidden';
+                btn_confirm.className += ' hidden';
+            } else {
+                btn_confirm.className += ' hidden';
+            }
             break;
         case 1:
         case 2:
         case 3:
             if (selected_pharmacy == farm_wsckt) {
                 btn_send.className += ' hidden';
+                btn_cancel.className += ' hidden';
             }else{
                 btn_send.className += ' hidden';
                 btn_cancel.className += ' hidden';
@@ -404,7 +422,7 @@ function append_card_pedido(data_content){
         $('.container #sales').append(card);
     }
 
-    if(data_content.status == 0 && data_content.tempo != 0){
+    if(data_content.status == 0 && data_content.tempo != 0 && data_content.status_submissao != 2){
         startTimer(data_content.tempo, $(timer_p));
     }else{
         timer_p.remove();
@@ -505,7 +523,7 @@ function send_proposal(id_pedido) {
     var data_post = {'id': id_pedido, 'pedido': _data['id'], 'itens': JSON.stringify(_data['itens'])};
     data_post.csrf_token = $('[name=csrfmiddlewaretoken]').val();
     $.ajax({
-            url: '/admin/send/proposal',
+            url: '/admin/proposal/send',
             type: "POST",
             data: data_post,
             headers: {
@@ -540,7 +558,37 @@ function confirm_order(id_pedido) {
 }
 
 function cancel_proposal(id_pedido) {
-    alert('cancelando proposta.')
+    $.ajax({
+            url: '/admin/proposal/' + id_pedido + '/cancel',
+            type: "POST",
+            data: {
+                'csrf_token': $('[name=csrfmiddlewaretoken]').val()
+            },
+            headers: {
+                "X-CSRFToken": $('[name=csrfmiddlewaretoken]').val()
+            },
+            success: function(data) {
+                console.log(data);
+                $card = $('.card.p15.mb20[order-id=' + id_pedido + ']').first();
+
+                $card.attr('style', '');
+
+                $card.animate(
+                    {right:'-500px', opacity: 0},
+                    {
+                        queue: false,
+                        duration: 500,
+                        complete: function (){
+                            $card.remove();
+                        }
+                    }
+                );
+            },
+            error: function(data) {
+                alert('Erro ao cancelar proposta !');
+                console.log(data);
+            }
+        });
 }
 
 function checkout(data) {

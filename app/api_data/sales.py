@@ -25,3 +25,14 @@ class SalesClient(BaseClient):
             return response.status_code, response.to_dict
         except HTTPError as err:
             return err.status_code, err.to_dict
+
+    def cancel_proposal(self, sale_id):
+        try:
+            response = self.client.pedidos._(sale_id).cancelamento_proposta.post(
+                request_body={},
+                query_params={},
+                request_headers={}
+            )
+            return response.status_code, response.to_dict
+        except HTTPError as err:
+            return err.status_code, err.to_dict
