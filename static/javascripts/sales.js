@@ -551,6 +551,22 @@ function checkout(data) {
     }
 }
 
+function cancel_notify(data){
+    var order_id = data.id;
+    var card = $('.card.p15.mb20[order-id=' + order_id + ']');
+    $(card).find('span.order-status').text('Cancelado pelo cliente');
+    if($(card).find('span.order-status').hasClass('status-green')){
+        $(card).find('span.order-status').removeClass('status-green');
+        $(card).find('span.order-status').addClass('status-red');
+    }else if($(card).find('span.order-status').hasClass('status-yellow')){
+        $(card).find('span.order-status').removeClass('status-yellow');
+        $(card).find('span.order-status').addClass('status-red');
+    }
+    $(card).find('input').attr('disabled', true);
+    $(card).find('button').addClass('hidden');
+    $(card).find('#timer').remove();
+}
+
 function clean_itens(data) {
     for (i = 0; i < data.itens.length; i++){
         var item_id = data.itens[i]['id'];

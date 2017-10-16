@@ -15,7 +15,8 @@ socket.onmessage = function(e) {
 
 	}else if (data.tipo == 0){
 		// Cancelamento
-		alert('Proposta ' + data.pedido.id + ' foi cancelado !');
+        cancel_notify(data.pedido)
+		console.log('Proposta ' + data.pedido.id + ' foi cancelado !');
 	}
 
 }
