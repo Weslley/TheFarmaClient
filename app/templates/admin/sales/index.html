@@ -59,10 +59,9 @@
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             <div class="form-group pmd-textfield pmd-textfield-floating-label mb30 pr15 no-padding-xs">
                                 <label for="">Organizar por</label>
-                                <select class="select-simple form-control pmd-select2">
-                                    <option>TIPO 01</option>
-                                    <option>TIPO 02</option>
-                                    <option>TIPO 03</option>
+                                <select id="order_proposal" class="select-simple form-control pmd-select2">
+                                    <option value="-log__data_criacao">Recentes</option>
+                                    <option value="log__data_criacao">Antigos</option>
                                 </select>
                                 <span class="pmd-textfield-focused"></span>
                             </div>
@@ -70,18 +69,17 @@
 
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             <div class="form-group pmd-textfield pmd-textfield-floating-label mb30 pr15 no-padding-xs">
-                                <label for="">Status</label>
-                                <select class="select-simple form-control pmd-select2">
-                                    <option          >ABERTO              </option>
-                                    <option value="1">ACEITO                          </option>
-                                    <option value="2">AGUARDANDO ENVIO DA FARMACIA    </option>
-                                    <option value="3">AGUARDANDO RETIRADA DO CLIENTE  </option>
-                                    <option value="4">ENVIADO                   	  </option>
-                                    <option value="5">ENTREGUE                        </option>
-                                    <option value="6">CANCELADO PELA FARMACIA    	  </option>
-                                    <option value="7">CANCELADO PELO CLIENTE          </option>
-                                    <option value="8">SEM_PROPOSTA                    </option>
-                                    <option value="9">TIMEOUT                         </option>
+                                <label for="status">Status</label>
+                                <select id="filter_proposal" class="select-simple form-control pmd-select2">
+                                    <option value="-1">Todos                          </option>
+                                    <option value="0">Aberto                          </option>
+                                    <option value="2">Aguardando envio da farmácia    </option>
+                                    <option value="3">Aguardando retirada do cliente  </option>
+                                    <option value="4">Enviado                   	  </option>
+                                    <option value="5">Entregue                        </option>
+                                    <option value="6">Cancelado pela farmácia    	  </option>
+                                    <option value="7">Cancelado pelo cliente          </option>
+                                    <option value="9">Timeout                         </option>
                                 </select>
                                 <span class="pmd-textfield-focused"></span>
                             </div>
@@ -106,8 +104,7 @@
                  data-cycle-next="#to-next"
                  data-cycle-prev="#to-prev"
                  data-cycle-carousel-visible=5
-                 data-cycle-carousel-vertical=true
-            >
+                 data-cycle-carousel-vertical=true>
                 <button id="to-prev" class="to-prev"></button>
                 <button id="to-next" class="to-next"></button>
 

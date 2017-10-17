@@ -4,11 +4,11 @@ from python_http_client.exceptions import HTTPError
 
 class SalesClient(BaseClient):
 
-    def get_sales_list(self):
+    def get_sales_list(self, **kwargs):
         try:
             response = self.client.pedidos.propostas.get(
                 request_body=self.data,
-                query_params={},
+                query_params=kwargs,
                 request_headers={}
             )
             return response.status_code, response.to_dict

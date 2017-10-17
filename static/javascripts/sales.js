@@ -470,6 +470,29 @@ function update_total_pedido_after(event){
     total += proposta*quantidade;
 }
 
+function reload_sales(status, order) {
+    if(status === -1){
+        var _url = '/admin/sales?order=' + order;
+    } else {
+        var _url = '/admin/sales?status='+ status +'&order=' + order;
+    }
+    $.ajax({
+        url: _url,
+        type: "GET",
+        success: function(data) {
+            data = data.results;
+            $('.card.p15.mb20').remove();
+            for(i = data.length - 1; i >= 0; i--){
+                append_card_pedido(data[i]);
+            }
+        },
+        error: function(data) {
+            alert('Erro ao carregar propostas !');
+            console.log(data);
+        }
+    });
+}
+
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -487,6 +510,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // scroll_prev_next_elem(false, ".card.p15.mb20");
     // });
 
+
+
+
+    $('#filter_proposal').change(function (e) {
+        var status = $(this).val();
+        var order = $('#order_proposal').val()
+        reload_sales(status, order);
+    });
+
+    $('#order_proposal').change(function (e) {
+        var status = $('#filter_proposal').val();
+        var order = $(this).val();
+        reload_sales(status, order);
+    });
+
     document.onkeydown = function(e) {
         switch (e.keyCode) {
             case 38:
@@ -497,6 +535,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
         }
     };
+
+
 
 }, false);
 

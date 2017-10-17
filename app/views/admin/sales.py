@@ -23,7 +23,14 @@ class SalesView(TemplateView):
         client = SalesClient(**self.auth_data)
 
         try:
-            status_code, data = client.get_sales_list()
+            data = {'order': '-log__data_criacao'}
+            order = self.request.GET.get('order', '-log__data_criacao')
+            status = self.request.GET.get('status', None)
+            data['order'] = order
+            if status and status != -1 and status != '-1':
+                data['status'] = status
+
+            status_code, data = client.get_sales_list(**data)
         except Exception:
             context['errors'] = 'Erro ao obter informações do servidor.'
             return context
@@ -35,6 +42,16 @@ class SalesView(TemplateView):
             context['pedidos'] = data['results']
 
         return context
+
+    def get(self, request, *args, **kwargs):
+        if not request.is_ajax():
+            return super(SalesView, self).get(request, *args, **kwargs)
+        context = self.get_context_data(**kwargs)
+        data = {}
+        data['results'] = context['pedidos'] if 'pedidos' in context else []
+        status = 200 if 'pedidos' in context else 400
+        return JsonResponse(data, status=status)
+
 
 
 class SubmitProposal(View):
