@@ -24,7 +24,7 @@ services:
     environment:
      - DEBUG=False
      - API_URL=https://api.thefarma.com.br
-     - WS_URL=wss://sock.thefarma.com.br/farmacias/{id_farmacia}/?Authorization:Token {token_representante}
+     - WS_URL=ws://sock.thefarma.com.br/websocket/farmacias/{id_farmacia}/?Authorization:Token {token_representante}
 
 volumes:
   static-data:
