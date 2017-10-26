@@ -25,9 +25,9 @@ class SalesView(TemplateView):
         try:
             data = {'order': '-log__data_criacao'}
             order = self.request.GET.get('order', '-log__data_criacao')
-            status = self.request.GET.get('status', None)
+            status = self.request.GET.get('status', 0)
             data['order'] = order
-            if status and status != -1 and status != '-1':
+            if status != -1 and status != '-1':
                 data['status'] = status
 
             status_code, data = client.get_sales_list(**data)
