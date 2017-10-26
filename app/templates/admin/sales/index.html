@@ -11,6 +11,46 @@
         <link rel="stylesheet" media="all" href="{% static "plugins/select2/select2-bootstrap.scss" %}" data-turbolinks-track="reload" type="text/x-sass" />
         <link rel="stylesheet" media="all" href="{% static "plugins/select2/pmd-select2.scss" %}" data-turbolinks-track="reload" type="text/x-sass" />
         <link rel="stylesheet" media="all" href="{% static "plugins/dropzone/dropzone.min.scss" %}" data-turbolinks-track="reload" type="text/x-sass" />
+        <style>
+        .qty-box {
+          border: 1px solid #94c4ec;
+          border-radius: 3px;
+          display: block;
+          height: 60px;
+          margin: calc(50vh - 30px) auto 0 auto;
+            width: 109px;
+        }
+
+        .dec,
+        .inc,
+        input.form-control.quantity {
+          height: 100%;
+          color: #009688;
+          font-family: sans-serif;
+          float: left;
+          line-height: 60px;
+          text-align: center;
+          width: calc(107px/3) !important;
+          -webkit-font-smoothing: antialiased;
+        }
+        .dec:hover,
+        .inc:hover {
+          cursor: pointer;
+        }
+        input.form-control.quantity {
+            margin: 0 !important;
+            -webkit-margin-after: 0 !important;
+            text-indent: 6px !important;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            /* display: none; <- Crashes Chrome on hover */
+            -webkit-appearance: none;
+            margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+        }
+
+    </style>
     {% endcompress %}
 {% endblock %}
 

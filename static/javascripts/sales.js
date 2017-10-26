@@ -95,7 +95,7 @@ function from_money(value){
 
 function append_card_pedido(data_content){
     // farm_wsckt
-    var selected_pharmacy = data_content.farmacia_selecionada;
+    var selected_pharmacy = data_content.farmacia;
     var order_id = data_content.id;
     var pedido_itens = data_content.itens_proposta;
 
@@ -278,11 +278,17 @@ function append_card_pedido(data_content){
         var col_item_detalhes = create_elem('div', 'col-xs-12 col-sm-12 col-md-6');
         var row_col_item_detalhe = create_elem('div', 'row vcenter');
         var div_qtde = create_elem('div', 'col-xs-4 col-sm-4 col-md-4 text-center proposal');
-        var div_form_quantidade_proposta = create_elem('div', 'proposal-form');
+        var div_form_quantidade_proposta = create_elem('div', 'proposal-form qty-box');
+        var span_quant_dec = create_elem('span', 'dec');
+        span_quant_dec.textContent = '-';
+        var span_quant_inc = create_elem('span', 'dec');
+        span_quant_inc.textContent = '+';
         var input_item_qtde = create_elem('input', 'form-control quantity');
         input_item_qtde.setAttribute('type', 'number');
         input_item_qtde.value = pedido_itens[i].quantidade;
+        div_form_quantidade_proposta.appendChild(span_quant_dec);
         div_form_quantidade_proposta.appendChild(input_item_qtde);
+        div_form_quantidade_proposta.appendChild(span_quant_inc);
         div_qtde.appendChild(div_form_quantidade_proposta);
         var div_preco = create_elem('div', 'price');
         div_preco.textContent = money(pedido_itens[i].apresentacao.pmc.replace(',', '.'));
