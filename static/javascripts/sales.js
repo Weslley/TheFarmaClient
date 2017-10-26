@@ -98,6 +98,7 @@ function append_card_pedido(data_content){
     var selected_pharmacy = data_content.farmacia;
     var order_id = data_content.id;
     var pedido_itens = data_content.itens_proposta;
+    var editable = false;
 
     var card = create_elem('div', 'card p15 mb20');
     card.setAttribute('order-id', order_id);
@@ -140,6 +141,7 @@ function append_card_pedido(data_content){
                 } else {
                     span_status.textContent = 'Aberto';
                     span_status.setAttribute('class', 'status-yellow order-status');
+                    editable = true;
                 }
                 break;
             case 1:
@@ -253,8 +255,10 @@ function append_card_pedido(data_content){
     var total = 0;
     for (var i = pedido_itens.length - 1; i >= 0; i--) {
         var row_item = create_elem('div', 'row item');
-        row_item.setAttribute('item-id', pedido_itens[i].id);
-        row_item.setAttribute('item-quantity', pedido_itens[i].quantidade);
+        var id_item = pedido_itens[i].id;
+        var quantidade_max = pedido_itens[i].quantidade;
+        row_item.setAttribute('item-id', id_item);
+        row_item.setAttribute('item-quantity', quantidade_max);
         var col_item_image_nome = create_elem('div', 'col-xs-12 col-sm-12 col-md-6');
         var row_col_item_image_nome = create_elem('div', 'row');
         var div_image = create_elem('div', 'col-xs-3 col-sm-4 col-md-3');
@@ -286,6 +290,20 @@ function append_card_pedido(data_content){
         var input_item_qtde = create_elem('input', 'form-control quantity');
         input_item_qtde.setAttribute('type', 'number');
         input_item_qtde.value = pedido_itens[i].quantidade;
+        span_quant_dec.onclick = (function (_item_id) {
+            var _order_id = order_id;
+            var _editavel = editable;
+            return function() {
+                quant_dec(_order_id, _item_id, _editavel);
+            }
+        }(id_item));
+        span_quant_inc.onclick = (function (_item_id, _max) {
+            var _order_id = order_id;
+            var _editavel = editable;
+            return function() {
+                quant_inc(_order_id, _item_id, _max, _editavel);
+            }
+        }(id_item, quantidade_max));
         div_form_quantidade_proposta.appendChild(span_quant_dec);
         div_form_quantidade_proposta.appendChild(input_item_qtde);
         div_form_quantidade_proposta.appendChild(span_quant_inc);
@@ -311,9 +329,9 @@ function append_card_pedido(data_content){
         })();
         if(data_content.status != 0){
             input_proposta.setAttribute('disabled', true);
-            input_item_qtde.setAttribute('disabled', true);
         }
-        // $(input_proposta).on('keyup', update_total_pedido);
+        input_item_qtde.setAttribute('disabled', true);
+        // $(input_proposta).on('keyup', update_total_pedido);w
         var span_focused = create_elem('span', 'pmd-textfield-focused');
         div_form_proposta.appendChild(input_proposta);
         div_form_proposta.appendChild(span_focused);
@@ -756,4 +774,44 @@ function validate_itens(data) {
         }
     }
     return true;
+}
+
+function quant_dec(id_pedido, id_item, editavel) {
+    if(editavel){
+        $('.card.p15.mb20[order-id=' + id_pedido + ']').find('.row.item').each(function( index, element ) {
+            if($(element).attr('item-id') == id_item){
+                var quantity = parseInt($(element).find('.form-control.quantity').first().val().replace(',', '.'));
+                if(quantity == undefined || quantity == NaN){
+                    quantity = 0;
+                }
+                if (quantity <= 0){
+                    quantity = 0
+                } else{
+                    quantity -= 1;
+                }
+                $(element).find('.form-control.quantity').first().val(quantity)
+            }
+        });
+    }
+    update_proposal_total(id_pedido);
+}
+
+function quant_inc(id_pedido, id_item, valor_max, editavel) {
+    if(editavel) {
+        $('.card.p15.mb20[order-id=' + id_pedido + ']').find('.row.item').each(function( index, element ) {
+            if($(element).attr('item-id') == id_item){
+                var quantity = parseInt($(element).find('.form-control.quantity').first().val().replace(',', '.'));
+                if(quantity == undefined || quantity == NaN){
+                    quantity = 0;
+                }
+                if (quantity >= valor_max){
+                    quantity = valor_max
+                } else{
+                    quantity += 1;
+                }
+                $(element).find('.form-control.quantity').first().val(quantity)
+            }
+        });
+    }
+    update_proposal_total(id_pedido);
 }
