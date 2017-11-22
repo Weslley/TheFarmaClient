@@ -122,7 +122,11 @@ function append_card_pedido(data_content){
     }
     if(data_content.forma_pagamento && data_content.forma_pagamento != null && data_content.forma_pagamento != ''){
         var span_forma_pagamento = create_elem('span', 'forma-pagamento');
-        span_forma_pagamento.textContent = data_content.forma_pagamento;
+        if(data_content.forma_pagamento == 0){
+            span_forma_pagamento.textContent = 'Cartão';
+        }else{
+            span_forma_pagamento.textContent = 'Dinheiro';
+        }
         row_infos.appendChild(span_forma_pagamento);
     }
     if(data_content.delivery && data_content.delivery != null && data_content.delivery != ''){

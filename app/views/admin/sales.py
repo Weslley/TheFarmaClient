@@ -31,7 +31,7 @@ class SalesView(TemplateView):
                 data['status'] = status
 
             status_code, data = client.get_sales_list(**data)
-        except Exception:
+        except Exception as err:
             context['errors'] = 'Erro ao obter informações do servidor.'
             return context
 
