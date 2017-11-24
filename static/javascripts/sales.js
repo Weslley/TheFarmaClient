@@ -353,7 +353,12 @@ function append_card_pedido(data_content){
         row_item.appendChild(col_item_image_nome);
         row_item.appendChild(col_item_detalhes);
         fluid.appendChild(row_item);
-        total += pedido_itens[i].quantidade * parseFloat(pedido_itens[i].apresentacao.pmc.replace(',', '.')).toFixed(2);
+        if (data_content.status != 0){
+            total += pedido_itens[i].quantidade * parseFloat(pedido_itens[i].valor_unitario.replace(',', '.')).toFixed(2);
+        }else{
+            total += pedido_itens[i].quantidade * parseFloat(pedido_itens[i].apresentacao.pmc.replace(',', '.')).toFixed(2);
+        }
+
     }
     var footer_list = create_elem('div', 'row footer-list');
     var footer_list_pull_right = create_elem('div', 'pull-right');
