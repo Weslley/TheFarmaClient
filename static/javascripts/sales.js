@@ -120,15 +120,16 @@ function append_card_pedido(data_content){
         span_troco.textContent = money(data_content.troco);
         row_infos.appendChild(span_troco);
     }
-
-    var span_forma_pagamento = create_elem('span', 'forma-pagamento');
-    span_forma_pagamento.textContent = 'Cartão';
-    if(data_content.forma_pagamento == 0){
+    if (data_content.status != 0){
+        var span_forma_pagamento = create_elem('span', 'forma-pagamento');
         span_forma_pagamento.textContent = 'Cartão';
-    }else{
-        span_forma_pagamento.textContent = 'Dinheiro';
+        if(data_content.forma_pagamento == 0){
+            span_forma_pagamento.textContent = 'Cartão';
+        }else{
+            span_forma_pagamento.textContent = 'Dinheiro';
+        }
+        row_infos.appendChild(span_forma_pagamento);
     }
-    row_infos.appendChild(span_forma_pagamento);
 
     if(data_content.delivery && data_content.delivery != null && data_content.delivery != ''){
         var span_delivery = create_elem('span', 'frete');
@@ -319,7 +320,11 @@ function append_card_pedido(data_content){
         var div_form_proposta = create_elem('div', 'proposal-form');
         var input_proposta = create_elem('input', 'form-control moeda');
         input_proposta.setAttribute('type', 'text');
-        input_proposta.value = money(pedido_itens[i].apresentacao.pmc.replace(',', '.'));
+        if (data_content.status != 0){
+            input_proposta.value = money(pedido_itens[i].valor_unitario.replace(',', '.'));
+        } else{
+            input_proposta.value = money(pedido_itens[i].apresentacao.pmc.replace(',', '.'));
+        }
         input_item_qtde.onkeyup = (function() {
             var _order_id = order_id;
             return function() {
