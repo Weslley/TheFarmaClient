@@ -390,7 +390,9 @@ function append_card_pedido(data_content){
     endereco_cliente.textContent = str_endereco;
     col_endereco_footer_card.appendChild(endereco_cliente);
     footer_card.appendChild(col_cliente_footer_card);
-    footer_card.appendChild(col_endereco_footer_card);
+    if(data_content.delivery){
+        footer_card.appendChild(col_endereco_footer_card);
+    }
     var actions = create_elem('div', 'actions');
     var col_actions = create_elem('div', 'col-actions');
     var btn_cancel = create_elem('button', 'btn-cancelar-actions');
