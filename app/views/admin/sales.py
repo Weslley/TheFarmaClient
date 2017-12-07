@@ -26,7 +26,9 @@ class SalesView(TemplateView):
             data = {'order': '-log__data_criacao'}
             order = self.request.GET.get('order', '-log__data_criacao')
             status = self.request.GET.get('status', 0)
+            page = self.request.GET.get('page', 1)
             data['order'] = order
+            data['page'] = page
             if status != -1 and status != '-1':
                 data['status'] = status
 
@@ -51,7 +53,6 @@ class SalesView(TemplateView):
         data['results'] = context['pedidos'] if 'pedidos' in context else []
         status = 200 if 'pedidos' in context else 400
         return JsonResponse(data, status=status)
-
 
 
 class SubmitProposal(View):

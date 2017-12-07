@@ -1,4 +1,4 @@
-
+var _page = 1;
 
 // socket.onopen = function() {
 // socket.send("hello world");
@@ -93,14 +93,19 @@ function from_money(value){
 }
 
 
-function append_card_pedido(data_content){
+function append_card_pedido(data_content, append_after, active){
     // farm_wsckt
     var selected_pharmacy = data_content.farmacia;
     var order_id = data_content.id;
     var pedido_itens = data_content.itens_proposta;
     var editable = false;
-
-    var card = create_elem('div', 'card p15 mb20');
+    if(active){
+        var _el = $('.active');
+        _el.removeClass('active');
+        var card = create_elem('div', 'card p15 mb20 active');
+    }else{
+        var card = create_elem('div', 'card p15 mb20');
+    }
     card.setAttribute('order-id', order_id);
     var fluid = create_elem('div', 'container-fluid sale');
     var row_header = create_elem('div', 'row pt15 fz24');
@@ -467,9 +472,13 @@ function append_card_pedido(data_content){
 
     card.style.display = 'none';
     if ($('.card.p15.mb20').length){
-        $('.card.p15.mb20:first').before(card);
+        if(append_after){
+            $('.container #sales .row').append(card);
+        }else{
+            $('.card.p15.mb20:first').before(card);
+        }
     }else{
-        $('.container #sales').append(card);
+        $('.container #sales .row').append(card);
     }
 
     if(data_content.status == 0 && data_content.tempo != 0 && data_content.status_submissao != 2){
@@ -511,11 +520,11 @@ function update_total_pedido_after(event){
     total += proposta*quantidade;
 }
 
-function reload_sales(status, order) {
+function reload_sales(status, order, page) {
     if(status === -1){
-        var _url = '/admin/sales?order=' + order;
+        var _url = '/admin/sales?order=' + order + '&page=' + page;
     } else {
-        var _url = '/admin/sales?status='+ status +'&order=' + order;
+        var _url = '/admin/sales?status='+ status +'&order=' + order + '&page=' + page;
     }
     $.ajax({
         url: _url,
@@ -524,12 +533,32 @@ function reload_sales(status, order) {
             data = data.results;
             $('.card.p15.mb20').remove();
             for(i = data.length - 1; i >= 0; i--){
-                append_card_pedido(data[i]);
+                append_card_pedido(data[i], false, (i == 0));
             }
         },
         error: function(data) {
             alert('Erro ao carregar propostas !');
             console.log(data);
+        }
+    });
+}
+
+function append_sales(status, order, page) {
+    if(status === -1){
+        var _url = '/admin/sales?order=' + order + '&page=' + page;
+    } else {
+        var _url = '/admin/sales?status='+ status +'&order=' + order + '&page=' + page;
+    }
+    $.ajax({
+        url: _url,
+        type: "GET",
+        success: function(data) {
+            data = data.results;
+            for(i = 0; i < data.length; i++){
+                append_card_pedido(data[i], true, false);
+            }
+        },
+        error: function(data) {
         }
     });
 }
@@ -541,10 +570,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // var fiveMinutes = 300;
     // startTimer(fiveMinutes, $('#timer'));
 
-    $('.to-next').click(function(e){
-    e.preventDefault();
-    scroll_prev_next_elem(true, ".card.p15.mb20");
-    });
+    // $('.to-next').click(function(e){
+    // e.preventDefault();
+    // scroll_prev_next_elem(true, ".card.p15.mb20");
+    // });
 
     // $('.to-prev').click(function(e){
     // e.preventDefault();
@@ -556,28 +585,51 @@ document.addEventListener('DOMContentLoaded', function() {
 
     $('#filter_proposal').change(function (e) {
         var status = $(this).val();
-        var order = $('#order_proposal').val()
-        reload_sales(status, order);
+        var order = $('#order_proposal').val();
+        _page = 1;
+        reload_sales(status, order, _page);
     });
 
     $('#order_proposal').change(function (e) {
         var status = $('#filter_proposal').val();
         var order = $(this).val();
-        reload_sales(status, order);
+        _page = 1;
+        reload_sales(status, order, _page);
     });
 
-    document.onkeydown = function(e) {
-        switch (e.keyCode) {
-            case 38:
-                scroll_prev_next_elem(false, ".card.p15.mb20");
-                break;
-            case 40:
-                scroll_prev_next_elem(true, ".card.p15.mb20");
-                break;
+
+    $('.to-next').click(function(){
+        var el = $('.card.p15.mb20.active');
+        if (el.next().length > 0){
+            el.next().addClass('active');
+            el.removeClass('active');
+            $('html,body').animate({scrollTop:$('.active').offset().top - 50});
         }
-    };
+    });
+
+    $('.to-prev').click(function(){
+        var el = $('.card.p15.mb20.active');
+        if (el.prev().length > 0 ){
+            el.prev().addClass('active');
+            el.removeClass('active');
+            $('html,body').animate({scrollTop:$('.active').offset().top - 222});
+        }
+    });
 
 
+    $(document).ready(function() {
+        var win = $(window);
+
+        // Each time the user scrolls
+        win.scroll(function() {
+            if ($(document).height() - win.height() == win.scrollTop()) {
+                _page += 1;
+                var status = $('#filter_proposal').val();
+                var order = $('#order_proposal').val();
+                append_sales(status, order, _page)
+            }
+        });
+    });
 
 }, false);
 
@@ -731,7 +783,7 @@ function cancel_proposal(id_pedido) {
 
 function checkout(data) {
     if (window.location.href.indexOf('sales') != -1){
-        append_card_pedido(data);
+        append_card_pedido(data, false, true);
     }else{
 
     }

@@ -73,7 +73,11 @@
         <script type="text/javascript" src="{% static "plugins/select2/pmd-select2.js" %}"></script>
         <script type="text/javascript">
             {% for pedido in pedidos reversed%}
-                append_card_pedido(JSON.parse('{{ pedido|jsonify }}'));
+                {% if pedidos.forloop.first %}
+                    append_card_pedido(JSON.parse('{{ pedido|jsonify }}'), false, true);
+                {% else %}
+                    append_card_pedido(JSON.parse('{{ pedido|jsonify }}'), false, false);
+                {% endif %}
             {% endfor %}
         </script>
     {% endcompress %}
@@ -148,6 +152,8 @@
                  data-cycle-carousel-vertical=true>
                 <button id="to-prev" class="to-prev"></button>
                 <button id="to-next" class="to-next"></button>
+
+                <div class="row"></div>
 
             </div>
         </div>

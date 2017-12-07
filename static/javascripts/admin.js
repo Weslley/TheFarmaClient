@@ -5,7 +5,7 @@ socket.onmessage = function(e) {
     console.log(data);
     if(data.tipo === undefined){
         if (window.location.href.indexOf('sales') != -1){
-            append_card_pedido(data);
+            append_card_pedido(data, false, true);
         }else{
 
         }
