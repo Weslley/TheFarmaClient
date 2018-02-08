@@ -14,7 +14,7 @@ class SalesView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(SalesView, self).get_context_data(**kwargs)
-
+        context['num_pages'] = 1
         context['header_name'] = self.auth_data['nome']
 
         if 'errors' in kwargs:
@@ -42,6 +42,7 @@ class SalesView(TemplateView):
 
         elif status_code == 200:
             context['pedidos'] = data['results']
+            context['num_pages'] = data['num_pages']
 
         return context
 
@@ -51,6 +52,7 @@ class SalesView(TemplateView):
         context = self.get_context_data(**kwargs)
         data = {}
         data['results'] = context['pedidos'] if 'pedidos' in context else []
+        data['num_pages'] = context['num_pages']
         status = 200 if 'pedidos' in context else 400
         return JsonResponse(data, status=status)
 

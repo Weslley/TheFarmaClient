@@ -1,4 +1,5 @@
-var _page = 1;
+var current_page = 1;
+var num_pages = 1;
 
 // socket.onopen = function() {
 // socket.send("hello world");
@@ -530,6 +531,7 @@ function reload_sales(status, order, page) {
         url: _url,
         type: "GET",
         success: function(data) {
+            num_pages = data.num_pages;
             data = data.results;
             $('.card.p15.mb20').remove();
             for(i = data.length - 1; i >= 0; i--){
@@ -553,6 +555,7 @@ function append_sales(status, order, page) {
         url: _url,
         type: "GET",
         success: function(data) {
+            num_pages = data.num_pages;
             data = data.results;
             for(i = 0; i < data.length; i++){
                 append_card_pedido(data[i], true, false);
@@ -586,15 +589,15 @@ document.addEventListener('DOMContentLoaded', function() {
     $('#filter_proposal').change(function (e) {
         var status = $(this).val();
         var order = $('#order_proposal').val();
-        _page = 1;
-        reload_sales(status, order, _page);
+        current_page = 1;
+        reload_sales(status, order, current_page);
     });
 
     $('#order_proposal').change(function (e) {
         var status = $('#filter_proposal').val();
         var order = $(this).val();
-        _page = 1;
-        reload_sales(status, order, _page);
+        current_page = 1;
+        reload_sales(status, order, current_page);
     });
 
 
@@ -616,22 +619,47 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-
-    $(document).ready(function() {
-        var win = $(window);
-
-        // Each time the user scrolls
-        win.scroll(function() {
-            if ($(document).height() - win.height() == win.scrollTop()) {
-                _page += 1;
-                var status = $('#filter_proposal').val();
-                var order = $('#order_proposal').val();
-                append_sales(status, order, _page)
-            }
-        });
-    });
-
 }, false);
+
+$(document).ready(function() {
+    // var win = $(window);
+
+    window.onscroll = function() {
+        console.log('Deu scroll');
+        if (getScrollTop() < getDocumentHeight() - window.innerHeight) return;
+        if (current_page < num_pages){
+            current_page += 1;
+            var status = $('#filter_proposal').val();
+            var order = $('#order_proposal').val();
+            append_sales(status, order, current_page)
+        }
+    };
+    // win.scroll(function() {
+    //     if (current_page == num_pages){
+    //         return;
+    //     }
+    //     if ($(document).height() - win.height() == win.scrollTop()) {
+    //         current_page += 1;
+    //         var status = $('#filter_proposal').val();
+    //         var order = $('#order_proposal').val();
+    //         append_sales(status, order, current_page)
+    //     }
+    // });
+});
+
+function getDocumentHeight() {
+	const body = document.body;
+	const html = document.documentElement;
+
+	return Math.max(
+		body.scrollHeight, body.offsetHeight,
+		html.clientHeight, html.scrollHeight, html.offsetHeight
+	);
+};
+
+function getScrollTop() {
+	return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+}
 
 
 function get_total_proposal(id_pedido) {

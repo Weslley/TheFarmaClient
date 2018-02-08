@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+        table.report-container {
+            page-break-after:always;
+        }
+        thead.report-header {
+            display:table-header-group;
+        }
+        tfoot.report-footer {
+            display:table-footer-group;
+        } 
+    </style>
+</head>
+<body>
+    <table class="report-container">
+        <thead class="report-header">
+          <tr>
+             <th class="report-header-cell">
+                <div class="header-info">
+                 ID
+                </div>
+              </th>
+              <th class="report-header-cell">
+                    <div class="header-info">
+                     Valor
+                    </div>
+            </th>
+           </tr>
+         </thead>
+         <tfoot class="report-footer">
+           <tr>
+              <td class="report-footer-cell">
+                <div class="footer-info">
+                TOTAL
+                </div>
+               </td>
+               <td class="report-footer-cell">
+                    <div class="footer-info">
+                    2323
+                    </div>
+                   </td>
+           </tr>
+         </tfoot>
+         <tbody class="report-content">
+           <tr>
+              <td class="report-content-cell">
+                 <div class="main">
+                 1
+                 </div>
+               </td>
+               <td class="report-content-cell">
+                    <div class="main">
+                    21
+                    </div>
+                  </td>
+            </tr>
+           <tr>
+              <td class="report-content-cell">
+                 <div class="main">
+                 1
+                 </div>
+               </td>
+               <td class="report-content-cell">
+                    <div class="main">
+                    21
+                    </div>
+                  </td>
+            </tr>
+            
+     </table>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+     <script>
+            function load_page(){
+                $.ajax({
+                    url: "http://rest-service.guides.spring.io/greeting"
+                }).then(function(data) {
+                    alert(data);
+                   $('.greeting-id').append(data.id);
+                   $('.greeting-content').append(data.content);
+                });
+            }
+
+            var getUrlParameter = function getUrlParameter(sParam) {
+                var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                    sURLVariables = sPageURL.split('&'),
+                    sParameterName,
+                    i;
+            
+                for (i = 0; i < sURLVariables.length; i++) {
+                    sParameterName = sURLVariables[i].split('=');
+            
+                    if (sParameterName[0] === sParam) {
+                        return sParameterName[1] === undefined ? true : sParameterName[1];
+                    }
+                }
+            };
+
+            $(document).ready(function() {
+                setTimeout(load_page, 5000);
+            });
+     </script>
+</body>
+</html>

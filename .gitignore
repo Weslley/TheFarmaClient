@@ -21,3 +21,4 @@ static/CACHE
 *.sublime-project
 node_modules/
 package-lock.json
+.vscode/*
