@@ -43,11 +43,8 @@ urlpatterns = [
     url(r'^admin/account$', AccountView.as_view(), name='account_path'),
 
     # REPORTS
-    url(r'^admin/reports$', reports.index, name='reports_path'),
-    url(r'^admin/reports/products$',
-        reports_products.index, name='reports_products_path'),
-    url(r'^admin/reports/sales$',
-        reports_sales.index, name='reports_sales_path'),
-    url(r'^admin/reports/stock$',
-        reports_stock.index, name='reports_stock_path')
+    url(r'^admin/reports/$', reports.index, name='reports'),
+    url(r'^admin/reports/indicador_venda/$', reports.indicador_venda, name='report-indicador-venda'),
+    url(r'^admin/reports/sales/$', reports_sales.index, name='reports_sales_path'),
+    url(r'^admin/reports/stock/$', reports_stock.index, name='reports_stock_path')
 ]

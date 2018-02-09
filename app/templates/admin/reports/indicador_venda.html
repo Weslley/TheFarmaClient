@@ -1,0 +1,255 @@
+{% extends "admin/reports/index.html" %}
+
+{% load i18n %}
+{% load compress %}
+{% load staticfiles %}
+{% load helper %}
+
+{% block report_scripts %}
+    {% compress js %}
+        <script type="text/javascript" src="{% static "plugins/select2/select2.full.min.js" %}"></script>
+        <script type="text/javascript">
+
+            function gerar_relatorio() {
+                $.ajax({
+                    url: '/',
+                    type: 'POST',
+                    data: {
+                        fatura_id: $('#id_fatura').val(),
+                        unidade_id: $('#id_unidade').val()
+                    },
+                    success : function( data ) {
+                        console.log(data);
+                        if(data.content.success){
+                            start_load('Iniciando relatório.');
+                            $('#id_fatura').parent().parent().removeClass('has-error');
+                            $('#id_unidade').parent().parent().removeClass('has-error');
+                        }else{
+                            alert(data.content.mensagem)
+                        }
+                    },
+                    error   : function(data, xhr, err ) {
+                        alert('Erro oo processar o relatório.');
+                        console.log(data);
+                    }
+                });
+                return false;
+            }
+
+            function start_load(iniMessage){
+                window.loading_screen = window.pleaseWait({
+                    logo: '{% static 'images/please-wait-logo.png' %}',
+                    backgroundColor: '#3c8dbc',
+                    loadingHtml: '<p class="loading-message">'+ iniMessage +'</p><div class="sk-spinner sk-spinner-wave"><div class="sk-rect1"></div><div class="sk-rect2"></div><div class="sk-rect3"></div><div class="sk-rect4"></div><div class="sk-rect5"></div></div>'
+                });
+            }
+
+            function stop_load(){
+                window.loading_screen.finish();
+            }
+
+            function update_message(message){
+                $('.loading-message').html(message);
+            }
+
+
+            function load_unidade(unidade_id) {
+                $.ajax({
+                    url: "/",
+                    type: 'POST',
+                    data: {unidade_id: unidade_id},
+                    success : function( data ) {
+                        $('#id_responsavel').val(data.content.responsavel);
+                    },
+                    error   : function(data, xhr, err ) {
+                        alert('Erro ao carregar unidade');
+                        $('#id_responsavel').val('');
+                        console.log(data);
+                    }
+                });
+            }
+
+
+            (function () {
+                $('.select-simple').select2();
+                $('#report_type').val('rel').trigger('change');
+
+                $('#id_laboratorio').select2({
+                    ajax: {
+                        url: 'http://localhost:8000/laboratorios/',
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            var query = {
+                              nome: params.term
+                            }
+                      
+                            // Query parameters will be ?nome=[term]
+                            return query;
+                          },
+                        processResults: function (data) {
+                            // Tranforms the top-level key of the response object from 'items' to 'results'
+                            return {
+                                results: data.results
+                            };
+                        },
+                        cache: true
+                    },
+                    placeholder: 'Buscar laboratório',
+                    escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+                    minimumInputLength: 1,
+                    templateResult: formatRepo,
+                    templateSelection: formatRepoSelection,
+                    allowClear: true
+                });
+
+                $('#id_regiao').select2({
+                    ajax: {
+                        url: 'http://localhost:8000/regioes/',
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            var query = {
+                              nome: params.term
+                            }
+                      
+                            // Query parameters will be ?nome=[term]
+                            return query;
+                          },
+                        processResults: function (data) {
+                            // Tranforms the top-level key of the response object from 'items' to 'results'
+                            return {
+                                results: data.results
+                            };
+                        },
+                        cache: true
+                    },
+                    placeholder: 'Buscar região',
+                    escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+                    minimumInputLength: 1,
+                    templateResult: formatRepo,
+                    templateSelection: formatRepoSelection,
+                    allowClear: true
+                });
+
+                $('#id_principio_ativo').select2({
+                    ajax: {
+                        url: 'http://localhost:8000/principios_ativos/',
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            var query = {
+                              nome: params.term
+                            }
+                      
+                            // Query parameters will be ?nome=[term]
+                            return query;
+                          },
+                        processResults: function (data) {
+                            // Tranforms the top-level key of the response object from 'items' to 'results'
+                            return {
+                                results: data.results
+                            };
+                        },
+                        cache: true
+                    },
+                    placeholder: 'Buscar princípio ativo',
+                    escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+                    minimumInputLength: 1,
+                    templateResult: formatRepo,
+                    templateSelection: formatRepoSelection,
+                    allowClear: true
+                });
+
+                function formatRepo (repo) {
+                    if (repo.loading) {
+                      return repo.text;
+                    }
+                  
+                    var markup = repo.nome
+                  
+                    return markup;
+                  }
+                  
+                  function formatRepoSelection (repo) {
+                    return repo.nome || repo.text;
+                  }
+
+//                $('#report_form').submit(function (event) {
+//                    event.preventDefault();
+                    //gerar_relatorio();
+//                });
+
+            })();
+
+            var farm_wsckt = parseInt('{{ request.session.auth_data.farmacia }}');
+        </script>
+    {% endcompress %}
+
+{% endblock %}
+
+{% block report_form %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-group">
+                <div class="card ">
+                    <div class="card-header">
+                        
+                    </div>
+                    <form id="report_form" action="." method="post">{% csrf_token %}
+                        <div class="card-block">
+                            <h2>Relatório indicador de venda</h2>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="data_inicial">Data Inicial</label>
+                                        <input type="date" class="form-control" required name="data_inicial" id="id_data_inicial">
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="data_final">Data Final</label>
+                                        <input type="date" class="form-control" required name="data_final" id="id_data_final">
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="regiao">Região</label>
+                                        <select class="form-control" id="id_regiao" name="regiao"></select>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="laboratorio">Laboratório</label>
+                                        <select class="form-control" id="id_laboratorio" name="laboratorio"></select>
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="principio_ativo">Princípio Ativo</label>
+                                        <select class="form-control" id="id_principio_ativo" name="principio_ativo"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <a href="{% url 'reports' %}" class="btn btn-lg btn-default">Voltar</a>
+                            <button type="submit" class="btn btn-lg btn-success pull-right">Gerar</button>
+                        </div>
+                        <br>
+                        <div class="card-header">
+                        </div>
+                    </form>
+        
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock report_form %}

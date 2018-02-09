@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'compressor',
-    'app'
+    'app',
+    'django_rq'
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,19 @@ COMPRESS_PRECOMPILERS = (
     ('text/x-sass', 'sassc {infile} {outfile}'),
     ('text/x-scss', 'sassc {infile} {outfile}'),
 )
+
+
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 10,
+        # 'PASSWORD': 'some-password',
+        'DEFAULT_TIMEOUT': 360
+    },
+    'high': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 11
+    }
+}

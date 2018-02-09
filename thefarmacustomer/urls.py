@@ -5,3 +5,7 @@ from app import urls
 urlpatterns = [
     url(r'^', include(urls))
 ]
+
+urlpatterns += [
+    url(r'^django-rq/', include('django_rq.urls')),
+]
