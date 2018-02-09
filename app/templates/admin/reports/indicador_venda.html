@@ -9,74 +9,12 @@
     {% compress js %}
         <script type="text/javascript" src="{% static "plugins/select2/select2.full.min.js" %}"></script>
         <script type="text/javascript">
-
-            function gerar_relatorio() {
-                $.ajax({
-                    url: '/',
-                    type: 'POST',
-                    data: {
-                        fatura_id: $('#id_fatura').val(),
-                        unidade_id: $('#id_unidade').val()
-                    },
-                    success : function( data ) {
-                        console.log(data);
-                        if(data.content.success){
-                            start_load('Iniciando relatório.');
-                            $('#id_fatura').parent().parent().removeClass('has-error');
-                            $('#id_unidade').parent().parent().removeClass('has-error');
-                        }else{
-                            alert(data.content.mensagem)
-                        }
-                    },
-                    error   : function(data, xhr, err ) {
-                        alert('Erro oo processar o relatório.');
-                        console.log(data);
-                    }
-                });
-                return false;
-            }
-
-            function start_load(iniMessage){
-                window.loading_screen = window.pleaseWait({
-                    logo: '{% static 'images/please-wait-logo.png' %}',
-                    backgroundColor: '#3c8dbc',
-                    loadingHtml: '<p class="loading-message">'+ iniMessage +'</p><div class="sk-spinner sk-spinner-wave"><div class="sk-rect1"></div><div class="sk-rect2"></div><div class="sk-rect3"></div><div class="sk-rect4"></div><div class="sk-rect5"></div></div>'
-                });
-            }
-
-            function stop_load(){
-                window.loading_screen.finish();
-            }
-
-            function update_message(message){
-                $('.loading-message').html(message);
-            }
-
-
-            function load_unidade(unidade_id) {
-                $.ajax({
-                    url: "/",
-                    type: 'POST',
-                    data: {unidade_id: unidade_id},
-                    success : function( data ) {
-                        $('#id_responsavel').val(data.content.responsavel);
-                    },
-                    error   : function(data, xhr, err ) {
-                        alert('Erro ao carregar unidade');
-                        $('#id_responsavel').val('');
-                        console.log(data);
-                    }
-                });
-            }
-
-
             (function () {
-                $('.select-simple').select2();
                 $('#report_type').val('{% url 'report-indicador-venda' %}').trigger('change');
 
                 $('#id_laboratorio').select2({
                     ajax: {
-                        url: 'http://localhost:8000/laboratorios/',
+                        url: get_url('/laboratorios/'),
                         dataType: 'json',
                         delay: 250,
                         data: function (params) {
@@ -105,7 +43,7 @@
 
                 $('#id_regiao').select2({
                     ajax: {
-                        url: 'http://localhost:8000/regioes/',
+                        url: get_url('/regioes/'),
                         dataType: 'json',
                         delay: 250,
                         data: function (params) {
@@ -134,7 +72,7 @@
 
                 $('#id_principio_ativo').select2({
                     ajax: {
-                        url: 'http://localhost:8000/principios_ativos/',
+                        url: get_url('/principios_ativos/'),
                         dataType: 'json',
                         delay: 250,
                         data: function (params) {
@@ -182,7 +120,6 @@
 
             })();
 
-            var farm_wsckt = parseInt('{{ request.session.auth_data.farmacia }}');
         </script>
     {% endcompress %}
 

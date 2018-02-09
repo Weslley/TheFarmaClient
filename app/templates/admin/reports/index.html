@@ -89,6 +89,11 @@
             })();
 
             var farm_wsckt = parseInt('{{ request.session.auth_data.farmacia }}');
+            var api_url = '{{ request.session.api_url }}'
+
+            function get_url(path){
+                return api_url + path;
+            }
         </script>
     {% endcompress %}
 
