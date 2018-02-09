@@ -15,8 +15,8 @@
                             <div class="form-group pmd-textfield  mb30 pr15 no-padding-xs">
                                 <label for="report_type">Relatórios</label>
                                 <select id="report_type" class="select-simple form-control pmd-select2">
-                                    <option value="-1" selected>------------</option>
-                                    <option value="rel">Relatório de Indicador de venda</option>
+                                    <option value="" selected>------------</option>
+                                    <option value="{% url 'report-indicador-venda' %}">Relatório de Indicador de venda</option>
                                 </select>
                                 <span class="pmd-textfield-focused"></span>
                             </div>
@@ -78,7 +78,14 @@
             }
 
             (function () {
-                $('.select-simple').select2();
+                $('#report_type').select2();
+                $('#report_type').on('select2:select', function (e) {
+                    if($(this).val() == ''){
+                        window.location = '/admin/reports/';
+                    }else{
+                        window.location = $(this).val();
+                    }
+                });
             })();
 
             var farm_wsckt = parseInt('{{ request.session.auth_data.farmacia }}');

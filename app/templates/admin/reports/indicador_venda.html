@@ -72,7 +72,7 @@
 
             (function () {
                 $('.select-simple').select2();
-                $('#report_type').val('rel').trigger('change');
+                $('#report_type').val('{% url 'report-indicador-venda' %}').trigger('change');
 
                 $('#id_laboratorio').select2({
                     ajax: {
