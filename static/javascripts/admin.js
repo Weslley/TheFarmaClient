@@ -6,6 +6,7 @@ socket.onmessage = function(e) {
     if(data.tipo === undefined){
         if (window.location.href.indexOf('sales') != -1){
             append_card_pedido(data, false, true);
+            sendOnlineStatus(data);
         }else{
 
         }
@@ -19,6 +20,15 @@ socket.onmessage = function(e) {
 		console.log('Proposta ' + data.pedido.id + ' foi cancelado !');
 	}
 
+}
+
+// Send to API TheFarma when the client receive a proposal
+function sendOnlineStatus(data) {
+    console.info(data);
+    farmaUrl = "http://api.thefarma.com/pedidos/" + data.id + "/views/";
+    console.log(farmaUrl);
+    // farmaUrl = 
+    $.post(farmaUrl);
 }
 
 $(function(){
