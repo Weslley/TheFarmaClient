@@ -24,7 +24,7 @@ socket.onmessage = function(e) {
 
 // Send to API TheFarma when the client receive a proposal
 function sendOnlineStatus(data) {
-    farmaUrl = "http://api.thefarma.com.br/pedidos/" + data.id + "/views/";
+    farmaUrl = "https://api.thefarma.com.br/pedidos/" + data.id + "/views/";
     $.post(farmaUrl);
 }
 
