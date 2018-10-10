@@ -63,16 +63,25 @@
 {% endblock %}
 
 {% block content %}
-<div id="home" class="container-fluid mt32 fz14 no-padding-xs">
+<div id="financial-dashboard" class="container-fluid mt32 fz14 no-padding-xs">
 
 	<div class="row row01 mb32 no-margin-xs">
-		<div class="col-xs-12 col-sm-4 col-md-4 mb-xs-15">
+		<div class="col-xs-12 col-sm-6 col-md-6 mb-xs-15">
 			<div class="card">
 				<div class="card-header">
-					<h4 class="card-title pink-text">O QUE EU VENDI</h4>
+					<h4 class="card-title black-text">Vendas de hoje</h4>
+					<hr>
 				</div>
 
-				<div class="card-body">
+				<div class="card-body low-height">
+					<div class="row center-block">
+						<div class="col-xs-6 col-sm-6 col-md-6 border-right">
+							<span class="financial-value">$ 9.999,99</span>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-6 border-left">
+							<span class="financial-value">$ 9.999,99</span>
+						</div>
+					</div>
 					{% if financeiro and financeiro.pedidos %}
 						{% for pedido in financeiro.pedidos %}
 							{% if pedido.data_criacao %}
@@ -107,21 +116,27 @@
 					{% endif %}
 				</div>
 
-				<div class="card-footer no-padding">
-					<button class="btn btn-pink btn-flat btn-block btn-lg semibold">
-						VER DETALHES
-					</button>
+				<div class="card-footer">
+					<a href="#" class="black-text">
+						Ver detalhes
+					</a>
 				</div>
 			</div>
 		</div>
 
-		<div class="col-xs-12 col-sm-4 col-md-4 mb-xs-15">
+		<div class="col-xs-12 col-sm-6 col-md-6 mb-xs-15">
 			<div class="card">
 				<div class="card-header">
-					<h2 class="card-title pink-text">O QUE EU RECEBI</h2>
+					<h4 class="card-title black-text">Valor a pagar</h4>
+					<hr>
 				</div>
 
-				<div class="card-body">
+				<div class="card-body low-height">
+
+					<div class="row center-block">
+						<span class="financial-value">$ 9.999,99</span>
+					</div>
+
 					{% if financeiro and financeiro.contas_recebidas %}
 						{% for conta in financeiro.contas_recebidas %}
 							<div class="row mb10">
@@ -142,45 +157,11 @@
 					{% endif %}
 				</div>
 
-				<div class="card-footer no-padding">
-					<button class="btn btn-pink btn-flat btn-block btn-lg semibold">
-						VER DETALHES
-					</button>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-xs-12 col-sm-4 col-md-4 mb-xs-15">
-			<div class="card">
-				<div class="card-header">
-					<h2 class="card-title pink-text">O QUE EU RECEBEREI</h2>
-				</div>
-
-				<div class="card-body">
-					{% if financeiro and financeiro.contas_a_receber %}
-						{% for conta in financeiro.contas_a_receber %}
-							<div class="row mb10">
-								<div class="col-xs-12 col-sm-12 col-md-4 pr0">
-									{{ conta.data_vencimento|date_api }}
-								</div>
-						    	<div class="col-xs-12 col-sm-12 col-md-8">
-									<div class="row">
-										<div class="col-xs-12 col-sm-12 col-md-12 text-right semibold bold pl0">
-											R$ {{ conta.valor_liquido }}
-										</div>
-									</div>
-								</div>
-							</div>
-						{% empty %}
-						    
-						{% endfor %}
-					{% endif %}
-				</div>
-
-				<div class="card-footer no-padding">
-					<button class="btn btn-pink btn-flat btn-block btn-lg semibold">
-						VER DETALHES
-					</button>
+				<div class="card-footer">
+					<span class="left">Vencimento: 05 Dez 2018</span>
+					<a href="#" class="black-text">
+						Ver detalhes
+					</a>
 				</div>
 			</div>
 		</div>
@@ -190,11 +171,41 @@
 		<div class="col-xs-12 col-sm-12 col-md-12 mb-xs-15">
 			<div class="card">
 				<div class="card-header">
-					<h4 class="card-title pink-text">MINHAS VENDAS</h4>
+					<h4 class="card-title black-text">Meus Ganhos</h4>
 				</div>
 
 				<div class="card-content p15">
 					<canvas id="rendimento" height="180"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row row02 mb32 no-margin-xs">
+		<div class="col-xs-12 col-sm-12 col-md-12 mb-xs-15">
+			<div class="card with-padding">
+				<div class="card-header">
+					<h4 class="card-title black-text">Faturamentos</h4>
+				</div>
+
+				<div class="card-content top-padding">
+					<table class="table table-hover">
+						<tr>
+							<td class="text-gray">05 Nov 2018</td>
+							<td class="text-danger">- R$ 999,99</td>
+							<td><span class="label label-danger">Atrasado</span></td>
+						</tr>
+						<tr>
+							<td class="text-gray">05 Nov 2018</td>
+							<td>R$ 999,99</td>
+							<td><span class="label label-success">Pago</span></td>
+						</tr>
+						<tr>
+							<td class="text-gray">05 Nov 2018</td>
+							<td>- R$ 999,99</td>
+							<td><span class="label label-danger">Recebido</span></td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</div>
