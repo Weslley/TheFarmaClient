@@ -60,6 +60,10 @@
         <script type="text/javascript" src="{% static "plugins/dropzone/dropzone.min.js" %}"></script>
         <script type="text/javascript" src="{% static "plugins/cycle2/cycle2.js" %}"></script>
         <script type="text/javascript">
+            var farmaciaInfo = "{{ farmacia_info }}";
+            var farmaciaFrete = "{{ farmacia_info.valor_frete }}";
+        </script>
+        <script type="text/javascript">
             $(function(){
                 $(".select-simple").select2({
                     theme: "bootstrap",
