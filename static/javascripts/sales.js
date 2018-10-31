@@ -368,13 +368,56 @@ function append_card_pedido(data_content, append_after, active){
     }
     var footer_list = create_elem('div', 'row footer-list');
     var footer_list_pull_right = create_elem('div', 'pull-right');
-    var footer_total = document.createElement('p');
-    footer_total.textContent = 'Total ';
-    var span_total = document.createElement('span');
-    span_total.setAttribute('id', 'total_'+order_id);
-    span_total.textContent = money(total);
-    footer_total.appendChild(span_total);
-    footer_list_pull_right.appendChild(footer_total);
+
+    if (data_content.delivery == true) {
+        // Subtotal
+        var footer_subtotal = document.createElement('p');
+        footer_subtotal.setAttribute('class', 'text-gray');
+        footer_subtotal.textContent = 'Subtotal ';
+        var span_subtotal = document.createElement('span');
+        span_subtotal.setAttribute('class', 'text-gray card-values');
+        span_subtotal.setAttribute('id', 'subtotal_'+order_id);
+        span_subtotal.textContent = money(total);
+        footer_subtotal.appendChild(span_subtotal);
+
+        // Frete
+        var footer_delivery = document.createElement('p');
+        footer_delivery.setAttribute('class', 'text-gray');
+        footer_delivery.textContent = 'Frete ';
+        var span_delivery = document.createElement('span');
+        span_delivery.setAttribute('id', 'frete_'+order_id);
+        span_delivery.setAttribute('class', 'text-gray card-values');
+        span_delivery.textContent = money(farmaciaFrete);
+        footer_delivery.appendChild(span_delivery);
+
+        // Total
+        var footer_total = document.createElement('p');
+        footer_total.textContent = 'Total ';
+        var span_total = document.createElement('span');
+        span_total.setAttribute('id', 'total_'+order_id);
+        span_total.setAttribute('class', 'card-values');
+        totalComFrete = parseFloat(total + parseFloat(farmaciaFrete)).toFixed(2)
+        span_total.textContent = money(totalComFrete);
+        footer_total.appendChild(span_total);
+
+        // Add elemento a pagina em ordem
+        footer_list_pull_right.appendChild(footer_subtotal);
+        footer_list_pull_right.appendChild(footer_delivery);
+        footer_list_pull_right.appendChild(footer_total);
+    } else {
+        // Total
+        var footer_total = document.createElement('p');
+        footer_total.textContent = 'Total ';
+        var span_total = document.createElement('span');
+        span_total.setAttribute('id', 'total_'+order_id);
+        span_total.setAttribute('class', 'card-values');
+        span_total.textContent = money(total);
+        footer_total.appendChild(span_total);
+
+        // Add elemento a pagina
+        footer_list_pull_right.appendChild(footer_total);
+    }
+
     footer_list.appendChild(footer_list_pull_right);
     var footer_card = create_elem('div', 'footer-card');
     var col_cliente_footer_card = create_elem('div', 'col-footer-card');
