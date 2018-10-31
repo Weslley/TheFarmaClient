@@ -1,7 +1,10 @@
 from django.http.response import JsonResponse
 from django.views.generic import TemplateView, View
-import json
+
 from app.api_data.sales import SalesClient
+from app.api_data.account import AccountClient
+
+import json
 
 
 class SalesView(TemplateView):
@@ -20,6 +23,7 @@ class SalesView(TemplateView):
         if 'errors' in kwargs:
             return context
 
+        acc_client = AccountClient(**self.auth_data)
         client = SalesClient(**self.auth_data)
 
         try:
@@ -33,16 +37,19 @@ class SalesView(TemplateView):
                 data['status'] = status
 
             status_code, data = client.get_sales_list(**data)
+            acc_status_code, acc_data = acc_client.get_account_data()
+
         except Exception as err:
             context['errors'] = 'Erro ao obter informações do servidor.'
             return context
 
-        if status_code >= 400:
+        if status_code >= 400 or acc_status_code >= 400:
             context['errors'] = data
 
         elif status_code == 200:
             context['pedidos'] = data['results']
             context['num_pages'] = data['num_pages']
+            context['farmacia_info'] = acc_data['farmacia']
 
         return context
 
