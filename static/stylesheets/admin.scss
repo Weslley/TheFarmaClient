@@ -68,7 +68,7 @@ header {
 	}
 }
 
-.text-gray{color: $gray;}
+.text-gray{color: $gray !important;}
 .text-danger{color: $red;}
 
 .pmd-textfield-focused{background-color: $main-color;}
@@ -264,6 +264,10 @@ button.btn-default:hover,
 	.card{
 		padding-right: 32px;
 		padding-left: 32px;
+
+		.card-values {
+			float: right;
+		}
 	}
 	.sale{
 		#timer{
