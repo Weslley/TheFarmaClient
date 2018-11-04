@@ -116,19 +116,33 @@
 					<hr>
 				</div>
 
+				{% if financeiro.conta_atual.valor_total %}
 				<div class="card-body low-height">
-
 					<div class="row center-block">
 						<span class="financial-value">R$ {{financeiro.conta_atual.valor_total}}</span>
 					</div>
 				</div>
 
 				<div class="card-footer">
-					<span class="left">Vencimento: {{financeiro.conta_atual.data_vencimento|date_api}}</span>
+
 					<a href="#" class="black-text">
 						Ver detalhes
 					</a>
 				</div>
+				{% else %}
+				<div class="card-body low-height">
+						<div class="row center-block">
+							<span class="financial-value">R$ 0,00</span>
+						</div>
+					</div>
+	
+					<div class="card-footer">
+						<span class="left">Vencimento: -</span>
+						<a href="#" class="black-text">
+							Ver detalhes
+						</a>
+					</div>
+				{% endif %}
 			</div>
 		</div>
 	</div>
