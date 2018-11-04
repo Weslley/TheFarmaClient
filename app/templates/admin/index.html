@@ -175,7 +175,7 @@
 							<td class="text-gray">{{conta.data_vencimento|date_api}}</td>
 
 							{% if conta.tipo == 0 %}
-							<td class="text-danger">- R$ {{conta.valor_total}}</td>
+							<td class="text-danger">R$ {{conta.valor_total}}</td>
 							{% else %}
 							<td>R$ {{conta.valor_total}}</td>
 							{% endif %}
