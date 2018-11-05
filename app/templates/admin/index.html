@@ -77,11 +77,19 @@
 					<div class="row center-block">
 						{% if financeiro.vendas_hoje %}
 						<div class="col-xs-6 col-sm-6 col-md-6 border-right">
+							{% if financeiro.vendas_hoje.liquido %}
 							<span class="financial-value">R$ {{financeiro.vendas_hoje.liquido}}</span>
+							{% else %}
+							<span class="financial-value">R$ 0,00</span>
+							{% endif %}
 							<p class="card-description text-gray">Líquido</p>
 						</div>
 						<div class="col-xs-6 col-sm-6 col-md-6 border-left">
+							{% if financeiro.vendas_hoje.bruto %}
 							<span class="financial-value">R$ {{financeiro.vendas_hoje.bruto}}</span>
+							{% else %}
+							<span class="financial-value">R$ 0,00</span>
+							{% endif %}
 							<p class="card-description text-gray">Bruto</p>
 						</div>
 						{% else %}
