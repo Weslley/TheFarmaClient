@@ -1,0 +1,77 @@
+{% extends  "layouts/admin-v2.html" %}
+
+{% load compress %}
+{% load staticfiles %}
+{% load helper %}
+
+
+{% block content %}
+<div id="financial-sales" class="container-fluid fz14">
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 mb-xs-15 nopad">
+            <h4>Meus Ganhos</h4>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 mb-xs-15 push-right">
+            <div class="form-group form-margin--top">
+                <select class="form-control form-control--mid-width">
+                    <option>Novembro 2018</option>
+                    <option>Setembro 2018</option>
+                    <option>Outubro 2018</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+            <div class="col-xs-12 col-sm-3 col-md-3 mb-xs-15 nopad">
+                <h5>Numero de vendas</h5>
+                <p>9.999</p>
+            </div>
+            <div class="col-xs-12 col-sm-3 col-md-3 mb-xs-15 nopad">
+                <h5>Total Liquido</h5>
+                <p>R$ 9.999,00</p>
+            </div>
+        </div>
+
+    <div class="row">
+        <table class="table">
+            <tr>
+                <th>Data</th>
+                <th>Núm. da venda</th>
+                <th>Cliente</th>
+                <th></th>
+                <th>Valor Liquido</th>
+            </tr>
+            <tr>
+                <td>05 Nov 2018 14:00</td>
+                <td>0.000.000.001</td>
+                <td>Henrique de Oliviera Carvalho</td>
+                <td><span class="label label-success">Dinheiro</span></td>
+                <td>R$ 9.999,99</td>
+            </tr>
+            <tr>
+                <td>05 Nov 2018 14:00</td>
+                <td>0.000.000.001</td>
+                <td>Henrique de Oliviera Carvalho</td>
+                <td><span class="label label-warning">Cartão de Crédito</span></td>
+                <td>R$ 9.999,99</td>
+            </tr>
+            <tr>
+                <td>05 Nov 2018 14:00</td>
+                <td>0.000.000.001</td>
+                <td>Henrique de Oliviera Carvalho</td>
+                <td><span class="label label-warning">Cartão de Crédito</span></td>
+                <td>R$ 9.999,99</td>
+            </tr>
+            <tr>
+                <td>05 Nov 2018 14:00</td>
+                <td>0.000.000.001</td>
+                <td>Henrique de Oliviera Carvalho</td>
+                <td><span class="label label-warning">Cartão de Crédito</span></td>
+                <td>R$ 9.999,99</td>
+            </tr>
+        </table>
+    </div>
+</div>
+{%endblock%}
