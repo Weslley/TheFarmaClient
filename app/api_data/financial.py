@@ -14,3 +14,14 @@ class FinancialClient(BaseClient):
             return response.status_code, response.to_dict
         except HTTPError as err:
             return err.status_code, err.to_dict
+
+    def get_financial_sales_data(self):
+        try:
+            response = self.client.financeiro.vendas.get(
+                request_body=self.data,
+                query_params={},
+                request_headers={}
+            )
+            return response.status_code, response.to_dict
+        except HTTPError as err:
+            return err.status_code, err.to_dict
