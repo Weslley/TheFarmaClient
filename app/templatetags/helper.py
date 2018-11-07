@@ -12,6 +12,9 @@ register = template.Library()
 def date_api(date_str):
     return api_to_date(date_str).strftime('%d/%m/%Y')
 
+@register.filter(name='fmt_date')
+def fmt_date(date_str):
+    return api_to_date(date_str).strftime('%d %b %Y %H:%M')
 
 @register.filter(name='jsonify')
 def jsonify(object):
