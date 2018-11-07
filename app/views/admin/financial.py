@@ -25,15 +25,18 @@ class FinancialSalesView(TemplateView):
         client = FinancialClient(**self.auth_data)
 
         try:
-            status_code, data = client.get_financial_data()
+            status_code, data = client.get_financial_sales_data()
         except Exception as err:
             context['errors'] = 'Erro ao obter informações do servidor.'
+            print(err)
             return context
 
         if status_code >= 400:
             context['errors'] = data
 
         elif status_code == 200:
-            context['financeiro'] = data
+            context['sales'] = data
+            from pprint import pprint
+            pprint(data)
 
         return context

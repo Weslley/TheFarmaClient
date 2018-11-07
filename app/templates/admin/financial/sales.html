@@ -15,11 +15,11 @@
         <div class="col-xs-6 col-sm-6 col-md-6 mb-xs-6 push-right">
             <div class="form-group form-margin--top">
                 <select class="form-control form-control--mid-width form-control--select">
-                    <option>Novembro 2018</option>
+                    <option>Hoje</option>
+                    <!-- <option>Novembro 2018</option>
                     <option>Setembro 2018</option>
-                    <option>Outubro 2018</option>
+                    <option>Outubro 2018</option> -->
                 </select>
-                <!-- <i class="fa fa-caret-down" aria-hidden="true"></i> -->
             </div>
         </div>
     </div>
@@ -27,15 +27,15 @@
     <div class="row">
             <div class="col-xs-12 col-sm-2 col-md-2 mb-xs-15 nopad">
                 <h5 class="normal-text text-light-gray">Numero de vendas</h5>
-                <p class="subtitle">9.999</p>
+                <p class="subtitle">{{sales.resumo.quantidade}}</p>
             </div>
             <div class="col-xs-12 col-sm-2 col-md-2 mb-xs-15 nopad">
                 <h5 class="normal-text text-light-gray">Total Liquido</h5>
-                <p class="subtitle">R$ 9.999,00</p>
+                <p class="subtitle">R$ {{sales.resumo.valor_liquido}}</p>
             </div>
             <div class="col-xs-12 col-sm-2 col-md-2 mb-xs-15 nopad">
                 <h5 class="normal-text text-light-gray">Total Bruto</h5>
-                <p class="subtitle">R$ 9.999,00</p>
+                <p class="subtitle">R$ {{sales.resumo.valor_bruto}}</p>
             </div>
         </div>
 
@@ -48,41 +48,19 @@
                 <th></th>
                 <th class="small-text--light">Valor Liquido</th>
             </tr>
+            {% for sale in sales.data %}
             <tr>
-                <td class="text-light-gray">05 Nov 2018 14:00</td>
-                <td class="text-light-gray">0.000.000.001</td>
-                <td>Henrique de Oliviera Carvalho</td>
+                <td class="text-light-gray">{{sale.data_criacao|fmt_date}}</td>
+                <td class="text-light-gray">{{sale.id}}</td>
+                <td>{{sale.cliente}}</td>
+                {% if sale.forma_pagamento == 1 %}
                 <td><span class="label label--money">Dinheiro</span></td>
-                <td>R$ 9.999,99</td>
-            </tr>
-            <tr>
-                <td class="text-light-gray">05 Nov 2018 14:00</td>
-                <td class="text-light-gray">0.000.000.001</td>
-                <td>Henrique de Oliviera Carvalho</td>
-                <td><span class="label label--money">Dinheiro</span></td>
-                <td>R$ 9.999,99</td>
-            </tr>
-            <tr>
-                <td class="text-light-gray">05 Nov 2018 14:00</td>
-                <td class="text-light-gray">0.000.000.001</td>
-                <td>Henrique de Oliviera Carvalho</td>
+                {% else %}
                 <td><span class="label label--credit-card">Cartão de Crédito</span></td>
-                <td>R$ 9.999,99</td>
+                {% endif %}
+                <td>R$ {{sale.valor_liquido}}</td>
             </tr>
-            <tr>
-                <td class="text-light-gray">05 Nov 2018 14:00</td>
-                <td class="text-light-gray">0.000.000.001</td>
-                <td>Henrique de Oliviera Carvalho</td>
-                <td><span class="label label--credit-card">Cartão de Crédito</span></td>
-                <td>R$ 9.999,99</td>
-            </tr>
-            <tr>
-                <td class="text-light-gray">05 Nov 2018 14:00</td>
-                <td class="text-light-gray">0.000.000.001</td>
-                <td>Henrique de Oliviera Carvalho</td>
-                <td><span class="label label--credit-card">Cartão de Crédito</span></td>
-                <td>R$ 9.999,99</td>
-            </tr>
+            {% endfor %}
         </table>
     </div>
 </div>
