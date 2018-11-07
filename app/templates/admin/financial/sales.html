@@ -31,11 +31,11 @@
             </div>
             <div class="col-xs-12 col-sm-2 col-md-2 mb-xs-15 nopad">
                 <h5 class="normal-text text-light-gray">Total Liquido</h5>
-                <p class="subtitle">R$ {{sales.resumo.valor_liquido}}</p>
+                <p class="subtitle">{{sales.resumo.valor_liquido|fmt_money}}</p>
             </div>
             <div class="col-xs-12 col-sm-2 col-md-2 mb-xs-15 nopad">
                 <h5 class="normal-text text-light-gray">Total Bruto</h5>
-                <p class="subtitle">R$ {{sales.resumo.valor_bruto}}</p>
+                <p class="subtitle">{{sales.resumo.valor_bruto|fmt_money}}</p>
             </div>
         </div>
 
@@ -58,7 +58,7 @@
                 {% else %}
                 <td><span class="label label--credit-card">Cartão de Crédito</span></td>
                 {% endif %}
-                <td>R$ {{sale.valor_liquido}}</td>
+                <td>{{sale.valor_liquido|fmt_money}}</td>
             </tr>
             {% endfor %}
         </table>

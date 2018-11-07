@@ -78,7 +78,7 @@
 						{% if financeiro.vendas_hoje %}
 						<div class="col-xs-6 col-sm-6 col-md-6 border-right">
 							{% if financeiro.vendas_hoje.liquido %}
-							<span class="financial-value">R$ {{financeiro.vendas_hoje.liquido}}</span>
+							<span class="financial-value">{{financeiro.vendas_hoje.liquido|fmt_money}}</span>
 							{% else %}
 							<span class="financial-value">R$ 0,00</span>
 							{% endif %}
@@ -86,7 +86,7 @@
 						</div>
 						<div class="col-xs-6 col-sm-6 col-md-6 border-left">
 							{% if financeiro.vendas_hoje.bruto %}
-							<span class="financial-value">R$ {{financeiro.vendas_hoje.bruto}}</span>
+							<span class="financial-value">{{financeiro.vendas_hoje.bruto|fmt_money}}</span>
 							{% else %}
 							<span class="financial-value">R$ 0,00</span>
 							{% endif %}
@@ -127,7 +127,7 @@
 				{% if financeiro.conta_atual.valor_total %}
 				<div class="card-body low-height">
 					<div class="row center-block">
-						<span class="financial-value">R$ {{financeiro.conta_atual.valor_total}}</span>
+						<span class="financial-value">{{financeiro.conta_atual.valor_total|fmt_money}}</span>
 					</div>
 				</div>
 
@@ -183,7 +183,7 @@
 							<td class="text-gray">{{conta.data_vencimento|date_api}}</td>
 
 							{% if conta.tipo == 0 %}
-							<td class="text-danger">R$ {{conta.valor_total}}</td>
+							<td class="text-danger">{{conta.valor_total|fmt_money}}</td>
 							{% else %}
 							<td>R$ {{conta.valor_total}}</td>
 							{% endif %}
