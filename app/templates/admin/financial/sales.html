@@ -25,19 +25,19 @@
     </div>
 
     <div class="row">
-            <div class="col-xs-12 col-sm-2 col-md-2 mb-xs-15 nopad">
-                <h5 class="normal-text text-light-gray">Numero de vendas</h5>
-                <p class="subtitle">{{sales.resumo.quantidade}}</p>
-            </div>
-            <div class="col-xs-12 col-sm-2 col-md-2 mb-xs-15 nopad">
-                <h5 class="normal-text text-light-gray">Total Liquido</h5>
-                <p class="subtitle">{{sales.resumo.valor_liquido|fmt_money}}</p>
-            </div>
-            <div class="col-xs-12 col-sm-2 col-md-2 mb-xs-15 nopad">
-                <h5 class="normal-text text-light-gray">Total Bruto</h5>
-                <p class="subtitle">{{sales.resumo.valor_bruto|fmt_money}}</p>
-            </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 mb-xs-15 nopad">
+            <h5 class="normal-text text-light-gray">Numero de vendas</h5>
+            <p class="subtitle">{{sales.resumo.quantidade}}</p>
         </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 mb-xs-15 nopad">
+            <h5 class="normal-text text-light-gray">Total Liquido</h5>
+            <p class="subtitle">{{sales.resumo.valor_liquido|fmt_money}}</p>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 mb-xs-15 nopad">
+            <h5 class="normal-text text-light-gray">Total Bruto</h5>
+            <p class="subtitle">{{sales.resumo.valor_bruto|fmt_money}}</p>
+        </div>
+    </div>
 
     <div class="row">
         <table class="table">
@@ -49,7 +49,7 @@
                 <th class="small-text--light">Valor Liquido</th>
             </tr>
             {% for sale in sales.data %}
-            <tr>
+            <tr data-toggle="modal" data-target="#myModal{{sale.id}}">
                 <td class="text-light-gray">{{sale.data_criacao|fmt_date}}</td>
                 <td class="text-light-gray">{{sale.id}}</td>
                 <td>{{sale.cliente}}</td>
@@ -63,5 +63,64 @@
             {% endfor %}
         </table>
     </div>
+
+    {% for sale in sales.data %}
+    <div class="modal fade" id="myModal{{sale.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{sale.data_criacao|fmt_date}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h4 class="subtitle text-light-gray">Numero da venda</h4>
+                            <p>{{sale.id}}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="subtitle text-light-gray">Pagamento</h4>
+                            {% if sale.forma_pagamento == 1 %}
+                            <span class="label label--money">Dinheiro</span>
+                            {% else %}
+                            <span class="label label--credit-card">Cartão de Crédito</span>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4 push-right">
+                            <h4 class="subtitle text-light-gray">Valor Liquido</h4>
+                            <p>{{sale.valor_liquido|fmt_money}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h4 class="subtitle text-light-gray">Detalhes do faturamento</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table class="table">
+                            <tr data-toggle="modal" data-target="#myModal">
+                                <td class="text-light-black">Valor Bruto</td>
+                                <td class="text-bold text-black push-right">{{sale.valor_bruto|fmt_money}}</td>
+                            </tr>
+                            <tr data-toggle="modal" data-target="#myModal">
+                                <td class="text-light-black">Taxa adm. do cartão</td>
+                                <td class="text-bold text-pink push-right">- {{sale.valor_comissao_administradora|fmt_money}}</td>
+                            </tr>
+                            <tr data-toggle="modal" data-target="#myModal">
+                                <td class="text-light-black">Comissão</td>
+                                <td class="text-bold text-pink push-right">- {{sale.valor_comissao_thefarma|fmt_money}}</td>
+                            </tr>
+                            <tr data-toggle="modal" data-target="#myModal">
+                                <td class="text-bold">Total</td>
+                                <td class="text-bold push-right">{{sale.valor_liquido|fmt_money}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
 </div>
 {%endblock%}

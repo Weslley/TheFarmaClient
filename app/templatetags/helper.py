@@ -23,7 +23,9 @@ def fmt_date(date_str):
 
 @register.filter(name='fmt_money')
 def fmt_money(money_str):
-    return locale.currency(float(money_str), grouping=True)
+    if money_str:
+        return locale.currency(float(money_str), grouping=True)
+    return locale.currency(0, grouping=True)
 
 @register.filter(name='jsonify')
 def jsonify(object):
