@@ -13,6 +13,7 @@
 {% block scripts %}
 {% compress js %}
 <script type="text/javascript" src="{% static "plugins/chartjs/chartjs.min.js" %}"></script>
+
 <script type="text/javascript">
 	$(function(){
 
@@ -58,6 +59,18 @@
 		};
 		chart1 = new Chart(ctx1, data1);
 	})
+</script>
+
+<script type="text/javascript">
+	$( "#rendimento" ).click(function() {
+		let baseURL = window.location.origin + window.location.pathname;
+		var formatedURL = baseURL + '/sales/' + '?mes=' + '{{ultima_data.mes}}' + '&ano=' + '{{ultima_data.ano}}';
+		window.location.replace(formatedURL);
+	});
+
+	$( "#rendimento" ).hover(function() {
+		$( "#rendimento" ).css("cursor", "pointer");
+	});
 </script>
 {% endcompress %}
 {% endblock %}

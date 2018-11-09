@@ -15,11 +15,11 @@ class FinancialClient(BaseClient):
         except HTTPError as err:
             return err.status_code, err.to_dict
 
-    def get_financial_sales_data(self):
+    def get_financial_sales_data(self, params={}):
         try:
             response = self.client.financeiro.vendas.get(
                 request_body=self.data,
-                query_params={},
+                query_params=params,
                 request_headers={}
             )
             return response.status_code, response.to_dict
