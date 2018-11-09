@@ -4,21 +4,62 @@
 {% load staticfiles %}
 {% load helper %}
 
+{% block scripts %}
+{% compress js %}
+<script type="text/javascript">
+    $("#select-control").change(function() {
+        var selected = $(this).children("option:selected").text();
+        let fmtSelected = selected.split(' ');
+        let mounth = fmtSelected[0].toLowerCase();
+
+        var urlString = window.location.href;
+        var formatedURL = window.location.origin + window.location.pathname;
+
+        if (mounth == "hoje") {
+            window.location.replace(formatedURL);
+        } else {
+            let fmtSelected = selected.split(' ');
+            let year = fmtSelected[1];
+
+            var formatedURL = formatedURL + '?mes=' + mounth + '&ano=' + year;
+            window.location.replace(formatedURL);
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    function getParam(param){
+        return new URLSearchParams(window.location.search).get(param);
+    }
+
+    let getYear = getParam('ano');
+    let getMonth = getParam('mes');
+
+    if (getYear != null && getMonth != null) {
+        $("#select-control").val(getMonth);
+    } else {
+        $("#select-control").val('hoje');
+    }
+</script>
+
+{% endcompress %}
+{% endblock %}
+
 
 {% block content %}
 <div id="financial-sales" class="container-fluid fz14">
 
     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6 mb-xs-6 nopad">
-            <h4 class="page-title">Meus Ganhos</h4>
+            <h4 id="teste" class="page-title">Meus Ganhos</h4>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6 mb-xs-6 push-right">
             <div class="form-group form-margin--top">
-                <select class="form-control form-control--mid-width form-control--select">
-                    <option>Hoje</option>
-                    <!-- <option>Novembro 2018</option>
-                    <option>Setembro 2018</option>
-                    <option>Outubro 2018</option> -->
+                <select id="select-control" class="form-control form-control--mid-width form-control--select">
+                    <option value="hoje">Hoje</option>
+                    {% for periodo in sales.periodos %}
+                    <option value="{{periodo.mes}}">{{periodo.mes|capfirst}} {{periodo.ano}}</option>
+                    {% endfor %}
                 </select>
             </div>
         </div>
