@@ -147,6 +147,14 @@ button.btn-default:hover,
 		color: #009688;
 		background: rgba(80,227,194,0.24);
 	}
+	&--success {
+		color: #009688;
+		background: rgba(80,227,194,0.24);
+	}
+	&--danger {
+		color: #F0166D;
+		background: rgba(240,22,109,0.16);
+	}
 }
 
 .table {
@@ -180,13 +188,26 @@ button.btn-default:hover,
 #financial-dashboard {
 	padding-right: 5%;
 	padding-left: 5%;
+	background-color: $white;
+	font-family: 'Roboto', sans-serif !important;
+	height: 100%;
+
+	.card {
+		box-shadow: none;
+
+		.card-body {
+			padding-top: 5px;
+		}
+	}
 }
 
 .table {
 	text-align: center;
 
 	tr:first-of-type {
-		border-top: none;
+		td {
+			border-top: none;
+		}
 	}
 }
 

@@ -1,14 +1,8 @@
-{% extends  "layouts/admin.html" %}
+{% extends  "layouts/admin-v2.html" %}
 
 {% load compress %}
 {% load staticfiles %}
 {% load helper %}
-
-{% block styles %}
-{% compress css %}
-<!--<link rel="stylesheet" media="all" href="{% static "plugins/OwlCarousel2/owl.carousel.min.css" %}" data-turbolinks-track="reload" type="text/x-sass" />-->
-{% endcompress %}
-{% endblock %}
 
 {% block scripts %}
 {% compress js %}
@@ -40,7 +34,7 @@
 				labels : [{% for label in financeiro.rendimentos.labels %}"{{ label }}",{% endfor %}],//["JANEIRO","FEVEREIRO","MARÇO","ABRIL", "MAIO", "JUNHO", "JULHO"],
 				datasets : [{
 					label: "Rendimento R$",
-					backgroundColor: '#E91E63',
+					backgroundColor: '#7ED321',
 					borderWidth: 1,
 					data : {{ financeiro.rendimentos.values }} //[0, 1000, 2000, 3000, 4000, 5000, 6000, 7000]
 				}]
@@ -143,27 +137,19 @@
 						<span class="financial-value">{{financeiro.conta_atual.valor_total|fmt_money}}</span>
 					</div>
 				</div>
-
+				{% else %}
+				<div class="card-body low-height">
+					<div class="row center-block">
+						<span class="financial-value">R$ 0,00</span>
+					</div>
+				</div>
+				{% endif %}
 				<div class="card-footer">
-
+					<span class="left text-light-gray">Vencimento: {{financeiro.conta_atual.data_vencimento|date_api}}</span>
 					<a href="#" class="black-text">
 						Ver detalhes
 					</a>
 				</div>
-				{% else %}
-				<div class="card-body low-height">
-						<div class="row center-block">
-							<span class="financial-value">R$ 0,00</span>
-						</div>
-					</div>
-	
-					<div class="card-footer">
-						<span class="left">Vencimento: -</span>
-						<a href="#" class="black-text">
-							Ver detalhes
-						</a>
-					</div>
-				{% endif %}
 			</div>
 		</div>
 	</div>
@@ -173,6 +159,7 @@
 			<div class="card">
 				<div class="card-header">
 					<h4 class="card-title black-text">Meus Ganhos</h4>
+					<hr>
 				</div>
 
 				<div class="card-content p15">
@@ -187,6 +174,7 @@
 			<div class="card with-padding">
 				<div class="card-header">
 					<h4 class="card-title black-text">Faturamentos</h4>
+					<hr>
 				</div>
 
 				<div class="card-content top-padding">
@@ -202,13 +190,13 @@
 							{% endif %}
 							
 							{% if conta.status == 0 %}
-							<td><span class="label label-warning">Aberta</span></td>
+							<td><span class="label label--success">Aberta</span></td>
 							{% elif conta.status == 1 %}
-							<td><span class="label label-success">Paga</span></td>
+							<td><span class="label label--success">Paga</span></td>
 							{% elif conta.status == 2 %}
-							<td><span class="label label-danger">Atrasada</span></td>
+							<td><span class="label label--danger">Atrasada</span></td>
 							{% elif conta.status == 3 %}
-							<td><span class="label label-danger">Cancelada</span></td>
+							<td><span class="label label--danger">Cancelada</span></td>
 							{% endif %}
 						</tr>
 						{% endfor %}
