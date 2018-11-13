@@ -146,7 +146,7 @@
 				{% endif %}
 				<div class="card-footer">
 					<span class="left text-light-gray">Vencimento: {{financeiro.conta_atual.data_vencimento|date_api}}</span>
-					<a href="#" class="black-text">
+					<a href="{% url 'financial_billing' %}" class="black-text">
 						Ver detalhes
 					</a>
 				</div>
