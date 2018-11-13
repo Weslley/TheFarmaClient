@@ -7,7 +7,7 @@ from app.views.admin import products
 from app.views.admin import SalesView
 from app.views.admin import AccountView
 
-from app.views.admin.financial import FinancialSalesView
+from app.views.admin.financial import FinancialSalesView, BillingView
 
 from app.views.admin.reports import reports
 from app.views.admin.reports import products as reports_products
@@ -28,6 +28,7 @@ urlpatterns = [
     # ADMIN
     url(r'^admin/financial$', FinancialView.as_view(), name='financial_path'),
     url(r'^admin/financial/sales/$', FinancialSalesView.as_view(), name='financial_sales'),
+    url(r'^admin/financial/billing/$', BillingView.as_view(), name='financial_billing'),
 
     # PRODUCTS
     url(r'^admin/products$', products.index, name='products_path'),

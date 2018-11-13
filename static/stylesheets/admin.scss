@@ -81,6 +81,7 @@ header {
 }
 
 .text-gray{color: $gray !important;}
+.text-green{color: #7ED321;}
 .text-light-gray{color: $light-gray;}
 .text-light-black{color: $black;}
 .text-danger{color: $red;}
@@ -184,17 +185,36 @@ button.btn-default:hover,
 	}
 }
 
-/*============== FINANCIAL DASHBOARD =================*/
-#financial-dashboard {
+.push {
+	&-left {
+		text-align: left;
+	}
+	&-right {
+		text-align: right;
+	}
+}
+
+.row-border {
+	&--only-bottom {
+		box-shadow: 0 1px 0 0 rgba(0,0,0,0.16);
+	}
+}
+
+/*============== FINANCIAL GENERAL =================*/
+#financial-general {
 	padding-right: 5%;
 	padding-left: 5%;
+	padding-top: 20px;
 	background-color: $white;
 	font-family: 'Roboto', sans-serif !important;
 	height: 100%;
+}
 
+/*============== FINANCIAL DASHBOARD =================*/
+#financial-dashboard {
+	@extend #financial-general;
 	.card {
 		box-shadow: none;
-
 		.card-body {
 			padding-top: 5px;
 		}
@@ -203,7 +223,6 @@ button.btn-default:hover,
 
 .table {
 	text-align: center;
-
 	tr:first-of-type {
 		td {
 			border-top: none;
@@ -211,14 +230,81 @@ button.btn-default:hover,
 	}
 }
 
+/*============== FINANCIAL BILLING =================*/
+#financial-billing {
+	@extend #financial-general;
+	.form-margin {
+		&--top {
+			margin-top: 10px;
+		}
+	}
+	select {
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		text-indent: 1px;
+		text-overflow: '';
+		height: auto;
+	}
+	.form-control {
+		&--mid-width {
+			display: initial;
+			width: 50%;
+		}
+		&--select {
+			border: none;
+			box-shadow: none;
+			font-size: 22px;
+			font-weight: 200;
+			color: $text-color-primary;
+			overflow: hidden;
+			background: url(/static/images/caret-down-solid.svg) no-repeat 96% center;
+			background-size: 12px;
+			padding: 5px;
+			width: 200px;
+		}
+	}
+	.row {
+		margin-bottom: 20px;
+	}
+
+	.btn {
+		border-radius: 4px;
+		&--success {
+			background: #7ED321;
+			color: #FFFFFF;
+		}
+	}
+
+	table {
+		th {
+			padding: 15px;
+		}
+		td {
+			padding: 15px;
+		}
+		.fa {
+			cursor: pointer;
+		}
+	}
+	
+	.modal-dialog {
+		margin-top: 0 !important;
+		.modal-body {
+			padding-left: 10%;
+			padding-right: 10%;
+			padding-top: 2%;
+			padding-bottom: 2%;
+			line-height: 24px;
+			.normal-text {
+				color: rgba(0,0,0,0.64);
+			}
+		}
+	}
+}
+
 /*============== FINANCIAL/SALES =================*/
 #financial-sales {
-	padding-right: 5%;
-	padding-left: 5%;
-	padding-top: 20px;
-	background-color: $white;
-	font-family: 'Roboto', sans-serif !important;
-	height: 100%;
+	@extend #financial-general;
 	.nopad {
 		padding: 0 0 0 0;
 	}
@@ -241,9 +327,6 @@ button.btn-default:hover,
 	}
 	.row {
 		margin-bottom: 20px;
-	}
-	.push-right {
-		text-align: right;
 	}
 	.form-margin {
 		&--top {

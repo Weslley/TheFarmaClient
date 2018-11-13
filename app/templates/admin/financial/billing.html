@@ -1,0 +1,202 @@
+{% extends  "layouts/admin-v2.html" %}
+
+{% load compress %}
+{% load staticfiles %}
+{% load helper %}
+
+{% block content %}
+<div id="financial-billing" class="container-fluid fz14">
+
+    <div class="row row-border--only-bottom">
+        <div class="col-xs-6 col-sm-6 col-md-6 mb-xs-6 nopad">
+            <h4 id="teste" class="page-title">Faturamento</h4>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 mb-xs-6 push-right">
+            <div class="form-group form-margin--top">
+                <select id="select-control" class="form-control form-control--mid-width form-control--select">
+                    <option value="hoje">Hoje</option>
+                    {% for periodo in sales.periodos %}
+                    <option value="{{periodo.mes}}">{{periodo.mes|capfirst}} {{periodo.ano}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 mb-xs-6 nopad">
+            <h4>Farmacias J.A.</h4>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 mb-xs-6 push-right">
+            <button type="button" class="btn btn--success"><i class="fa fa-file-text-o"></i> PDF</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-2 col-md-2 mb-xs-15 nopad">
+            <h5 class="normal-text text-light-gray">Número da fatura</h5>
+            <p class="subtitle">1234567890</p>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 mb-xs-15 nopad">
+            <h5 class="normal-text text-light-gray">Emissão</h5>
+            <p class="subtitle">10 Nov 2018</p>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 mb-xs-15 nopad">
+            <h5 class="normal-text text-light-gray">Vencimento</h5>
+            <p class="subtitle">20 Nov 2018</p>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 mb-xs-15 nopad">
+            <h5 class="normal-text text-light-gray">Status</h5>
+            <span class="label label--success">Aberta</span>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4 mb-xs-15 nopad push-right">
+            <h5 class="normal-text text-light-gray">Saldo</h5>
+            <p class="subtitle">{{sales.resumo.valor_bruto|fmt_money}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <table class="table">
+            <tr class="table--only-bottom-border">
+                <th class="text-light-gray small-text--light">Detalhes do faturamento</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td class="push-left">
+                    Crédito <i data-toggle="modal" data-target="#credit-modal" class="text-green fa fa-question-circle-o" aria-hidden="true"></i>
+                </td>
+                <td class="push-right text-bold">{{sale.valor_liquido|fmt_money}}</td>
+            </tr>
+            <tr>
+                <td class="push-left">
+                    Taxa adm. do cartão <i data-toggle="modal" data-target="#tax-credit" class="text-green fa fa-question-circle-o" aria-hidden="true"></i>
+                </td>
+                <td class="push-right text-bold text-pink">- {{sale.valor_liquido|fmt_money}}</td>
+            </tr>
+            <tr>
+                <td class="push-left">
+                    Comisões <i data-toggle="modal" data-target="#tax-thefarma" class="text-green fa fa-question-circle-o" aria-hidden="true"></i>
+                </td>
+                <td class="push-right text-bold text-pink">- {{sale.valor_liquido|fmt_money}}</td>
+            </tr>
+            <tr>
+                <td class="push-left text-bold">Total</td>
+                <td class="push-right text-bold">{{sale.valor_liquido|fmt_money}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="row">
+        <table class="table">
+            <tr class="table--only-bottom-border">
+                <th class="text-light-gray small-text--light">Detalhes das vendas desse mês</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td class="push-left">Dinheiro</td>
+                <td class="push-right text-bold">{{sale.valor_liquido|fmt_money}}</td>
+            </tr>
+            <tr>
+                <td class="push-left">Cartão de credito</td>
+                <td class="push-right text-bold">{{sale.valor_liquido|fmt_money}}</td>
+            </tr>
+            <tr>
+                <td class="push-left text-bold">Total</td>
+                <td class="push-right text-bold">{{sale.valor_liquido|fmt_money}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="modal fade" id="credit-modal" tabindex="1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <h4 class="modal-title" id="myModalLabel">Crédito</h4>
+                    </div>
+                    <div class="row">
+                        <p class="normal-text">Pagamentos realizados por cartão de crédito gera crédito no TheFarma.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="tax-credit" tabindex="1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <h4 class="modal-title" id="myModalLabel">
+                            Taxa de administração de cartão de crédito
+                        </h4>
+                    </div>
+                    <div class="row">
+                        <p class="normal-text">
+                            Na operação do cartão de crédito, o contribuinte cede à administradora do cartão de crédito 
+                            o direito de exigir e cobrar do cliente o valor bruto da operação, sendo que em troca do 
+                            pagamento à vista concede o desconto do valor referente à taxa cobrada pela administradora, 
+                            que em geral varia de 5% (cinco por cento) a 10% (dez por cento) do valor bruto da operação.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="tax-thefarma" tabindex="1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <h4 class="modal-title" id="myModalLabel">
+                            Comissões
+                        </h4>
+                    </div>
+                    <div class="row">
+                        <p class="normal-text">
+                            Cada medicamento vendido gera comissão para o TheFarma e o valor da comissão é 
+                            descontado no valor bruto da venda. As porcentagens são:
+                        </p>
+                    </div>
+                    <div class="row">
+                        <table class="table">
+                            <tr data-toggle="modal" data-target="#myModal">
+                                <td class="text-light-black push-left">Éticos</td>
+                                <td class="text-bold push-right">99%</td>
+                            </tr>
+                            <tr data-toggle="modal" data-target="#myModal">
+                                <td class="text-light-black push-left">Genericos</td>
+                                <td class="text-bold push-right">99%</td>
+                            </tr>
+                            <tr data-toggle="modal" data-target="#myModal">
+                                <td class="text-light-black push-left">Similares</td>
+                                <td class="text-bold push-right">99%</td>
+                            </tr>
+                            <tr data-toggle="modal" data-target="#myModal">
+                                <td class="text-light-black push-left">Outros</td>
+                                <td class="text-bold push-right">99%</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
