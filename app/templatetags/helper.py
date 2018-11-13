@@ -15,7 +15,8 @@ locale.setlocale(locale.LC_MONETARY, 'pt_BR.UTF-8')
 
 @register.filter(name='date_api')
 def date_api(date_str):
-    return api_to_date(date_str).strftime('%d/%m/%Y')
+    if date_str:
+        return api_to_date(date_str).strftime('%d/%m/%Y')
 
 @register.filter(name='fmt_date')
 def fmt_date(date_str):
