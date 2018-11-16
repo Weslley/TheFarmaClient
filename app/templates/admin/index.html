@@ -146,7 +146,7 @@
 				{% endif %}
 				<div class="card-footer">
 					<span class="left text-light-gray">Vencimento: {{financeiro.conta_atual.data_vencimento|date_api}}</span>
-					<a href="{% url 'financial_billing' %}" class="black-text">
+					<a href="{% url 'financial_billing' %}?id={{financeiro.conta_atual.id}}" class="black-text">
 						Ver detalhes
 					</a>
 				</div>
@@ -180,7 +180,7 @@
 				<div class="card-content top-padding">
 					<table class="table table-hover">
 						{% for conta in financeiro.contas %}
-						<tr>
+						<tr onclick="window.location='{% url 'financial_billing' %}?id={{conta.id}}';">
 							<td class="text-gray">{{conta.data_vencimento|date_api}}</td>
 
 							{% if conta.tipo == 0 %}

@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from django.views.generic import TemplateView
 
 from app.api_data.financial import FinancialClient
+from app.api_data.billing import BillingClient
 
 
 class FinancialSalesView(TemplateView):
@@ -57,11 +58,12 @@ class BillingView(TemplateView):
         if 'errors' in kwargs:
             return context
 
-        client = FinancialClient(**self.auth_data)
+        client = BillingClient(**self.auth_data)
 
         try:
             params = self.request.GET
-            status_code, data = client.get_financial_sales_data(params=params)
+            id_detail = params.get('id')
+            status_code, data = client.get_billing_data(url_param=id_detail)
         except Exception as err:
             context['errors'] = 'Erro ao obter informações do servidor.'
             return context
@@ -70,6 +72,6 @@ class BillingView(TemplateView):
             context['errors'] = data
 
         elif status_code == 200:
-            context['sales'] = data
+            context['faturamento'] = data
 
         return context

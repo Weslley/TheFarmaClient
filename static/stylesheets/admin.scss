@@ -219,6 +219,9 @@ button.btn-default:hover,
 			padding-top: 5px;
 		}
 	}
+	tr:hover {
+		cursor: pointer;
+	}
 }
 
 .table {
