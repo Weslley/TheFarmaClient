@@ -5,6 +5,8 @@ from django.views.generic import TemplateView
 from app.api_data.financial import FinancialClient
 from app.api_data.billing import BillingClient
 
+from thefarmacustomer.settings import API_URL_BASE as BASE_URL
+
 
 class FinancialSalesView(TemplateView):
     """
@@ -73,5 +75,6 @@ class BillingView(TemplateView):
 
         elif status_code == 200:
             context['faturamento'] = data
+            context['api_url'] = BASE_URL
 
         return context

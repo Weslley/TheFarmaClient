@@ -28,9 +28,11 @@
         <div class="col-xs-6 col-sm-6 col-md-6 mb-xs-6 nopad">
             <h4>{{faturamento.farmacia.nome_fantasia}}</h4>
         </div>
+        {% if faturamento.conta.boleto %}
         <div class="col-xs-6 col-sm-6 col-md-6 mb-xs-6 push-right">
-            <button type="button" class="btn btn--success"><i class="fa fa-file-text-o"></i> PDF</button>
+            <a target="_blank" href="{{api_url}}{{faturamento.conta.boleto.pdf}}"><button type="button" class="btn btn--success"><i class="fa fa-file-text-o"></i> BOLETO</button></a>
         </div>
+        {% endif %}
     </div>
 
     <div class="row">
@@ -38,10 +40,12 @@
             <h5 class="normal-text text-light-gray">Número da fatura</h5>
             <p class="subtitle">{{faturamento.conta.id}}</p>
         </div>
+        {% if faturamento.conta.data_emissao %}
         <div class="col-xs-12 col-sm-2 col-md-2 mb-xs-15 nopad">
             <h5 class="normal-text text-light-gray">Emissão</h5>
-            <p class="subtitle">-</p>
+            <p class="subtitle">{{faturamento.conta.data_emissao|date_api}}</p>
         </div>
+        {% endif %}
         <div class="col-xs-12 col-sm-2 col-md-2 mb-xs-15 nopad">
             <h5 class="normal-text text-light-gray">Vencimento</h5>
             <p class="subtitle">{{faturamento.conta.data_vencimento|date_api}}</p>
@@ -51,21 +55,35 @@
             {% if faturamento.conta.status == 0 %}
             <td><span class="label label--success">Aberta</span></td>
             {% elif faturamento.conta.status == 1 %}
-            <td><span class="label label--success">Paga</span></td>
+            <td><span class="label label--success">Fechada</span></td>
             {% elif faturamento.conta.status == 2 %}
-            <td><span class="label label--danger">Atrasada</span></td>
+            <td><span class="label label--success">Paga</span></td>
             {% elif faturamento.conta.status == 3 %}
+            <td><span class="label label--danger">Atrasada</span></td>
+            {% elif faturamento.conta.status == 4 %}
             <td><span class="label label--danger">Cancelada</span></td>
             {% endif %}
         </div>
+
+        {% if faturamento.conta.data_emissao %}
         <div class="col-xs-12 col-sm-4 col-md-4 mb-xs-15 nopad push-right">
             <h5 class="normal-text text-light-gray">Saldo</h5>
             {% if faturamento.conta.tipo == 0 %}
             <p class="subtitle">{{faturamento.conta.valor_total|fmt_money}}</p>
             {% else %}
-            <p class="subtitle">- {{faturamento.conta.valor_total|fmt_money}}</p>
+            <p class="subtitle">{{faturamento.conta.valor_total|fmt_money}}</p>
             {% endif %}
         </div>
+        {% else %}
+        <div class="col-xs-12 col-sm-6 col-md-6 mb-xs-15 nopad push-right">
+            <h5 class="normal-text text-light-gray">Saldo</h5>
+            {% if faturamento.conta.tipo == 0 %}
+            <p class="subtitle">{{faturamento.conta.valor_total|fmt_money}}</p>
+            {% else %}
+            <p class="subtitle">{{faturamento.conta.valor_total|fmt_money}}</p>
+            {% endif %}
+        </div>
+        {% endif %}
     </div>
 
     <div class="row">

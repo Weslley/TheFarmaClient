@@ -188,14 +188,16 @@
 							{% else %}
 							<td>R$ {{conta.valor_total}}</td>
 							{% endif %}
-							
+
 							{% if conta.status == 0 %}
 							<td><span class="label label--success">Aberta</span></td>
 							{% elif conta.status == 1 %}
-							<td><span class="label label--success">Paga</span></td>
+							<td><span class="label label--success">Fechada</span></td>
 							{% elif conta.status == 2 %}
-							<td><span class="label label--danger">Atrasada</span></td>
+							<td><span class="label label--success">Paga</span></td>
 							{% elif conta.status == 3 %}
+							<td><span class="label label--danger">Atrasada</span></td>
+							{% elif conta.status == 4 %}
 							<td><span class="label label--danger">Cancelada</span></td>
 							{% endif %}
 						</tr>
