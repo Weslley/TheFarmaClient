@@ -276,8 +276,8 @@ function append_card_pedido(data_content, append_after, active){
         var div_image = create_elem('div', 'col-xs-3 col-sm-4 col-md-3');
         var item_image = create_elem('img', 'img-responsive center');
         item_image.setAttribute('src',
-            pedido_itens[i].apresentacao.imagem && pedido_itens[i].apresentacao.imagem != null ?
-                pedido_itens[i].apresentacao.imagem : '/static/images/box.png');
+            pedido_itens[i].apresentacao.imagem.square_crop && pedido_itens[i].apresentacao.imagem != null ?
+                pedido_itens[i].apresentacao.imagem.square_crop : '/static/images/box.png');
         item_image.setAttribute('alt', 'Bottle');
         item_image.setAttribute('alt', 'Box');
         div_image.appendChild(item_image);
