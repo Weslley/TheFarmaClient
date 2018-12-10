@@ -669,7 +669,7 @@ $(document).ready(function() {
 
     window.onscroll = function() {
         console.log('Deu scroll');
-        if (getScrollTop() < getDocumentHeight() - window.innerHeight) return;
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) return;
         if (current_page < num_pages){
             current_page += 1;
             var status = $('#filter_proposal').val();

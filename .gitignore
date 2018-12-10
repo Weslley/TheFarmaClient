@@ -22,4 +22,5 @@ static/CACHE
 node_modules/
 package-lock.json
 .vscode/*
+/thefarmaclient
 **.DS_Store
