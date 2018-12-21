@@ -6,7 +6,7 @@
 {% load tags_billing %}
 
 {% block content %}
-<div id="financial-billing" class="container-fluid fz14">
+<div id="financial-billing" class="container fz14">
 
     <div class="row row-border--only-bottom">
         <div class="col-xs-6 col-sm-6 col-md-6 mb-xs-6 nopad">
@@ -93,6 +93,10 @@
                 <th></th>
             </tr>
             <tr>
+                <td class="push-left">Dinheiro</td>
+                <td class="push-right text-bold">{{faturamento.detalhes_faturamento.dinheiro|fmt_money}}</td>
+            </tr>
+            <tr>
                 <td class="push-left">
                     Crédito <i data-toggle="modal" data-target="#credit-modal" class="text-green fa fa-question-circle-o" aria-hidden="true"></i>
                 </td>
@@ -122,7 +126,7 @@
         </table>
     </div>
 
-    <div class="row">
+    <div class="row hidden">
         <table class="table">
             <tr class="table--only-bottom-border">
                 <th class="text-light-gray small-text--light">Detalhes das vendas desse mês</th>

@@ -70,7 +70,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="financial-dashboard" class="container-fluid mt32 fz14 no-padding-xs">
+<div id="financial-dashboard" class="container mt32 fz14 no-padding-xs">
 
 	<div class="row row01 mb32 no-margin-xs">
 		<div class="col-xs-12 col-sm-6 col-md-6 mb-xs-15">
@@ -181,7 +181,7 @@
 					<table class="table table-hover">
 						{% for conta in financeiro.contas %}
 						<tr onclick="window.location='{% url 'financial_billing' %}?id={{conta.id}}';">
-							<td class="text-gray">{{conta.data_vencimento|date_api}}</td>
+							<td class="text-gray text-left">{{conta.data_vencimento|date_api}}</td>
 
 							{% if conta.tipo == 0 %}
 							<td class="text-danger">{{conta.valor_total|fmt_money}}</td>
@@ -189,17 +189,19 @@
 							<td>R$ {{conta.valor_total}}</td>
 							{% endif %}
 
+                            <td class="text-right">
 							{% if conta.status == 0 %}
-							<td><span class="label label--success">Aberta</span></td>
+							<span class="label label--success">Aberta</span>
 							{% elif conta.status == 1 %}
-							<td><span class="label label--success">Fechada</span></td>
+							<span class="label label--success">Fechada</span>
 							{% elif conta.status == 2 %}
-							<td><span class="label label--success">Paga</span></td>
+							<span class="label label--success">Paga</span>
 							{% elif conta.status == 3 %}
-							<td><span class="label label--danger">Atrasada</span></td>
+							<span class="label label--danger">Atrasada</span>
 							{% elif conta.status == 4 %}
-							<td><span class="label label--danger">Cancelada</span></td>
-							{% endif %}
+							<span class="label label--danger">Cancelada</span>
+                            {% endif %}
+                            </td>
 						</tr>
 						{% endfor %}
 					</table>

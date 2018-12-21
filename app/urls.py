@@ -32,8 +32,7 @@ urlpatterns = [
 
     # PRODUCTS
     url(r'^admin/products$', products.index, name='products_path'),
-    # url(r'^admin/products/(?P<id>\d+)$',
-    #   products.show, name='show_product_path'),
+    #url(r'^admin/products/(?P<id>\d+)$', products.show, name='show_product_path'),
 
     # SALES
     url(r'^admin/sales$', SalesView.as_view(), name='sales_path'),

@@ -69,7 +69,7 @@ class BillingView(TemplateView):
         except Exception as err:
             context['errors'] = 'Erro ao obter informações do servidor.'
             return context
-
+        
         if status_code >= 400:
             context['errors'] = data
 

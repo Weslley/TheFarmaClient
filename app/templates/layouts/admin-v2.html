@@ -37,12 +37,22 @@
             </a>
           </li>
 
-          <li>
-            <a href="{% url 'reports' %}">
-              <i class="tfc tfc-clipboard"></i>
-              Relatórios
+          <li class="dropdown report-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                <i class="tfc tfc-clipboard"></i>
+                Relatórios
             </a>
-          </li>
+            <ul class="dropdown-menu text-left" aria-labelledby="dropdownMenu1">
+                <li><a href="#">Faturamentos</a></li>
+                <li><a href="#">Meus ganhos</a></li>
+                <li><a href="#">Medicamentos vendidos</a></li>
+                <li><a href="#">Medicamentos mais pesquisados</a></li>
+                <!---
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                -->
+            </ul>
+            </li>
 
           <li>
             <a href="{% url 'products_path'%}" class="hidden">
@@ -105,7 +115,37 @@
   <script type="text/javascript" src="{% static "plugins/jquery-maskMoney/jquery.maskMoney.min.js" %}"></script>
 
   <script type="text/javascript" src="{% static "javascripts/admin.js" %}"></script>
-
+  <script type="text/javascript">
+    var TheFarma = {
+        notificar: function () {
+          if (Notification.permission !== "granted") {
+            Notification.requestPermission();
+          } else {
+            var notification = new Notification('The Farma', {
+              icon: 'http://farmacia.thefarma.com.br/static/images/icon.png',
+              body: "Novo pedido encontrado.",
+            });
+      
+            notification.onclick = function () {
+              window.open("http://farmacia.thefarma.com.br/admin/sales");
+            };
+          }
+        }
+      }
+      
+      $(window).load(function () {
+        //Notificações
+        document.addEventListener('DOMContentLoaded', function () {
+          if (!Notification) {
+            alert('Desktop notifications not available in your browser. Try Chromium.');
+            return;
+          }
+          if (Notification.permission !== "granted") {
+            Notification.requestPermission();
+          }
+        });
+      })
+  </script>
   {% endcompress %}
   {% block scripts %}{% endblock %}
 </body>

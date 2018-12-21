@@ -459,6 +459,9 @@ function append_card_pedido(data_content, append_after, active){
             } else {
                 btn_confirm.className += ' hidden';
             }
+            //Notifica
+            TheFarma.playSound();
+            TheFarma.notificar();
             break;
         case 1:
         case 2:
@@ -668,7 +671,6 @@ $(document).ready(function() {
     // var win = $(window);
 
     window.onscroll = function() {
-        console.log('Deu scroll');
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) return;
         if (current_page < num_pages){
             current_page += 1;
