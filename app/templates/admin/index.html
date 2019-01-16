@@ -89,7 +89,7 @@
 							{% else %}
 							<span class="financial-value">R$ 0,00</span>
 							{% endif %}
-							<p class="card-description text-gray">Líquido</p>
+							<p class="card-description roboto-light text-gray">Líquido</p>
 						</div>
 						<div class="col-xs-6 col-sm-6 col-md-6 border-left">
 							{% if financeiro.vendas_hoje.bruto %}
@@ -97,23 +97,23 @@
 							{% else %}
 							<span class="financial-value">R$ 0,00</span>
 							{% endif %}
-							<p class="card-description text-gray">Bruto</p>
+							<p class="card-description roboto-light text-gray">Bruto</p>
 						</div>
 						{% else %}
 						<div class="col-xs-6 col-sm-6 col-md-6 border-right">
 							<span class="financial-value">R$ 0,00</span>
-							<p class="card-description text-gray">Líquido</p>
+							<p class="card-description roboto-light text-gray">Líquido</p>
 						</div>
 						<div class="col-xs-6 col-sm-6 col-md-6 border-left">
 							<span class="financial-value">R$ 0,00</span>
-							<p class="card-description text-gray">Bruto</p>
+							<p class="card-description roboto-light text-gray">Bruto</p>
 						</div>
 						{% endif %}
 					</div>
 				</div>
 
 				<div class="card-footer">
-					<a href="{% url 'financial_sales' %}" class="black-text">
+					<a href="{% url 'financial_sales' %}" class="black-text roboto-bold">
 						Ver detalhes
 					</a>
 				</div>
@@ -146,7 +146,7 @@
 				{% endif %}
 				<div class="card-footer">
 					<span class="left text-light-gray">Vencimento: {{financeiro.conta_atual.data_vencimento|date_api}}</span>
-					<a href="{% url 'financial_billing' %}?id={{financeiro.conta_atual.id}}" class="black-text">
+					<a href="{% url 'financial_billing' %}?id={{financeiro.conta_atual.id}}" class="black-text roboto-bold">
 						Ver detalhes
 					</a>
 				</div>
@@ -183,13 +183,7 @@
 						<tr onclick="window.location='{% url 'financial_billing' %}?id={{conta.id}}';">
 							<td class="text-gray text-left">{{conta.data_vencimento|date_api}}</td>
 
-							{% if conta.tipo == 0 %}
-							<td class="text-danger">{{conta.valor_total|fmt_money}}</td>
-							{% else %}
-							<td>R$ {{conta.valor_total}}</td>
-							{% endif %}
-
-                            <td class="text-right">
+                            <td class="text-center">
 							{% if conta.status == 0 %}
 							<span class="label label--success">Aberta</span>
 							{% elif conta.status == 1 %}
@@ -202,6 +196,12 @@
 							<span class="label label--danger">Cancelada</span>
                             {% endif %}
                             </td>
+
+                            {% if conta.tipo == 0 %}
+							<td class="text-danger roboto-bold text-right">{{conta.valor_total|fmt_money}}</td>
+							{% else %}
+							<td class="roboto-bold text-right">R$ {{conta.valor_total}}</td>
+							{% endif %}
 						</tr>
 						{% endfor %}
 					</table>

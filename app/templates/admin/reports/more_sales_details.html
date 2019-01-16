@@ -17,13 +17,10 @@
             month = month.subtract(1, 'months');
         }
         if (options.length > 0) {
-            $("#select-control").html(`
-                <select id="select-control" class="form-control form-control--mid-width form-control--select periodo capitalize">
-                    ${options}
-                </select>
-            `);
+            for(i in options){
+                $('#select-control').append(options[i]);
+            }
         }
-
         let getYear = getParam('ano');
         let getMonth = getParam('mes');
 
@@ -78,7 +75,7 @@
         <div class="col-xs-6 col-sm-6 col-md-6 mb-xs-6 push-right">
             <div class="form-group form-margin--top">
                 <select id="select-control" class="form-control form-control--mid-width form-control--select periodo capitalize">
-                    <option value="hoje">Hoje</option>
+                    <option value="hoje" selected>Hoje</option>
                 </select>
             </div>
         </div>

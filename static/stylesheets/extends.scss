@@ -504,7 +504,6 @@ small {font-size: 75%;}
 	.card-title{
 		color: $gray;
 		font-size: 28px;
-		font-weight: 500;
 		line-height: 2.3rem;
 		position: relative;
 		z-index : 1;
@@ -542,7 +541,6 @@ small {font-size: 75%;}
 	}
 	.card-footer.left{float: left;}
 	.card-footer.with-border{border: 1px solid rgba(0,0,0,0.03);}
-	.financial-value{font-size: 30px;}
 	.border-left{border-left: 1px solid $gray}
 	.border-right{border-right: 1px solid $gray}
 }
