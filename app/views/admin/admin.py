@@ -43,7 +43,6 @@ class FinancialView(TemplateView):
 
         if status_code >= 400:
             context['errors'] = data
-
         elif status_code == 200:
             context['ultima_data'] = self.get_last_date()
             context['financeiro'] = data

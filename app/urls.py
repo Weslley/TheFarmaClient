@@ -11,8 +11,10 @@ from app.views.admin.financial import FinancialSalesView, BillingView
 
 from app.views.admin.reports import reports
 from app.views.admin.reports import products as reports_products
-from app.views.admin.reports import sales as reports_sales
-from app.views.admin.reports import stock as reports_stock
+
+from app.views.admin.reports.sales import MoreSalesView, MoreSalesDetailView
+from app.views.admin.reports.more_search import MoreSearchView
+
 from app.views.admin.sales import SubmitProposal, CancelProposal, DispatchProposal, DeliveryProposal
 
 from app.views.clients import LoginView
@@ -48,6 +50,9 @@ urlpatterns = [
     # REPORTS
     url(r'^admin/reports/$', reports.index, name='reports'),
     url(r'^admin/reports/indicador_venda/$', reports.indicador_venda, name='report-indicador-venda'),
-    url(r'^admin/reports/sales/$', reports_sales.index, name='reports_sales_path'),
-    url(r'^admin/reports/stock/$', reports_stock.index, name='reports_stock_path')
+    #url(r'^admin/reports/stock/$', reports_stock.index, name='reports_stock_path'),
+
+    url(r'^admin/reports/sales/$', MoreSalesView.as_view(), name='reports_sales_path'),
+    url(r'^admin/reports/sales/(?P<id>[0-9]+)/$', MoreSalesDetailView.as_view(), name='reports_sales_detail_path'),
+    url(r'^admin/reports/more_search/$', MoreSearchView.as_view(), name='reports_more_search_path'),
 ]

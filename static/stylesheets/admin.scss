@@ -39,6 +39,10 @@ body {
     }
 }
 
+a {
+    color: #000000;
+}
+
 header {
     color: #000000;
     position: relative;
@@ -72,11 +76,11 @@ header {
                 background: $hover-main-color;
             }
         }
-
-        .nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+        .nav .open>a,
+        .nav .open>a:focus,
+        .nav .open>a:hover {
             background-color: $hover-main-color;
         }
-
         .report-menu {
             ul.dropdown-menu {
                 li {
@@ -96,7 +100,7 @@ header {
     }
 }
 
-.wrapper{
+.wrapper {
     background-color: #FFFFFF;
 }
 
@@ -137,23 +141,23 @@ header {
 }
 
 .regular {
-    font-family: Muli-Regular !important;
+    font-family: Muli-Regular;
 }
 
 .semibold {
-    font-family: Muli-SemiBold !important;
+    font-family: Muli-SemiBold;
 }
 
 .bold {
-    font-family: Muli-Bold !important;
+    font-family: Muli-Bold;
 }
 
 .light {
-    font-family: Muli-Light !important;
+    font-family: Muli-Light;
 }
 
 .extralight {
-    font-family: Muli-ExtraLight !important;
+    font-family: Muli-ExtraLight;
 }
 
 .btn-default {
@@ -181,7 +185,7 @@ button.btn-default:hover,
 /*============== GENERAL SETTINGS =================*/
 
 .page-title {
-    font-weight: 800;
+    font-family: 'Roboto-Black';
     font-size: 24px;
 }
 
@@ -531,9 +535,6 @@ button.btn-default:hover,
 
 /*==================== SALES =====================*/
 
-// .timer-icon{
-// background: url('/static/images/clock.svg');
-// }
 #sales {
     .flot-btn-up-down {
         box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.21);
@@ -583,9 +584,7 @@ button.btn-default:hover,
         .container {
             width: 884px
         }
-    } // .container{
-    // width: 884px;
-    // }
+    }
     .card {
         padding-right: 32px;
         padding-left: 32px;
@@ -895,6 +894,66 @@ button.btn-default:hover,
 }
 
 /*==================== REPORTS =====================*/
+
+.report {
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-indent: 1px;
+        text-overflow: '';
+        height: auto;
+    }
+    .form-control {
+        &--mid-width {
+            display: initial;
+            width: 50%;
+        }
+        &--select {
+            font-family: 'Roboto-Light';
+            border: none;
+            box-shadow: none;
+            font-size: 22px;
+            font-weight: 200;
+            color: $text-color-primary;
+            overflow: hidden;
+            background: url(/static/images/caret-down-solid.svg) no-repeat 96% center;
+            background-size: 12px;
+            padding: 5px;
+            width: 200px;
+        }
+    }
+    .title {
+        font-family: 'Roboto-Black';
+        font-size: 24px;
+        color: #000000;
+    }
+    .label {
+        font-family: 'Roboto-Light';
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.40);
+    }
+    .label-value {
+        font-family: 'Roboto-Regular';
+        font-size: 22px;
+        color: #000000;
+    }
+    .btn-report-pdf {
+        background: #7ED321;
+        border-radius: 4px;
+        padding: 12px;
+        font-family: 'Roboto-Black';
+        font-size: 16px;
+        color: #FFFFFF;
+    }
+    .search-input {
+        background: rgba(0, 0, 0, 0.04);
+        border-radius: 8px;
+    }
+    .search-input.active {
+        border: 1px solid #7ED321;
+        background: #FFFFFF;
+    }
+}
 
 /* Desktop */
 

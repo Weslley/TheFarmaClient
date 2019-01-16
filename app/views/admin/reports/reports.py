@@ -41,7 +41,6 @@ def show(request,id):
 	return render(request,'admin/reports/show.html')
 
 
-
 def relatorio_indicador_venda(**kwargs):
     try:
         kwargs['laboratorio'] = ''

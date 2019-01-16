@@ -27,6 +27,10 @@ ul{list-style-type: none;padding: 0px;}
 .text-left{text-align: left !important;}
 .text-justify{text-align: justify;}
 
+.capitalize{text-transform: capitalize;}
+.upcase{text-transform: uppercase;}
+.downcase{text-transform: lowercase;}
+
 .with-border{border: 1px solid #979797;}
 .without-border{border: none;}
 
@@ -119,6 +123,7 @@ small {font-size: 75%;}
 .mr0 {margin-right: 0px;}
 .mr5 {margin-right: 5px;}
 .mr10 {margin-right: 10px;}
+.mr12 {margin-right: 12px;}
 .mr15 {margin-right: 15px;}
 .mr16 {margin-right: 16px;}
 .mr25 {margin-right: 25px;}
@@ -223,6 +228,14 @@ small {font-size: 75%;}
 .pt90 {padding-top: 90px;}
 .pt100 {padding-top: 100px;}
 
+/*Fonts*/
+.roboto{ font-family: 'Roboto';}
+.roboto-light{ font-family: 'Roboto-Light';}
+.roboto-medium{ font-family: 'Roboto-Medium';}
+.roboto-bold{ font-family: 'Roboto-Bold';}
+.roboto-black{ font-family: 'Roboto-Black';}
+
+/*Fonts sizes*/
 .fz10{font-size: 10px;}
 .fz12{font-size: 12px;}
 .fz14{font-size: 14px;}

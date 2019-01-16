@@ -1,4 +1,4 @@
-{% extends  "layouts/admin-v2.html" %}
+{% extends  "layouts/admin.html" %}
 
 {% load compress %}
 {% load staticfiles %}
@@ -83,23 +83,23 @@
     <div class="row">
         <table class="table">
             <tr class="table--only-bottom-border">
-                <th class="small-text--light">Data</th>
-                <th class="small-text--light">Núm. da venda</th>
-                <th class="small-text--light">Cliente</th>
+                <th class="small-text--light bold">Data</th>
+                <th class="small-text--light bold">Núm. da venda</th>
+                <th class="small-text--light bold">Cliente</th>
                 <th></th>
-                <th class="small-text--light">Valor Liquido</th>
+                <th class="small-text--light bold">Valor Liquido</th>
             </tr>
             {% for sale in sales.data %}
             <tr data-toggle="modal" data-target="#myModal{{sale.id}}">
                 <td class="text-light-gray">{{sale.data_criacao|fmt_date}}</td>
                 <td class="text-light-gray">{{sale.id}}</td>
-                <td>{{sale.cliente}}</td>
+                <td class="bold">{{sale.cliente}}</td>
                 {% if sale.forma_pagamento == 1 %}
                 <td><span class="label label--money">Dinheiro</span></td>
                 {% else %}
                 <td><span class="label label--credit-card">Cartão de Crédito</span></td>
                 {% endif %}
-                <td>{{sale.valor_liquido|fmt_money}}</td>
+                <td class="bold">{{sale.valor_liquido|fmt_money}}</td>
             </tr>
             {% endfor %}
         </table>
@@ -116,7 +116,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <h4 class="subtitle text-light-gray">Numero da venda</h4>
+                            <h4 class="subtitle text-light-gray">Número da venda</h4>
                             <p>{{sale.id}}</p>
                         </div>
                         <div class="col-md-4">

@@ -1,0 +1,147 @@
+{% extends "layouts/admin.html" %}
+
+{% load compress %}
+{% load staticfiles %}
+{% load helper %}
+
+{% block scripts %}
+{% compress js %}
+<script type="text/javascript" src="{% static "plugins/bootstrap-datetimepicker/moment.min.js" %}"></script>
+<script type="text/javascript" src="{% static "plugins/bootstrap-datetimepicker/locale_moment_pt-br.js" %}"></script>
+<script type="text/javascript">
+    $(function () {
+        options = []
+        month = moment();
+        while (month.format('M/YYYY') !== "11/2018") {
+            options.push(`<option value="${month.format('M/YYYY')}" class="capitalize">${month.format('MMMM YYYY')}</option>`)
+            month = month.subtract(1, 'months');
+        }
+        if (options.length > 0) {
+            $("#select-control").html(`
+                <select id="select-control" class="form-control form-control--mid-width form-control--select periodo capitalize">
+                    ${options}
+                </select>
+            `);
+        }
+
+        let getYear = getParam('ano');
+        let getMonth = getParam('mes');
+
+        if (getYear != null && getMonth != null) {
+            $("#select-control").val(`${getMonth}/${getYear}`);
+        } else {
+            $("#select-control").val('hoje');
+        }
+
+    });
+
+    function getParam(param) {
+        return new URLSearchParams(window.location.search).get(param);
+    }
+
+    function showDetail(id) {
+        window.location.replace(`/admin/reports/sales/${id}/?mes=${getParam('mes')}&ano=${getParam('ano')}`);
+        //$.get({url: `/admin/reports/sales/${id}/?mes=${getParam('mes')}&ano=${getParam('ano')}`, async: false});
+    }
+</script>
+<script type="text/javascript">
+    $("#select-control").change(function () {
+        //var selected = $(this).children("option:selected").text();
+        var selected = $(this).val();
+        let fmtSelected = selected.split('/');
+        let mounth = fmtSelected[0].toLowerCase();
+
+        var urlString = window.location.href;
+        var formatedURL = window.location.origin + window.location.pathname;
+
+        if (mounth == "hoje") {
+            window.location.replace(formatedURL);
+        } else {
+            let fmtSelected = selected.split('/');
+            let year = fmtSelected[1];
+
+            var formatedURL = formatedURL + '?mes=' + mounth + '&ano=' + year;
+            window.location.replace(formatedURL);
+        }
+    });
+</script>
+{% endcompress %}
+{% endblock %}
+
+
+{% block content %}
+<div id="report-more-sales" class="container fz14 report pt20">
+
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 mb-xs-6 nopad">
+            <h4 id="teste" class="page-title">Medicamentos Vendidos</h4>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 mb-xs-6 push-right">
+            <div class="form-group form-margin--top">
+                <select id="select-control" class="form-control form-control--mid-width form-control--select periodo capitalize">
+                    <option value="hoje">Hoje</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-2 col-md-2 mb-xs-15 nopad">
+            <h5 class="normal-text text-light-gray roboto-light">Número de vendas</h5>
+            <p class="subtitle">{{data.total_numero_vendas}}</p>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 mb-xs-15 nopad">
+            <h5 class="normal-text text-light-gray roboto-light">Total Liquido</h5>
+            <p class="subtitle">{{data.total_liquido}}</p>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 mb-xs-15 nopad">
+            <h5 class="normal-text text-light-gray roboto-light">Total Bruto</h5>
+            <p class="subtitle">{{data.total_bruto}}</p>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-md-6 text-right mb-xs-6 nopad">
+            <a href="#" class="btn btn-report-pdf">
+                <i class="fa fa-file mr12"></i>PDF
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <table class="table">
+                <tr class="table--only-bottom-border roboto-medium">
+                    <th class="small-text--light">Cod. Barras</th>
+                    <th class="small-text--light">Medicamentos</th>
+                    <th class="small-text--light">Fabricante</th>
+                    <th class="small-text--light text-center">Quantidade</th>
+                    <th class="small-text--light">Valor Líquido</th>
+                    <th class="small-text--light">Valor Bruto</th>
+                </tr>
+                {% for med in data.medicamentos %}
+                <tr class="text-left" onClick="showDetail({{ med.id }});">
+                    <td class="text-light-gray">
+                        {{med.codigo_barras}}
+                    </td>
+                    <td class="bold">
+                        {{med.nome_produto}}
+                    </td>
+                    <td class="text-light-gray">
+                        {{med.fabricante}}
+                    </td>
+                    <td class="text-light-gray text-center">
+                        {{med.quantidade}}
+                    </td>
+                    <td class="bold">
+                        {{med.valor_liquido}}
+                    </td>
+                    <td class="bold">
+                        {{med.valor_bruto}}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+</div>
+{%endblock%}

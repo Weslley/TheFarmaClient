@@ -10,7 +10,7 @@ class MoreSalesView(TemplateView):
     """
     Class View para listagem de vendas setor fianceiro.
     """
-    template_name = 'admin/reports/more_sales.html'
+    template_name = 'admin/financial/sales.html'
 
     def dispatch(self, request, *args, **kwargs):
         self.auth_data = self.request.session['auth_data']
@@ -36,22 +36,23 @@ class MoreSalesView(TemplateView):
             context['errors'] = data
 
         elif status_code == 200:
-            context['data'] = data
+            context['sales'] = data
 
         return context
 
-class MoreSalesDetailView(TemplateView):
+
+class MoreSearchView(TemplateView):
     """
-    Class View para listagem de vendas setor fianceiro.
+    Class View de detalhe dos faturamentos
     """
-    template_name = 'admin/reports/more_sales_details.html'
+    template_name = 'admin/financial/billing.html'
 
     def dispatch(self, request, *args, **kwargs):
         self.auth_data = self.request.session['auth_data']
-        return super(MoreSalesDetailView, self).dispatch(request, *args, **kwargs)
+        return super(MoreSearchView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(MoreSalesDetailView, self).get_context_data(**kwargs)
+        context = super(MoreSearchView, self).get_context_data(**kwargs)
         context['header_name'] = self.auth_data['nome']
 
         if 'errors' in kwargs:
@@ -61,16 +62,16 @@ class MoreSalesDetailView(TemplateView):
 
         try:
             params = self.request.GET
-            pk = kwargs['id']
-            status_code, data = client.get_more_sales_detail_data(pk, params=params)
+            status_code, data = client.get_more_search_data(params=params)
         except Exception as err:
             context['errors'] = 'Erro ao obter informações do servidor.'
             return context
-
+        
         if status_code >= 400:
             context['errors'] = data
 
         elif status_code == 200:
-            context['data'] = data
+            context['faturamento'] = data
+            context['api_url'] = BASE_URL
 
         return context

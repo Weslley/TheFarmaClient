@@ -1,0 +1,105 @@
+{% extends "layouts/admin.html" %}
+
+{% load compress %}
+{% load staticfiles %}
+{% load helper %}
+
+{% block scripts %}
+{% compress js %}
+<script type="text/javascript" src="{% static "plugins/bootstrap-datetimepicker/moment.min.js" %}"></script>
+<script type="text/javascript" src="{% static "plugins/bootstrap-datetimepicker/locale_moment_pt-br.js" %}"></script>
+<script type="text/javascript">
+    $(function () {
+        options = []
+        month = moment();
+        while (month.format('M/YYYY') !== "11/2018") {
+            options.push(`<option value="${month.format('M/YYYY')}" class="capitalize">${month.format('MMMM YYYY')}</option>`)
+            month = month.subtract(1, 'months');
+        }
+        if (options.length > 0) {
+            $("#select-control").html(`
+                <select id="select-control" class="form-control form-control--mid-width form-control--select periodo capitalize">
+                    ${options}
+                </select>
+            `);
+        }
+
+        let getYear = getParam('ano');
+        let getMonth = getParam('mes');
+
+        if (getYear != null && getMonth != null) {
+            $("#select-control").val(`${getMonth}/${getYear}`);
+        } else {
+            $("#select-control").val('hoje');
+        }
+
+    });
+
+    function getParam(param) {
+        return new URLSearchParams(window.location.search).get(param);
+    }
+</script>
+<script type="text/javascript">
+    $("#select-control").change(function () {
+        var selected = $(this).val();
+        let fmtSelected = selected.split('/');
+        let mounth = fmtSelected[0].toLowerCase();
+
+        var urlString = window.location.href;
+        var formatedURL = window.location.origin + window.location.pathname;
+
+        if (mounth == "hoje") {
+            window.location.replace(formatedURL);
+        } else {
+            let fmtSelected = selected.split('/');
+            let year = fmtSelected[1];
+
+            var formatedURL = formatedURL + '?mes=' + mounth + '&ano=' + year;
+            window.location.replace(formatedURL);
+        }
+    });
+</script>
+{% endcompress %}
+{% endblock %}
+
+
+{% block content %}
+<div id="report-more-search" class="container fz14 report pt20">
+
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 mb-xs-6 nopad">
+            <h4 id="teste" class="page-title">Medicamentos mais pesquisados <span class="roboto-light">na sua região</span></h4>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 mb-xs-6 push-right">
+            <div class="form-group form-margin--top">
+                <select id="select-control" class="form-control form-control--mid-width form-control--select periodo capitalize">
+                    <option value="hoje">Hoje</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <table class="table">
+                <tr class="table--only-bottom-border roboto-medium">
+                    <th class="small-text--light">#</th>
+                    <th class="small-text--light">Cod. Barras</th>
+                    <th class="small-text--light">Medicamentos</th>
+                    <th class="small-text--light">Fabricante</th>
+                    <th class="small-text--light text-right">Fequência</th>
+                </tr>
+                {% for item in data %}
+                <tr class="text-left">
+                    <td>{{item.po_id}}</td>
+                    <td class="text-light-gray">{{item.codigo_barras}}</td>
+                    <td class="roboto-medium">{{item.nome_produto}}</td>
+                    <td class="text-light-gray">{{item.nome_fabricante}}</td>
+                    <td class="text-right bold">{{item.ranking_visualizacao}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{%endblock%}
