@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    strong {
+        margin-bottom: 8px;
+    }
+    .text {
+        color: #666;
+    }
+    .mb-18 {
+        margin-bottom: 18px;
+    }
+    .ft-lf {
+        float: left;
+        margin-right: 48px;
+    }
+
+    @media print { 
+        .btn-print { display: none !important; } 
+    }
+</style>
+<body>
+    <strong>Cliente:</strong><br>
+    <div class="text mb-18">
+        {{ comanda.cliente_nome }}
+    </div>
+    <strong>Telefone:</strong><br>
+    <div class="text mb-18">
+        {{ comanda.telefone }}
+    </div>
+    <strong>Endereço:</strong><br>
+    <div class="text mb-18">
+        {{ comanda.logradouro }}, {{ comanda.numero }}<br>
+        {{ comanda.bairro }}, {{ comanda.cidade }} <br>
+        {{ comanda.complemento }}
+    </div>
+    <div class="ft-lf">
+        <strong>Valor da Compra:</strong><br>
+        <div class="text mb-18">
+            {{ comanda.valor_pago }}
+        </div>
+    </div>
+
+    <strong>Valor do Troco:</strong><br>
+    <div class="text mb-18">
+        {{ comanda.valor_troco }}
+    </div>
+
+    <button onclick="window.print();" class="btn-print">Imprimir</button>
+</body>
+</html>
