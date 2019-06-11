@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" moznomarginboxes mozdisallowselectionprint>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Comanda TheFarma</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Comanda TheFarma</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static "plugins/normalize/normalize.css" %}">
+    </head>
 <style>
     strong {
         margin-bottom: 8px;
@@ -90,7 +92,6 @@
     }
 
 </style>
-{% load static %}
 <body onload="//window.print();">
     <div class="content">
     <img src="{% static "images/Logo-monocramatica.svg" %}" />

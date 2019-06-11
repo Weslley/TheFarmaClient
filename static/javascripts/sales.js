@@ -971,5 +971,5 @@ function quant_inc(id_pedido, id_item, valor_max, editavel) {
 }
 
 function show_comanda(id){
-    window.open(`http://${window.location.hostname}:8005/admin/proposal/${id}/commands_delivery`);
+    window.open(`/admin/proposal/${id}/commands_delivery`);
 }
