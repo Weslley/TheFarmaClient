@@ -198,9 +198,9 @@
                             </td>
 
                             {% if conta.tipo == 0 %}
-							<td class="text-danger roboto-bold text-right">{{conta.valor_total|fmt_money}}</td>
+							<td class="roboto-bold text-right">{{conta.valor_total|fmt_money}}</td>
 							{% else %}
-							<td class="roboto-bold text-right">R$ {{conta.valor_total}}</td>
+							<td class="text-danger roboto-bold text-right">R$ {{conta.valor_total}}</td>
 							{% endif %}
 						</tr>
 						{% endfor %}
