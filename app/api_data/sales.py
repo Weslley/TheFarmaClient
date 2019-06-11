@@ -58,3 +58,14 @@ class SalesClient(BaseClient):
             return response.status_code, response.to_dict
         except HTTPError as err:
             return err.status_code, err.to_dict
+    
+    def get_commands(self,sales_id):
+        try:
+            response = self.client.pedidos._(sales_id).comanda.get(
+                request_body={},
+                query_params={},
+                request_headers={}
+            )
+            return response.status_code, response.to_dict
+        except HTTPError as err:
+            return err.status_code, err.to_dict

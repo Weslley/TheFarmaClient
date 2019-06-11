@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" moznomarginboxes mozdisallowselectionprint>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Comanda TheFarma</title>
+</head>
+<style>
+    strong {
+        margin-bottom: 8px;
+    }
+
+    img {
+        display: inherit;
+        margin: auto;
+        margin-bottom: 8px;
+        width: 70px; 
+    }
+
+    p {
+        display: block;
+        margin-block-start: 4px;
+        margin-block-end: 4px;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+    }
+
+    pre {
+        margin: 0em 0px;
+    }
+
+    body {
+        font-family: "Lucida Console", Monaco, monospace;
+        font-size: 10px;
+        line-height: 1;
+        margin: 0px;
+        left: 0px;
+        padding: 0px;
+    }
+
+    .text {
+        color: #666;
+    }
+    .mb-18 {
+        margin-bottom: 18px;
+    }
+    .ft-lf {
+        float: left;
+        margin-block-end: 0px;
+        max-width: 188px;
+    }
+
+    .ft-rt {
+        float: right;
+        margin-block-end: 0px;
+    }
+
+    .separador {
+        margin-top: 8px; 
+    }
+
+    .content {
+        border-bottom: 0.5px solid #cccccc;
+        width: 264px;
+        padding-bottom: 24px;
+    }
+
+    .content-dinheiro {
+        display: inline-block;
+        width: 100%;
+    }
+
+    .texto-grosso {
+        font-weight: bold;
+    }
+
+    .line {
+        border-bottom: 1px dashed #000;
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+
+    @page {
+        margin: 0%
+    }
+
+    @media print { 
+        .btn-print { display: none !important; } 
+    }
+
+</style>
+{% load static %}
+<body onload="//window.print();">
+    <div class="content">
+    <img src="{% static "images/Logo-monocramatica.svg" %}" />
+    <div class="line"></div>
+    <p><strong>{{ comanda.farmacia.razao_social }}</strong></p>
+    <p>{{ comanda.farmacia.logradouto }}, {{ comanda.farmacia.numero }} - {{ comanda.farmacia.complemento }}</p>
+    <p>{{ comanda.farmacia.bairro }}, {{ comanda.farmacia.cidade }}</p>
+    <p>{{ comanda.farmacia.telefone }}</p>
+    <div class="separador"></div>
+    <div class="content-dinheiro">
+        <p class="ft-lf">{{ comanda.data_criacao }}</p>
+        <p class="ft-rt">#{{ comanda.id }}</p>
+    </div>
+    <div class="line"></div>
+    <pre class="texto-grosso">    S E M   V A L O R   F I S C A L   </pre>    
+    <div class="line"></div>
+    <p><strong>{{ comanda.cliente_nome }}</strong></p>
+    <p>{{ comanda.logradouro }}, {{ comanda.numero }} - {{ comanda.complemento }}</p>
+    <p>{{ comanda.bairro }},{{ comanda.cidade }}</p>
+    <p>{{ comanda.telefone }}</p>
+    <div class="line"></div>
+    <div class="content-dinheiro">
+        <p class="ft-lf">Descricao</p>
+        <p class="ft-rt">Qtde</p>
+    </div>
+    <div class="line"></div>
+    {% for item in comanda.itens_pedido %}
+        <div class="content-dinheiro">
+            <p class="ft-lf">{{ item.linha }}</p>
+            <p class="ft-rt">{{ item.quantidade }}</p>
+        </div>
+    {% endfor %}
+    <div class="line"></div>
+    <div class="separador"></div>
+    <div class="content-dinheiro">
+        <p class="ft-lf">Valor:</p>
+        <p class="ft-rt">{{ comanda.valor_pago }}</p>
+    </div>
+    <div class="content-dinheiro">
+        <p class="ft-lf">Troco:</p>
+        <p class="ft-rt">{{ comanda.valor_troco }}</p>
+    </div>
+    <div class="content-dinheiro">
+        <p class="ft-lf">Forma Pagamento:</p>
+        <p class="ft-rt">{{ comanda.forma_pagamento }}</p>
+    </div>
+    <div class="line"></div>
+    <p>Recebido por:________________________</p>
+    <div class="separador"></div>
+    <p>Data/Hora:____/____/______ ____:____</p>
+    </div>
+    <button onclick="window.close();" class="btn-print">Sair</button>
+    <button onclick="window.print();" class="btn-print">Imprimir</button>
+</body>
+</html>

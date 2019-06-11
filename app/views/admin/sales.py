@@ -165,3 +165,27 @@ class DeliveryProposal(View):
 
 # def show(request,id):
     # return render(request,'admin/sales/show.html')
+
+class CommandsSalesView(TemplateView):
+    template_name = 'admin/sales/commands.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.auth_data = self.request.session['auth_data']
+        return super(CommandsSalesView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comanda'] = self.get_commands_info()
+        return context
+    
+    def get_commands_info(self):
+        client = SalesClient(**self.auth_data)
+        sale_id = self.kwargs['id']
+        #faz a requisicao na api
+        try:
+            status_code, data_returned = client.get_commands(sale_id)
+        except Exception as err:
+            print(err)
+            data_returned['errors'] = 'Erro ao obter informações do servidor.'
+        
+        return data_returned

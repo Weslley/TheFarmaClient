@@ -447,6 +447,18 @@ function append_card_pedido(data_content, append_after, active){
     var btn_cancel = create_elem('button', 'btn-cancelar-actions');
     var btn_send = create_elem('button', 'btn-enviar-actions');
     var btn_confirm = create_elem('button', 'btn-confirmar-actions');
+    if (data_content.status == 2){
+        var btn_imprimir_comanda = create_elem('button', 'btn-imprimir-comanda');
+        btn_imprimir_comanda.textContent = 'Imprimir comanda';
+        col_actions.appendChild(btn_imprimir_comanda);
+        //on click funcao
+        btn_imprimir_comanda.onclick = (function() {
+            var _order_id = order_id;
+            return function() {
+                show_comanda(_order_id);
+            }
+        })();
+    }
     btn_confirm.textContent = 'CONFIRMAR ' + ((data_content.delivery && data_content.status == 2) ? 'O ENVIO' : 'A ENTREGA');
     btn_cancel.textContent = 'CANCELAR';
     btn_send.textContent = 'ENVIAR PROPOSTA';
@@ -956,4 +968,8 @@ function quant_inc(id_pedido, id_item, valor_max, editavel) {
         });
     }
     update_proposal_total(id_pedido);
+}
+
+function show_comanda(id){
+    window.open(`http://${window.location.hostname}:8005/admin/proposal/${id}/commands_delivery`);
 }

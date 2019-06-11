@@ -49,8 +49,8 @@ class MoreSalesDetailView(TemplateView):
     def dispatch(self, request, *args, **kwargs):
         self.auth_data = self.request.session['auth_data']
         return super(MoreSalesDetailView, self).dispatch(request, *args, **kwargs)
-
     def get_context_data(self, **kwargs):
+
         context = super(MoreSalesDetailView, self).get_context_data(**kwargs)
         context['header_name'] = self.auth_data['nome']
 
