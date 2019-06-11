@@ -31,12 +31,12 @@
 		var data1 = {
 			type: 'bar',
 			data: {
-				labels : [{% for label in financeiro.rendimentos.labels %}"{{ label }}",{% endfor %}],//["JANEIRO","FEVEREIRO","MARÇO","ABRIL", "MAIO", "JUNHO", "JULHO"],
+				labels : [{% for label in financeiro.rendimentos.labels %}"{{ label }}",{% endfor %}],
 				datasets : [{
 					label: "Rendimento R$",
 					backgroundColor: '#7ED321',
 					borderWidth: 1,
-					data : {{ financeiro.rendimentos.values }} //[0, 1000, 2000, 3000, 4000, 5000, 6000, 7000]
+					data : {{ financeiro.rendimentos.values }}
 				}]
 			},
 			options: {
