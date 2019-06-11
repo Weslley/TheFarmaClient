@@ -452,9 +452,11 @@ function append_card_pedido(data_content, append_after, active){
         btn_imprimir_comanda.textContent = 'Imprimir comanda';
         col_actions.appendChild(btn_imprimir_comanda);
         //on click funcao
-        btn_confirm.onclick = (function() {
+        btn_imprimir_comanda.onclick = (function() {
             var _order_id = order_id;
-            show_comanda(order_id);
+            return function() {
+                show_comanda(_order_id);
+            }
         })();
     }
     btn_confirm.textContent = 'CONFIRMAR ' + ((data_content.delivery && data_content.status == 2) ? 'O ENVIO' : 'A ENTREGA');
@@ -969,5 +971,5 @@ function quant_inc(id_pedido, id_item, valor_max, editavel) {
 }
 
 function show_comanda(id){
-    console.log(id);
+    window.open(`http://${window.location.hostname}:8005/admin/proposal/${id}/commands_delivery`);
 }
