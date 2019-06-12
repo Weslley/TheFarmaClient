@@ -1,5 +1,6 @@
 var current_page = 1;
 var num_pages = 1;
+var liberado = true;
 
 // socket.onopen = function() {
 // socket.send("hello world");
@@ -603,6 +604,33 @@ function reload_sales(status, order, page) {
     });
 }
 
+function call_next_page(status,order) {
+    if (current_page < num_pages && liberado){
+        liberado = false;
+        if(status === -1){
+            var _url = '/admin/sales?order=' + order + '&page=' + current_page;
+        } else {
+            var _url = '/admin/sales?status='+ status +'&order=' + order + '&page=' + current_page;
+        }
+        $.ajax({
+            url: _url,
+            type: "GET",
+            success: function(data) {
+                data = data.results;
+                for(i = 0; i < data.length; i++){
+                    add_card(data[i], (i == 0));
+                }
+                liberado = true;
+                current_page += 1;
+            },
+            error: function(data) {
+                alert('Erro ao carregar propostas !');
+                console.log(data);
+            }
+        });
+    }
+}
+
 function append_sales(status, order, page) {
     if(status === -1){
         var _url = '/admin/sales?order=' + order + '&page=' + page;
@@ -972,4 +1000,471 @@ function quant_inc(id_pedido, id_item, valor_max, editavel) {
 
 function show_comanda(id){
     window.open(`/admin/proposal/${id}/commands_delivery`);
+}
+
+$(window).scroll(function(){
+    if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+        if (liberado){
+            var status = $('#filter_proposal').val();
+            var order = $('#order_proposal').val();
+            call_next_page(status,order,current_page);
+        }
+    }
+});
+
+function add_card(data_content, active){
+    // farm_wsckt
+    var selected_pharmacy = data_content.farmacia;
+    var order_id = data_content.id;
+    var pedido_itens = data_content.itens_proposta;
+    var editable = false;
+    if(active){
+        var _el = $('.active');
+        _el.removeClass('active');
+        var card = create_elem('div', 'card p15 mb20 active');
+    }else{
+        var card = create_elem('div', 'card p15 mb20');
+    }
+    card.setAttribute('order-id', order_id);
+    var fluid = create_elem('div', 'container-fluid sale');
+    var row_header = create_elem('div', 'row pt15 fz24');
+    var col_order_header = create_elem('div', 'col-xs-12 col-sm-6 col-md-6 text-left');
+    var order_p = create_elem('div', 'order-id');
+    order_p.textContent = "Ordem #" + order_id;
+    col_order_header.appendChild(order_p);
+    var col_timer_header = create_elem('div', 'col-xs-12 col-sm-6 col-md-6 text-right');
+    var timer_p = create_elem('p', 'semibold');
+    timer_p.setAttribute('id', 'timer');
+    col_timer_header.appendChild(timer_p);
+    row_header.appendChild(col_order_header);
+    row_header.appendChild(col_timer_header);
+    var row_infos = create_elem('div', 'row pb25 fz18');
+    if(data_content.troco && data_content.troco != null && data_content.troco != ''){
+        var span_troco = create_elem('span', 'troco');
+        span_troco.textContent = money(data_content.troco);
+        row_infos.appendChild(span_troco);
+    }
+    if (data_content.status != 0){
+        var span_forma_pagamento = create_elem('span', 'forma-pagamento');
+        span_forma_pagamento.textContent = 'Cartão';
+        if(data_content.forma_pagamento == 0){
+            span_forma_pagamento.textContent = 'Cartão';
+        }else{
+            span_forma_pagamento.textContent = 'Dinheiro';
+        }
+        row_infos.appendChild(span_forma_pagamento);
+    }
+
+    if(data_content.delivery && data_content.delivery != null && data_content.delivery != ''){
+        var span_delivery = create_elem('span', 'frete');
+        span_delivery.textContent = data_content.delivery ? 'Sim' : 'Não';
+        row_infos.appendChild(span_delivery);
+    }
+    if(data_content.status !== null && data_content.status !== ''){
+        var span_status = document.createElement('span');
+        span_status.setAttribute('order-status', data_content.status);
+        switch(data_content.status){
+            case 0:
+                if(data_content.status_submissao == 2){
+                    span_status.textContent = 'Cancelado pela farmácia';
+                    span_status.setAttribute('class', 'status-red order-status');
+                } else {
+                    span_status.textContent = 'Aberto';
+                    span_status.setAttribute('class', 'status-yellow order-status');
+                    editable = true;
+                }
+                break;
+            case 1:
+                if (selected_pharmacy == farm_wsckt) {
+                    span_status.textContent = 'Aceito' ;
+                    span_status.setAttribute('class', 'status-green order-status');
+                }else{
+                    span_status.textContent = 'Negado' ;
+                    span_status.setAttribute('class', 'status-red order-status');
+                }
+                break;
+            case 2:
+                if (selected_pharmacy == farm_wsckt) {
+                    span_status.textContent = 'Aguardando envio da farmácia';
+                    span_status.setAttribute('class', 'status-green order-status');
+                }else{
+                    span_status.textContent = 'Negado' ;
+                    span_status.setAttribute('class', 'status-red order-status');
+                }
+                break;
+            case 3:
+                if (selected_pharmacy == farm_wsckt) {
+                    span_status.textContent = 'Aguardando retirada do cliente';
+                    span_status.setAttribute('class', 'status-green order-status');
+                }else{
+                    span_status.textContent = 'Negado' ;
+                    span_status.setAttribute('class', 'status-red order-status');
+                }
+                break;
+            case 4:
+                if (selected_pharmacy == farm_wsckt) {
+                    span_status.textContent = 'Enviado';
+                    span_status.setAttribute('class', 'status-green order-status');
+                }else{
+                    span_status.textContent = 'Negado' ;
+                    span_status.setAttribute('class', 'status-red order-status');
+                }
+                break;
+            case 5:
+                if (selected_pharmacy == farm_wsckt) {
+                    span_status.textContent = 'Entregue';
+                    span_status.setAttribute('class', 'status-green order-status');
+                }else{
+                    span_status.textContent = 'Negado' ;
+                    span_status.setAttribute('class', 'status-red order-status');
+                }
+                break;
+            case 6:
+                if (selected_pharmacy == farm_wsckt) {
+                    span_status.textContent = 'Cancelado pela farmácia';
+                    span_status.setAttribute('class', 'status-red order-status');
+                } else if(data_content.status_submissao == 2){
+                    span_status.textContent = 'Cancelado pela farmácia';
+                    span_status.setAttribute('class', 'status-red order-status');
+                }else{
+                    span_status.textContent = 'Negado' ;
+                    span_status.setAttribute('class', 'status-red order-status');
+                }
+                break;
+            case 7:
+                span_status.textContent = 'Cancelado pelo cliente';
+                span_status.setAttribute('class', 'status-red order-status');
+                break;
+            case 8:
+                span_status.textContent = 'Sem proposta';
+                span_status.setAttribute('class', 'status-yellow order-status');
+                break;
+            case 9:
+                if (data_content.status_submissao == 0) {
+                    span_status.textContent = 'Tempo excedido';
+                    span_status.setAttribute('class', 'status-red order-status');
+                } else if(data_content.status_submissao == 2){
+                    span_status.textContent = 'Cancelado pela farmácia';
+                    span_status.setAttribute('class', 'status-red order-status');
+                } else {
+                    span_status.textContent = 'Negado' ;
+                    span_status.setAttribute('class', 'status-red order-status');
+                }
+                break;
+        }
+        row_infos.appendChild(span_status);
+    }
+    var header_tabela = create_elem('div', 'row header hidden-sm hidden-xs');
+    var col_header_produto_nome = create_elem('div', 'col-xs-6 col-sm-6 col-md-6');
+    var produto_nome_text = document.createElement('h5');
+    produto_nome_text.textContent = 'Produto';
+    col_header_produto_nome.appendChild(produto_nome_text);
+    var col_header_produto_detalhes = create_elem('div', 'col-xs-6 col-sm-6 col-md-6');
+    var row_col_header_produto_detalhes = create_elem('div', 'row');
+    var col_header_produto_qtde = create_elem('div', 'quantidade');
+    var produto_qtde_text = document.createElement('h5');
+    produto_qtde_text.textContent = 'Qtde';
+    col_header_produto_qtde.appendChild(produto_qtde_text);
+    var col_header_produto_preco_sugerido = create_elem('div', 'preco-sugerido');
+    var produto_preco_sugerido_text = document.createElement('h5');
+    produto_preco_sugerido_text.textContent = 'Preço Sugerido';
+    col_header_produto_preco_sugerido.appendChild(produto_preco_sugerido_text);
+    var col_header_produto_minha_proposta = create_elem('div', 'minha-proposta');
+    var produto_minha_proposta_text = document.createElement('h5');
+    produto_minha_proposta_text.textContent = 'Minha Proposta';
+    col_header_produto_minha_proposta.appendChild(produto_minha_proposta_text);
+    row_col_header_produto_detalhes.appendChild(col_header_produto_qtde);
+    row_col_header_produto_detalhes.appendChild(col_header_produto_preco_sugerido);
+    row_col_header_produto_detalhes.appendChild(col_header_produto_minha_proposta);
+    col_header_produto_detalhes.appendChild(row_col_header_produto_detalhes);
+    header_tabela.appendChild(col_header_produto_nome);
+    header_tabela.appendChild(col_header_produto_detalhes);
+    fluid.appendChild(row_header);
+    fluid.appendChild(row_infos);
+    fluid.appendChild(header_tabela);
+    var total = 0;
+    for (var i = pedido_itens.length - 1; i >= 0; i--) {
+        var row_item = create_elem('div', 'row item');
+        var id_item = pedido_itens[i].id;
+        var quantidade_max = pedido_itens[i].quantidade;
+        row_item.setAttribute('item-id', id_item);
+        row_item.setAttribute('item-quantity', quantidade_max);
+        var col_item_image_nome = create_elem('div', 'col-xs-12 col-sm-12 col-md-6');
+        var row_col_item_image_nome = create_elem('div', 'row');
+        var div_image = create_elem('div', 'col-xs-3 col-sm-4 col-md-3');
+        var item_image = create_elem('img', 'img-responsive center');
+        item_image.setAttribute('src',
+            pedido_itens[i].apresentacao.imagem.square_crop && pedido_itens[i].apresentacao.imagem != null ?
+                pedido_itens[i].apresentacao.imagem.square_crop : '/static/images/box.png');
+        item_image.setAttribute('alt', 'Bottle');
+        item_image.setAttribute('alt', 'Box');
+        div_image.appendChild(item_image);
+        var div_nome_maker = create_elem('div', 'col-xs-9 col-sm-8 col-md-9 pr0');
+        var span_item_nome = create_elem('span', 'name');
+        span_item_nome.textContent = pedido_itens[i].apresentacao.produto.nome + ' ' + pedido_itens[i].apresentacao.nome;
+        var span_item_maker = create_elem('span', 'maker');
+        span_item_maker.textContent = pedido_itens[i].apresentacao.produto.fabricante;
+        div_nome_maker.appendChild(span_item_nome);
+        div_nome_maker.appendChild(span_item_maker);
+        row_col_item_image_nome.appendChild(div_image);
+        row_col_item_image_nome.appendChild(div_nome_maker);
+        col_item_image_nome.appendChild(row_col_item_image_nome);
+        var col_item_detalhes = create_elem('div', 'col-xs-12 col-sm-12 col-md-6');
+        var row_col_item_detalhe = create_elem('div', 'row vcenter');
+        var div_qtde = create_elem('div', 'col-xs-4 col-sm-4 col-md-4 text-center proposal');
+        var div_form_quantidade_proposta = create_elem('div', 'proposal-form qty-box');
+        var span_quant_dec = create_elem('span', 'dec');
+        span_quant_dec.textContent = '-';
+        var span_quant_inc = create_elem('span', 'dec');
+        span_quant_inc.textContent = '+';
+        var input_item_qtde = create_elem('input', 'form-control quantity');
+        input_item_qtde.setAttribute('type', 'number');
+        input_item_qtde.value = pedido_itens[i].quantidade;
+        span_quant_dec.onclick = (function (_item_id) {
+            var _order_id = order_id;
+            var _editavel = editable;
+            return function() {
+                quant_dec(_order_id, _item_id, _editavel);
+            }
+        }(id_item));
+        span_quant_inc.onclick = (function (_item_id, _max) {
+            var _order_id = order_id;
+            var _editavel = editable;
+            return function() {
+                quant_inc(_order_id, _item_id, _max, _editavel);
+            }
+        }(id_item, quantidade_max));
+        div_form_quantidade_proposta.appendChild(span_quant_dec);
+        div_form_quantidade_proposta.appendChild(input_item_qtde);
+        div_form_quantidade_proposta.appendChild(span_quant_inc);
+        div_qtde.appendChild(div_form_quantidade_proposta);
+        var div_preco = create_elem('div', 'price');
+        div_preco.textContent = money(pedido_itens[i].apresentacao.pmc.replace(',', '.'));
+        var div_proposta = create_elem('div', 'proposal');
+        var div_form_proposta = create_elem('div', 'proposal-form');
+        var input_proposta = create_elem('input', 'form-control moeda');
+        input_proposta.setAttribute('type', 'text');
+        if (data_content.status != 0){
+            input_proposta.value = money(pedido_itens[i].valor_unitario.replace(',', '.'));
+        } else{
+            input_proposta.value = money(pedido_itens[i].apresentacao.pmc.replace(',', '.'));
+        }
+        input_item_qtde.onkeyup = (function() {
+            var _order_id = order_id;
+            return function() {
+                update_proposal_total(_order_id);
+            }
+        })();
+        input_proposta.onkeyup = (function() {
+            var _order_id = order_id;
+            return function() {
+                update_proposal_total(_order_id);
+            }
+        })();
+        if(data_content.status != 0){
+            input_proposta.setAttribute('disabled', true);
+        }
+        input_item_qtde.setAttribute('disabled', true);
+        // $(input_proposta).on('keyup', update_total_pedido);w
+        var span_focused = create_elem('span', 'pmd-textfield-focused');
+        div_form_proposta.appendChild(input_proposta);
+        div_form_proposta.appendChild(span_focused);
+        div_proposta.appendChild(div_form_proposta);
+        row_col_item_detalhe.appendChild(div_qtde);
+        row_col_item_detalhe.appendChild(div_preco);
+        row_col_item_detalhe.appendChild(div_proposta);
+        col_item_detalhes.appendChild(row_col_item_detalhe);
+        row_item.appendChild(col_item_image_nome);
+        row_item.appendChild(col_item_detalhes);
+        fluid.appendChild(row_item);
+        if (data_content.status != 0){
+            total += pedido_itens[i].quantidade * parseFloat(pedido_itens[i].valor_unitario.replace(',', '.')).toFixed(2);
+        }else{
+            total += pedido_itens[i].quantidade * parseFloat(pedido_itens[i].apresentacao.pmc.replace(',', '.')).toFixed(2);
+        }
+
+    }
+    var footer_list = create_elem('div', 'row footer-list');
+    var footer_list_pull_right = create_elem('div', 'pull-right');
+
+    if (data_content.delivery == true) {
+        // Subtotal
+        var footer_subtotal = document.createElement('p');
+        footer_subtotal.setAttribute('class', 'text-gray');
+        footer_subtotal.textContent = 'Subtotal ';
+        var span_subtotal = document.createElement('span');
+        span_subtotal.setAttribute('class', 'text-gray card-values');
+        span_subtotal.setAttribute('id', 'subtotal_'+order_id);
+        span_subtotal.textContent = money(total);
+        footer_subtotal.appendChild(span_subtotal);
+
+        // Frete
+        var footer_delivery = document.createElement('p');
+        footer_delivery.setAttribute('class', 'text-gray');
+        footer_delivery.textContent = 'Frete ';
+        var span_delivery = document.createElement('span');
+        span_delivery.setAttribute('id', 'frete_'+order_id);
+        span_delivery.setAttribute('class', 'text-gray card-values');
+        span_delivery.textContent = money(farmaciaFrete);
+        footer_delivery.appendChild(span_delivery);
+
+        // Total
+        var footer_total = document.createElement('p');
+        footer_total.textContent = 'Total ';
+        var span_total = document.createElement('span');
+        span_total.setAttribute('id', 'total_'+order_id);
+        span_total.setAttribute('class', 'card-values');
+        totalComFrete = parseFloat(total + parseFloat(farmaciaFrete)).toFixed(2)
+        span_total.textContent = money(totalComFrete);
+        footer_total.appendChild(span_total);
+
+        // Add elemento a pagina em ordem
+        footer_list_pull_right.appendChild(footer_subtotal);
+        footer_list_pull_right.appendChild(footer_delivery);
+        footer_list_pull_right.appendChild(footer_total);
+    } else {
+        // Total
+        var footer_total = document.createElement('p');
+        footer_total.textContent = 'Total ';
+        var span_total = document.createElement('span');
+        span_total.setAttribute('id', 'total_'+order_id);
+        span_total.setAttribute('class', 'card-values');
+        span_total.textContent = money(total);
+        footer_total.appendChild(span_total);
+
+        // Add elemento a pagina
+        footer_list_pull_right.appendChild(footer_total);
+    }
+
+    footer_list.appendChild(footer_list_pull_right);
+    var footer_card = create_elem('div', 'footer-card');
+    var col_cliente_footer_card = create_elem('div', 'col-footer-card');
+    var nome_cliente = create_elem('p', 'cliente');
+    nome_cliente.textContent = data_content.cliente;
+    col_cliente_footer_card.appendChild(nome_cliente);
+    var col_endereco_footer_card = create_elem('div', 'col-footer-card');
+    var endereco_cliente = create_elem('p', 'endereco block');
+    // var list_endereco = Object.keys(data_content['endereco']).map(
+    // function (key) { return data_content['endereco'][key];
+    // });
+    var list_endereco = [
+        data_content.logradouro,
+        data_content.numero,
+        data_content.bairro,
+        data_content.cidade
+    ];
+    var str_endereco = list_endereco.join(', ');
+    endereco_cliente.textContent = str_endereco;
+    col_endereco_footer_card.appendChild(endereco_cliente);
+    footer_card.appendChild(col_cliente_footer_card);
+    if(data_content.delivery){
+        footer_card.appendChild(col_endereco_footer_card);
+    }
+    var actions = create_elem('div', 'actions');
+    var col_actions = create_elem('div', 'col-actions');
+    var btn_cancel = create_elem('button', 'btn-cancelar-actions');
+    var btn_send = create_elem('button', 'btn-enviar-actions');
+    var btn_confirm = create_elem('button', 'btn-confirmar-actions');
+    if (data_content.status == 2){
+        var btn_imprimir_comanda = create_elem('button', 'btn-imprimir-comanda');
+        btn_imprimir_comanda.textContent = 'Imprimir comanda';
+        col_actions.appendChild(btn_imprimir_comanda);
+        //on click funcao
+        btn_imprimir_comanda.onclick = (function() {
+            var _order_id = order_id;
+            return function() {
+                show_comanda(_order_id);
+            }
+        })();
+    }
+    btn_confirm.textContent = 'CONFIRMAR ' + ((data_content.delivery && data_content.status == 2) ? 'O ENVIO' : 'A ENTREGA');
+    btn_cancel.textContent = 'CANCELAR';
+    btn_send.textContent = 'ENVIAR PROPOSTA';
+    switch (data_content.status){
+        case 0:
+            if(data_content.status_submissao == 2){
+                btn_send.className += ' hidden';
+                btn_cancel.className += ' hidden';
+                btn_confirm.className += ' hidden';
+            } else {
+                btn_confirm.className += ' hidden';
+            }
+            //Notifica
+            TheFarma.playSound();
+            TheFarma.notificar();
+            break;
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+            if (selected_pharmacy == farm_wsckt) {
+                btn_send.className += ' hidden';
+                btn_cancel.className += ' hidden';
+            }else{
+                btn_send.className += ' hidden';
+                btn_cancel.className += ' hidden';
+                btn_confirm.className += ' hidden';
+            }
+            break;
+        default:
+            btn_send.className += ' hidden';
+            btn_cancel.className += ' hidden';
+            btn_confirm.className += ' hidden';
+            break;
+    }
+    btn_send.onclick = (function() {
+        var _order_id = order_id;
+        return function() {
+            send_proposal(_order_id);
+        }
+    })();
+    btn_cancel.onclick = (function() {
+        var _order_id = order_id;
+        return function() {
+            cancel_proposal(_order_id);
+        }
+    })();
+    btn_confirm.onclick = (function() {
+        var _order_id = order_id;
+        var _status = data_content.status;
+        var _delivery = data_content.delivery;
+        if (_status == 2){
+            return function() {
+                confirm_order_dispatch(_order_id, _delivery);
+            }
+        }else{
+            return function() {
+                confirm_order_delivery(_order_id);
+            }
+        }
+    })();
+    col_actions.appendChild(btn_cancel);
+    col_actions.appendChild(btn_send);
+    col_actions.appendChild(btn_confirm);
+    actions.appendChild(col_actions);
+    fluid.appendChild(footer_list);
+    fluid.appendChild(footer_card);
+    fluid.appendChild(actions);
+    card.appendChild(fluid);
+
+    card.style.display = 'none';
+    $('.card.p15.mb20:last').after(card);
+
+    if(data_content.status == 0 && data_content.tempo != 0 && data_content.status_submissao != 2){
+        startTimer(data_content.tempo, $(timer_p));
+    }else{
+        timer_p.remove();
+    }
+
+    $(card).show({
+        start: function (){
+            $(card).animate(
+                // {height: 0, opacity: 0},
+                {left:'-1500px'},
+                {queue: false, duration: 0}
+            );
+        }
+    });
+    $(card).animate({ left: "0px" }, 500);
+    $(".moeda").maskMoney({prefix:'R$ ', thousands:'.', decimal:',', allowZero: true, precision: 2});
 }
