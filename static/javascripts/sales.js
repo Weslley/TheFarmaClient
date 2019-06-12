@@ -1007,6 +1007,7 @@ $(window).scroll(function(){
         if (liberado){
             var status = $('#filter_proposal').val();
             var order = $('#order_proposal').val();
+            current_page++;
             call_next_page(status,order,current_page);
         }
     }
