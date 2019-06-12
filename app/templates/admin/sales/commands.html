@@ -6,7 +6,6 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Comanda TheFarma</title>
         {% load static %}
-        <link rel="stylesheet" href="{% static "plugins/normalize/normalize.css" %}">
     </head>
 <style>
     strong {
@@ -83,6 +82,10 @@
         margin-bottom: 8px;
     }
 
+    .txt-center {
+        text-align: center;
+    }
+
     @page {
         margin: 0%
     }
@@ -106,7 +109,7 @@
         <p class="ft-rt">#{{ comanda.id }}</p>
     </div>
     <div class="line"></div>
-    <pre class="texto-grosso">    S E M   V A L O R   F I S C A L   </pre>    
+    <pre class="texto-grosso txt-center">S E M   V A L O R   F I S C A L</pre>    
     <div class="line"></div>
     <p><strong>{{ comanda.cliente_nome }}</strong></p>
     <p>{{ comanda.logradouro }}, {{ comanda.numero }} - {{ comanda.complemento }}</p>
