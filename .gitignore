@@ -25,3 +25,4 @@ package-lock.json
 /thefarmaclient
 **.DS_Store
 /venv_cliente
+.env
