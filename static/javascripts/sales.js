@@ -322,7 +322,7 @@ function append_card_pedido(data_content, append_after, active){
         div_form_quantidade_proposta.appendChild(span_quant_inc);
         div_qtde.appendChild(div_form_quantidade_proposta);
         var div_preco = create_elem('div', 'price');
-        div_preco.textContent = money(pedido_itens[i].apresentacao.pmc.replace(',', '.'));
+        div_preco.textContent = money(pedido_itens[i].apresentacao.pmc);
         var div_proposta = create_elem('div', 'proposal');
         var div_form_proposta = create_elem('div', 'proposal-form');
         var input_proposta = create_elem('input', 'form-control moeda');
@@ -330,7 +330,7 @@ function append_card_pedido(data_content, append_after, active){
         if (data_content.status != 0){
             input_proposta.value = money(pedido_itens[i].valor_unitario.replace(',', '.'));
         } else{
-            input_proposta.value = money(pedido_itens[i].apresentacao.pmc.replace(',', '.'));
+            input_proposta.value = money(pedido_itens[i].apresentacao.pmc);
         }
         input_item_qtde.onkeyup = (function() {
             var _order_id = order_id;
@@ -363,7 +363,7 @@ function append_card_pedido(data_content, append_after, active){
         if (data_content.status != 0){
             total += pedido_itens[i].quantidade * parseFloat(pedido_itens[i].valor_unitario.replace(',', '.')).toFixed(2);
         }else{
-            total += pedido_itens[i].quantidade * parseFloat(pedido_itens[i].apresentacao.pmc.replace(',', '.')).toFixed(2);
+            total += pedido_itens[i].quantidade * parseFloat(pedido_itens[i].apresentacao.pmc).toFixed(2);
         }
 
     }
@@ -1240,7 +1240,7 @@ function add_card(data_content, active){
         div_form_quantidade_proposta.appendChild(span_quant_inc);
         div_qtde.appendChild(div_form_quantidade_proposta);
         var div_preco = create_elem('div', 'price');
-        div_preco.textContent = money(pedido_itens[i].apresentacao.pmc.replace(',', '.'));
+        div_preco.textContent = money(pedido_itens[i].apresentacao.pmc);
         var div_proposta = create_elem('div', 'proposal');
         var div_form_proposta = create_elem('div', 'proposal-form');
         var input_proposta = create_elem('input', 'form-control moeda');
@@ -1248,7 +1248,7 @@ function add_card(data_content, active){
         if (data_content.status != 0){
             input_proposta.value = money(pedido_itens[i].valor_unitario.replace(',', '.'));
         } else{
-            input_proposta.value = money(pedido_itens[i].apresentacao.pmc.replace(',', '.'));
+            input_proposta.value = money(pedido_itens[i].apresentacao.pmc);
         }
         input_item_qtde.onkeyup = (function() {
             var _order_id = order_id;
@@ -1281,7 +1281,7 @@ function add_card(data_content, active){
         if (data_content.status != 0){
             total += pedido_itens[i].quantidade * parseFloat(pedido_itens[i].valor_unitario.replace(',', '.')).toFixed(2);
         }else{
-            total += pedido_itens[i].quantidade * parseFloat(pedido_itens[i].apresentacao.pmc.replace(',', '.')).toFixed(2);
+            total += pedido_itens[i].quantidade * parseFloat(pedido_itens[i].apresentacao.pmc).toFixed(2);
         }
 
     }
