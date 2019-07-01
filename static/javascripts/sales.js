@@ -94,6 +94,25 @@ function from_money(value){
     return parseFloat(value.replace('R$ ', '').replace('.', '').replace(',', '.'));
 }
 
+function remove_card(id_pedido){
+    $card = $('.card.p15.mb20[order-id=' + id_pedido + ']').first();
+
+    if ($card.length){
+        $card.attr('style', '');
+    
+        $card.animate(
+            {right:'-500px', opacity: 0},
+            {
+                queue: false,
+                duration: 500,
+                complete: function (){
+                    $card.remove();
+                }
+            }
+        );
+    }
+}
+
 
 function append_card_pedido(data_content, append_after, active){
     // farm_wsckt

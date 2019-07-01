@@ -18,6 +18,10 @@ socket.onmessage = function (e) {
     // Cancelamento
     cancel_notify(data.pedido)
     console.log('Proposta ' + data.pedido.id + ' foi cancelado !');
+  } else if (data.tipo == 2) {
+    //remove o pedido da tela pq ja foi respondido, manda pra pqp
+    console.log(data);
+    remove_card(data.pedido.id);
   }
 
 }
