@@ -770,8 +770,6 @@ function remove_money_formatacao(value){
     return parseFloat(valor)/100;
 }
 
-
-
 function get_total_proposal(id_pedido) {
     var total = 0;
     var itens = [];
@@ -786,7 +784,7 @@ function get_total_proposal(id_pedido) {
         itens.push(JSON.parse('{"id": ' + $(element).attr('item-id') + ', "quantidade": ' + quantity + ', "max_quantidade": '+ max_quantity + ', "valor": ' + value + '}'))
     });
     var proposal = JSON.parse('{}');
-    let valor_frete = remove_money_formatacao($('#frete_' + id_pedido).text());
+    let valor_frete = remove_money_formatacao($('#frete_' + id_pedido).length > 0 ? $('#frete_' + id_pedido).text() : "0");
     proposal.total = total + valor_frete;
     proposal.subtotal = total;
     proposal.itens = itens;
@@ -794,9 +792,13 @@ function get_total_proposal(id_pedido) {
 }
 
 function update_proposal_total(id_pedido) {
-    console.log('eh aqui');
-    $('#total_' + id_pedido).text(money(get_total_proposal(id_pedido).total));
-    $('#subtotal_' + id_pedido).text(money(get_total_proposal(id_pedido).subtotal));
+    //recupera os valores
+    let valores = get_total_proposal(id_pedido);
+    $('#total_' + id_pedido).text(money(valores.total));
+    //verifica se tem o campo de subtotal
+    if ($('#subtotal_' + id_pedido).length > 0){
+        $('#subtotal_' + id_pedido).text(money(valores.subtotal));
+    }
 }
 
 function send_proposal(id_pedido) {
