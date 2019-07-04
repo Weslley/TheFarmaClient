@@ -765,6 +765,12 @@ function getScrollTop() {
 	return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
 }
 
+function remove_money_formatacao(value){
+    var valor = value.replace(/[\D]+/g,"");
+    return parseFloat(valor)/100;
+}
+
+
 
 function get_total_proposal(id_pedido) {
     var total = 0;
@@ -780,13 +786,17 @@ function get_total_proposal(id_pedido) {
         itens.push(JSON.parse('{"id": ' + $(element).attr('item-id') + ', "quantidade": ' + quantity + ', "max_quantidade": '+ max_quantity + ', "valor": ' + value + '}'))
     });
     var proposal = JSON.parse('{}');
-    proposal.total = total;
+    let valor_frete = remove_money_formatacao($('#frete_' + id_pedido).text());
+    proposal.total = total + valor_frete;
+    proposal.subtotal = total;
     proposal.itens = itens;
     return proposal;
 }
 
 function update_proposal_total(id_pedido) {
+    console.log('eh aqui');
     $('#total_' + id_pedido).text(money(get_total_proposal(id_pedido).total));
+    $('#subtotal_' + id_pedido).text(money(get_total_proposal(id_pedido).subtotal));
 }
 
 function send_proposal(id_pedido) {
