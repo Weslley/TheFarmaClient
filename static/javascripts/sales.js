@@ -625,6 +625,7 @@ function reload_sales(status, order, page) {
             for(i = data.length - 1; i >= 0; i--){
                 append_card_pedido(data[i], false, (i == 0));
             }
+            update_bagde_value();
         },
         error: function(data) {
             alert('Erro ao carregar propostas !');
@@ -1510,3 +1511,35 @@ function add_card(data_content, active){
     $(card).animate({ left: "0px" }, 500);
     $(".moeda").maskMoney({prefix:'R$ ', thousands:'.', decimal:',', allowZero: true, precision: 2});
 }
+
+
+function update_bagde_value(){
+    let total = 0;
+    let status_selecionado = $('#filter_proposal option:selected').text().toLowerCase();
+    //intera em todos os card
+    $('.card.p15.mb20').each(function( index, element ) {
+        //pega o status do card atual
+        let statusEle = $(element).find('.order-status').text().toLowerCase();
+        //verifica se ele eh igual o do que esta selecionado
+        if (statusEle == status_selecionado){
+            total += 1;
+        }
+    });
+    //atualiza o campo da bagde
+    //pega o elemento onde ele deve ser inserido
+    let bagdePrevEle = $('#filter_proposal').next().find('.selection').next();
+    if (bagdePrevEle.find('.bagde-select').length > 0){
+        //se ele ja ta na pagina eh so atualizar o valor
+        bagdePrevEle.find('.bagde-select').text(total);
+    } else {
+        //add o elemento
+        bagdePrevEle.append($('<span></span>')
+            .text(total)
+            .addClass('bagde-select'));
+    }
+    
+}
+
+$(function(){ 
+    setTimeout(update_bagde_value,500);
+});
