@@ -497,10 +497,14 @@ function append_card_pedido(data_content, append_after, active){
             break;
         case 1:
         case 2:
+            btn_send.className = 'hidden';
+            btn_cancel.className = 'hidden';
             TheFarma.playSound();
             TheFarma.notificar();
             break;
         case 3:
+            btn_send.className = 'hidden';
+            btn_cancel.className = 'hidden';
             TheFarma.playSound();
             TheFarma.notificar();
             break;
