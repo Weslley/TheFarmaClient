@@ -497,7 +497,13 @@ function append_card_pedido(data_content, append_after, active){
             break;
         case 1:
         case 2:
+            TheFarma.playSound();
+            TheFarma.notificar();
+            break;
         case 3:
+            TheFarma.playSound();
+            TheFarma.notificar();
+            break;
         case 4:
             if (selected_pharmacy == farm_wsckt) {
                 btn_send.className += ' hidden';
