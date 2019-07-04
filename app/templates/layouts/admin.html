@@ -21,7 +21,9 @@
 
     {% block styles %}{% endblock %}
     <script type="text/javascript">
-        var socket = new WebSocket('{{ request.session.websocket_url }}');
+        
+        var url_socket = '{{ request.session.websocket_url }}';
+        var socket;
     </script>
 </head>
 

@@ -1,30 +1,48 @@
+function connect(){
+  socket = new WebSocket(url_socket);
 
-
-socket.onmessage = function (e) {
-  var data = JSON.parse(e.data);
-  console.log(data);
-  if (data.tipo === undefined) {
-    if (window.location.href.indexOf('sales') != -1) {
-      append_card_pedido(data, false, true);
-      sendOnlineStatus(data);
-    } else {
-
-    }
-  } else if (data.tipo == 1) {
-    // Checkout
-    checkout(data.pedido);
-
-  } else if (data.tipo == 0) {
-    // Cancelamento
-    cancel_notify(data.pedido)
-    console.log('Proposta ' + data.pedido.id + ' foi cancelado !');
-  } else if (data.tipo == 2) {
-    //remove o pedido da tela pq ja foi respondido, manda pra pqp
-    console.log(data);
-    remove_card(data.pedido.id);
+  socket.onopen = function(event){
+    console.log('Conectado :)');
   }
 
+  socket.onmessage = function (e) {
+    var data = JSON.parse(e.data);
+    console.log(data);
+    if (data.tipo === undefined) {
+      if (window.location.href.indexOf('sales') != -1) {
+        append_card_pedido(data, false, true);
+        sendOnlineStatus(data);
+      } else {
+
+      }
+    } else if (data.tipo == 1) {
+      // Checkout
+      checkout(data.pedido);
+
+    } else if (data.tipo == 0) {
+      // Cancelamento
+      cancel_notify(data.pedido)
+      console.log('Proposta ' + data.pedido.id + ' foi cancelado !');
+    } else if (data.tipo == 2) {
+      //remove o pedido da tela pq ja foi respondido, manda pra pqp
+      console.log(data);
+      remove_card(data.pedido.id);
+    }
+
+  }
+
+  socket.onerror = function(event){
+    console.log(event);
+  }
+
+  socket.onclose = function(event) {
+    console.log('socket fechado :(');
+    console.log('Reiniciando conexao...');
+    setTimeout(connect,1000);
+  }
 }
+
+connect();
 
 // Send to API TheFarma when the client receive a proposal
 function sendOnlineStatus(data) {
