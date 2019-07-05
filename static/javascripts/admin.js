@@ -50,6 +50,25 @@ function sendOnlineStatus(data) {
   $.post(farmaUrl);
 }
 
+function update_bagde_value(value){
+  let bagdePrevEle = $('#filter_proposal').next().find('.selection').children('.select2-selection');
+  if (bagdePrevEle.find('.bagde-select').length > 0){
+      //se ele ja ta na pagina eh so atualizar o valor
+      //recupera o valor atual
+      let total = parseInt(bagdePrevEle.find('.bagde-select').text());
+      total += value;
+      bagdePrevEle.find('.bagde-select').text(total);
+  } else {
+      //add o elemento
+      bagdePrevEle.append(
+          $('<span></span>')
+              .text(0)
+              .addClass('bagde-select')
+      );
+  }
+  
+}
+
 $(function () {
   init();
 

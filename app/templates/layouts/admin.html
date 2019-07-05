@@ -30,45 +30,44 @@
 <body>
     <header>
         <div class="masthead container-fluid">
-            <h3 class="white-text">{{ header_name }}</h3>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="{% url 'sales_path' %}">
-                            <i class="tfc tfc-home"></i>
-                            Home
-                        </a>
-                    </li>
-
-                    <li class="dropdown report-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                            <i class="tfc tfc-clipboard"></i>
-                            Relatórios
-                        </a>
-                        <ul class="dropdown-menu text-left" aria-labelledby="dropdownMenu1">
-                            <li><a href="{% url 'financial_path'%}">Faturamentos</a></li>
-                            <li><a href="{% url 'financial_sales'%}">Minhas Vendas</a></li>
-                            <li><a href="{% url 'reports_sales_path'%}">Medicamentos vendidos</a></li>
-                            <li><a href="{% url 'reports_more_search_path'%}">Medicamentos mais pesquisados</a></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="{% url 'products_path'%}" class="hidden">
-                            <i class="tfc tfc-archive"></i>
-                            Produtos
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="{% url 'financial_path'%}">
-                            <i class="tfc tfc-shopping-bag"></i>
-                            Financeiro
-                        </a>
-                    </li>
+                    <h3 class="white-text mg-top-24">{{ header_name }}</h3>
                 </ul>
-
                 <ul class="nav navbar-nav navbar-right">
+                        <li class="active">
+                            <a href="{% url 'sales_path' %}">
+                                <i class="tfc tfc-home"></i>
+                                Home
+                            </a>
+                        </li>
+    
+                        <li class="dropdown report-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                <i class="tfc tfc-clipboard"></i>
+                                Relatórios
+                            </a>
+                            <ul class="dropdown-menu text-left" aria-labelledby="dropdownMenu1">
+                                <li><a href="{% url 'financial_path'%}">Faturamentos</a></li>
+                                <li><a href="{% url 'financial_sales'%}">Minhas Vendas</a></li>
+                                <li><a href="{% url 'reports_sales_path'%}">Medicamentos vendidos</a></li>
+                                <li><a href="{% url 'reports_more_search_path'%}">Medicamentos mais pesquisados</a></li>
+                            </ul>
+                        </li>
+    
+                        <li>
+                            <a href="{% url 'products_path'%}" class="hidden">
+                                <i class="tfc tfc-archive"></i>
+                                Produtos
+                            </a>
+                        </li>
+    
+                        <li>
+                            <a href="{% url 'financial_path'%}">
+                                <i class="tfc tfc-shopping-bag"></i>
+                                Financeiro
+                            </a>
+                        </li>
                     <li class="active">
                         <a href="{% url 'account_path'%}">
                             <i class="tfc tfc-account"></i>
