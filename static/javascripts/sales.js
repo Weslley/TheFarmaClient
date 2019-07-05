@@ -466,7 +466,11 @@ function append_card_pedido(data_content, append_after, active){
     var col_actions = create_elem('div', 'col-actions');
     var btn_cancel = create_elem('button', 'btn-cancelar-actions');
     var btn_send = create_elem('button', 'btn-enviar-actions');
-    var btn_confirm = create_elem('button', 'btn-confirmar-actions');
+    if (data_content.delivery && data_content.status == 2) {
+        var btn_confirm = create_elem('button', 'btn-enviar-actions');
+    } else {
+        var btn_confirm = create_elem('button', 'btn-confirmar-actions');
+    }
     if (data_content.status == 2){
         var btn_imprimir_comanda = create_elem('button', 'btn-imprimir-comanda');
         btn_imprimir_comanda.textContent = 'Imprimir comanda';
@@ -479,7 +483,8 @@ function append_card_pedido(data_content, append_after, active){
             }
         })();
     }
-    btn_confirm.textContent = 'CONFIRMAR ' + ((data_content.delivery && data_content.status == 2) ? 'O ENVIO' : 'A ENTREGA');
+    //btn_confirm.textContent = 'CONFIRMAR ' + ((data_content.delivery && data_content.status == 2) ? 'O ENVIO' : 'A ENTREGA');
+    btn_confirm.textContent = (data_content.delivery && data_content.status == 2) ? 'SAIU PARA ENTREGA' : 'CONFIRMA A ENTREGA';
     btn_cancel.textContent = 'CANCELAR';
     btn_send.textContent = 'ENVIAR PROPOSTA';
     switch (data_content.status){
@@ -850,32 +855,42 @@ function send_proposal(id_pedido) {
 }
 
 function confirm_order_dispatch(id_pedido, delivery) {
-    $.ajax({
-        url: '/admin/proposal/' + id_pedido + '/confirm_dispatch',
-        type: "POST",
-        data: {
-            'csrf_token': $('[name=csrfmiddlewaretoken]').val()
-        },
-        headers: {
-            "X-CSRFToken": $('[name=csrfmiddlewaretoken]').val()
-        },
-        success: function(data) {
-            console.log(data);
-            var card = $('.card.p15.mb20[order-id=' + id_pedido + ']').first();
-            if (data.status == 4){
-                var button = $(card).find('button.btn-confirmar-actions').first();
-                $(card).find('span.order-status').text('Enviado');
-                $(button).text('CONFIRMAR A ENTREGA');
-            } else {
-                $(card).find('button').remove();
-                $(card).find('span.order-status').text('Entregue');
+    var card = $('.card.p15.mb20[order-id=' + id_pedido + ']').first();
+    var pode = true;
+    if ($(card).find('span.order-status').text().toLowerCase()=='enviado'){
+        pode = confirm('Você deseja confirmar a entrega ao cliente?');
+    }
+
+    if (pode){
+        $.ajax({
+            url: '/admin/proposal/' + id_pedido + '/confirm_dispatch',
+            type: "POST",
+            data: {
+                'csrf_token': $('[name=csrfmiddlewaretoken]').val()
+            },
+            headers: {
+                "X-CSRFToken": $('[name=csrfmiddlewaretoken]').val()
+            },
+            success: function(data) {
+                console.log(data);
+                if (data.status == 4){
+                    var button = $(card).find('button.btn-enviar-actions').first();
+                    $(card).find('span.order-status').text('Enviado');
+                    $(button).text('CONFIRMAR A ENTREGA');
+                    //muda cor do botao
+                    $(button).removeClass('btn-enviar-actions');
+                    $(button).addClass('btn-confirmar-actions');
+                } else {
+                    $(card).find('button').remove();
+                    $(card).find('span.order-status').text('Entregue');
+                }
+            },
+            error: function(data) {
+                alert('Erro ao confirmar envio !');
+                console.log(data);
             }
-        },
-        error: function(data) {
-            alert('Erro ao confirmar envio !');
-            console.log(data);
-        }
-    });
+        });
+    }
 }
 
 function confirm_order_delivery(id_pedido) {
