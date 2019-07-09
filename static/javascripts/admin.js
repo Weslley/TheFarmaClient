@@ -9,12 +9,12 @@ function connect(){
     var data = JSON.parse(e.data);
     console.log(data);
     if (data.tipo === undefined) {
-      if (window.location.href.indexOf('sales') != -1) {
-        append_card_pedido(data, false, true);
-        sendOnlineStatus(data);
-      } else {
+      // if (window.location.href.indexOf('sales') != -1) {
+      //   append_card_pedido(data, false, true);
+      //   sendOnlineStatus(data);
+      // } else {
 
-      }
+      // }
     } else if (data.tipo == 1) {
       // Checkout
       checkout(data.pedido);

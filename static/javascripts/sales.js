@@ -497,8 +497,8 @@ function append_card_pedido(data_content, append_after, active){
                 btn_confirm.className += ' hidden';
             }
             //Notifica
-            TheFarma.playSound();
-            TheFarma.notificar();
+            // TheFarma.playSound();
+            // TheFarma.notificar();
             break;
         case 1:
         case 2:
