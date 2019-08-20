@@ -1,37 +1,32 @@
-version: '2'
+version: '3'
 services:
   nginx:
     image: nginx:alpine
     container_name: farmacia_nginx
     ports:
       - "80:8000"
-      #- "443:443"
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
-      #- ./data/certbot/conf:/etc/letsencrypt
-      #- ./data/certbot/www:/var/www/certbot
       - static-data:/staticfiles
       - media-data:/mediafiles
     depends_on:
       - web
+    restart: always
 
   web:
     build: .
     container_name: farmacia_app
     command: bash -c "python manage.py migrate && python manage.py collectstatic --no-input && python manage.py runserver 0.0.0.0:8000"
-    #command: bash -c "python manage.py migrate && python manage.py collectstatic --no-input && gunicorn thefarmacustomer.wsgi:application -b 0.0.0.0:8000  --workers 3 --log-level=debug"
     volumes:
-      - $PWD:/thefarmaclient/
-      - static-data:/thefarmaclient/staticfiles
-      - media-data:/thefarmaclient/media
+      - .:/thefarmaclient/
     expose:
       - "8000"
     environment:
      - DEBUG=True
      - API_URL=https://api.thefarma.com.br
      - WS_URL=wss://api.thefarma.com.br/websocket/farmacias/{id_farmacia}/?Authorization:Token {token_representante}
+    restart: always
 
 volumes:
-  thefarmaclient:
   static-data:
   media-data:

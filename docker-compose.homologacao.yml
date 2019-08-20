@@ -1,0 +1,15 @@
+version: '3'
+services:
+  web:
+    build: .
+    container_name: farmacia_app
+    command: bash -c "python manage.py migrate && python manage.py collectstatic --no-input && python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/thefarmaclient/
+    environment:
+     - DEBUG=False
+     - API_URL=http://homologacao.thefarma.com.br
+     - WS_URL=ws://homologacao.thefarma.com.br/websocket/farmacias/{id_farmacia}/?Authorization:Token {token_representante}
+    restart: always
