@@ -181,6 +181,7 @@ class CommandsSalesView(TemplateView):
     def get_commands_info(self):
         client = SalesClient(**self.auth_data)
         sale_id = self.kwargs['id']
+        data_returned = {}
         #faz a requisicao na api
         try:
             status_code, data_returned = client.get_commands(sale_id)
