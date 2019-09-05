@@ -7,8 +7,8 @@ services:
       - "80:8000"
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
-      - static-data:/staticfiles
-      - media-data:/mediafiles
+      - ./staticfiles:/staticfiles/
+      - ./media:/mediafiles/
     depends_on:
       - web
     restart: always
@@ -26,7 +26,3 @@ services:
      - API_URL=https://api.thefarma.com.br
      - WS_URL=wss://api.thefarma.com.br/websocket/farmacias/{id_farmacia}/?Authorization:Token {token_representante}
     restart: always
-
-volumes:
-  static-data:
-  media-data:
