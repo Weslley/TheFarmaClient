@@ -106,6 +106,16 @@
         <span id="audio" class="hidden"></span>
     </main>
 
+    <div class="alert alert-custom alert-dismissable alert-info" style="display:none;">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="body">Novo pedido encontrado.</span>
+        <strong><a class="title" href="/admin/sales">#000</a></strong>
+    </div>
+
+    <audio src="/static/sounds/sound.ogg" style="display: none;">
+        <p>Seu navegador não suporta o elemento audio </p>
+    </audio>
+
     {% compress js %}
     <script type="text/javascript" src="{% static "plugins/jQuery/jquery-1.12.4.min.js" %}"></script>
     <script type="text/javascript" src="{% static "plugins/bootstrap/bootstrap.min.js" %}"></script>
@@ -113,7 +123,6 @@
     <script type="text/javascript" src="{% static "plugins/jquery-inputmask/jquery.inputmask.bundle.min.js" %}"></script>
     <script type="text/javascript" src="{% static "plugins/jquery-maskMoney/jquery.maskMoney.min.js" %}"></script>
 
-    <script type="text/javascript" src="{% static "javascripts/admin.js" %}"></script>
     <script type="text/javascript">
         var TheFarma = {
             notificar: function () {
@@ -131,8 +140,21 @@
                 }
             },
             playSound: function () {
-                var audio = new Audio("/static/sounds/sound.ogg");
-                audio.play();
+                var audio = document.getElementsByTagName("audio")[0];
+                audio.loop = false;
+                var playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                    // Automatic playback started!
+                    // Show playing UI.
+                        console.log("Play Notification!");
+                    })
+                    .catch(error => {
+                        // Auto-play was prevented
+                        // Show paused UI.
+                        console.log("Error Notification!:", error);
+                    });
+                }
             }
         }
 
@@ -149,6 +171,8 @@
             });
         })
     </script>
+
+    <script type="text/javascript" src="{% static "javascripts/admin.js" %}"></script>
     {% endcompress %}
     {% block scripts %}{% endblock %}
 </body>

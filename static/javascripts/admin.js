@@ -7,28 +7,35 @@ function connect(){
 
   socket.onmessage = function (e) {
     var data = JSON.parse(e.data);
-    console.log(data);
-    if (data.tipo === undefined) {
-      // if (window.location.href.indexOf('sales') != -1) {
-      //   append_card_pedido(data, false, true);
-      //   sendOnlineStatus(data);
-      // } else {
-
-      // }
-    } else if (data.tipo == 1) {
-      // Checkout
-      checkout(data.pedido);
-
-    } else if (data.tipo == 0) {
-      // Cancelamento
-      cancel_notify(data.pedido)
-      console.log('Proposta ' + data.pedido.id + ' foi cancelado !');
-    } else if (data.tipo == 2) {
-      //remove o pedido da tela pq ja foi respondido, manda pra pqp
-      console.log(data);
-      remove_card(data.pedido.id);
+    console.log("OnMessage: =>", data);
+    switch (data.tipo) {
+      case 0: // Pedido Cancelado
+        cancel_notify(data.pedido)
+        console.log('Proposta ' + data.pedido.id + ' foi cancelado !');
+        break;
+      case 1: // Checkout
+        checkout(data.pedido);
+        break;  
+      case 2: //Remove o pedido da tela pq ja foi respondido;
+        console.log(data);
+        remove_card(data.pedido.id);
+        break;
+      default: //Novo Pedido
+        if(data.tipo == undefined){
+          if (window.location.href.indexOf('sales') != -1) {
+            append_card_pedido(data, false, true);
+            sendOnlineStatus(data);
+            //Notifica
+            TheFarma.playSound();
+            TheFarma.notificar();
+          } else {
+            customAlert(`#${data.id}`);
+            TheFarma.playSound();
+            TheFarma.notificar();
+          }
+        }
+        break;
     }
-
   }
 
   socket.onerror = function(event){
@@ -44,6 +51,12 @@ function connect(){
 
 connect();
 
+function customAlert(title="", body="Novo pedido encontrado."){
+  $('.alert .title').html(`${title}`);
+  $('.alert .body').html(`${body}`);
+  $(".alert").show('slide');
+  $(".alert").delay(5000).fadeOut(400, function() {});
+}
 // Send to API TheFarma when the client receive a proposal
 function sendOnlineStatus(data) {
   farmaUrl = "https://api.thefarma.com.br/pedidos/" + data.id + "/views/";

@@ -504,14 +504,14 @@ function append_card_pedido(data_content, append_after, active){
         case 2:
             btn_send.className = 'hidden';
             btn_cancel.className = 'hidden';
-            TheFarma.playSound();
-            TheFarma.notificar();
+            //TheFarma.playSound();
+            //TheFarma.notificar();
             break;
         case 3:
             btn_send.className = 'hidden';
             btn_cancel.className = 'hidden';
-            TheFarma.playSound();
-            TheFarma.notificar();
+            //TheFarma.playSound();
+            //TheFarma.notificar();
             break;
         case 4:
             if (selected_pharmacy == farm_wsckt) {
@@ -1446,9 +1446,6 @@ function add_card(data_content, active){
             } else {
                 btn_confirm.className += ' hidden';
             }
-            //Notifica
-            TheFarma.playSound();
-            TheFarma.notificar();
             break;
         case 1:
         case 2:
