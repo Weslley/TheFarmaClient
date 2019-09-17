@@ -26,11 +26,11 @@ function connect(){
             append_card_pedido(data, false, true);
             sendOnlineStatus(data);
             //Notifica
-            TheFarma.playSound();
+            //TheFarma.playSound();
             TheFarma.notificar();
           } else {
             customAlert(`#${data.id}`);
-            TheFarma.playSound();
+            //TheFarma.playSound();
             TheFarma.notificar();
           }
         }
